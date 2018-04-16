@@ -20,22 +20,8 @@ class DomainEventSerializerSpec extends ObjectBehavior {
         $classMap->add('ValueObjectEventStub', ValueObjectEventStub::class);
     }
 
-//    function it_can_serialize_events() {
-//        $this->serialize(new TestDomainEvent(12))
-//            ->shouldReturn('{"number":12}');
-//    }
-//
-//    function it_can_deserialize_events() {
-//        $this->deserialize((object) [
-//            'event_name' => 'TestDomainEvent',
-//            'event_data' => ['number' => 6]
-//        ])->shouldContainEvent(
-//            new TestDomainEvent(6)
-//        );
-//    }
-
     function it_can_serialize_strings() {
-        $obj = $this->serialize(
+        $this->serialize(
             new StringEventStub("hats")
         )->shouldReturn([
             'eventName' => 'StringEventStub',
@@ -53,7 +39,7 @@ class DomainEventSerializerSpec extends ObjectBehavior {
     }
 
     function it_can_serialize_ints() {
-        $obj = $this->serialize(
+        $this->serialize(
             new IntEventStub(123)
         )->shouldReturn([
             'eventName' => 'IntEventStub',
@@ -71,14 +57,14 @@ class DomainEventSerializerSpec extends ObjectBehavior {
     }
 
     function it_can_serialize_bools() {
-        $obj = $this->serialize(
+        $this->serialize(
             new BoolEventStub(true)
         )->shouldReturn([
             'eventName' => 'BoolEventStub',
             'fields' => ['bool' => true]
         ]);
 
-        $obj = $this->serialize(
+        $this->serialize(
             new BoolEventStub(false)
         )->shouldReturn([
             'eventName' => 'BoolEventStub',
@@ -103,7 +89,7 @@ class DomainEventSerializerSpec extends ObjectBehavior {
     }
 
     function it_can_serialize_value_objects() {
-        $obj = $this->serialize(
+        $this->serialize(
             new ValueObjectEventStub(new ValueObject("str1", 123, "str2", 321))
         )->shouldReturn([
             'eventName' => 'ValueObjectEventStub',
@@ -123,36 +109,4 @@ class DomainEventSerializerSpec extends ObjectBehavior {
         $obj->vo->string2->shouldBe("str2");
         $obj->vo->integer2->shouldBe(321);
     }
-
-//    function it_can_serialize_ints() {
-//        $this->serialize(
-//            new IntEventStub(123)
-//        )->str->shouldReturn([
-//            'eventName' => 'IntEventStub',
-//            'fields' => ['int' => 123]
-//        ]);
-//    }
-//
-//    function it_can_deserialize_ints() {
-//        $this->deserialize([
-//            'eventName' => 'StringEventStub',
-//            'fields' => ['int' => 123]
-//        ])->int->shouldBeLink(
-//            new IntEventStub(123)
-//        );
-//    }
-//    function it_can_deserialize_events() {
-//        $serialized = sprintf('O:%u:"%s":0:{}', strlen($class), $class);
-//        $regex = "";
-//        $obj = $this->deserialize(serialize(new TestDomainEvent(5)))->getWrappedObject;
-//        dd($obj);
-//    }
-//
-//    function it_can_give_the_name_from_an_event_class() {
-//        $this->eventNameForClass(TestDomainEvent::class)->shouldBe('TestDomainEvent');
-//    }
-//
-//    function it_can_give_the_class_from_an_event_name() {
-//        $this->classNameForEvent('TestDomainEvent')->shouldBe(TestDomainEvent::class);
-//    }
 }

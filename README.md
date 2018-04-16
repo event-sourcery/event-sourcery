@@ -10,8 +10,10 @@ Values represent things like names, temperature, ids, etc. Anything that uses va
 
 > Value semantics: equality is determined by comparing value, not ID. 
 
-1. SerializableValue
-2. SerializablePersonalDetails
+1. `SerializableValue`
+2. `SerializablePersonalDetails`
+
+These contracts require that you implement `toString()` and `fromString()` methods that will be used during domain event serialization.
 
 ## Entities ##
 
@@ -38,9 +40,30 @@ Aggregates provide public methods that trigger state changes. These public metho
 
 ## Domain Events ##
 
-Domain events implement the `DomainEvent` interface. The interface is empty of public fields. It is used only as a marker to discriminate domain events. 
+Domain events implement the `DomainEvent` interface. The interface is empty of public methods. It is used only as a marker to discriminate domain events. 
 
-All fields within a domain event are public and they must all extend one of the `SerializableValue` classes.
+### Serialization ###
+
+There are a few requirements for the default implementation of the domain event serializer.
+
+1. It only handles strings, ints, bools, and any type that inherits from `SerializableValue`. 
+2. All values must be injected into the constructor and their fields should be assigned to fields with the same name as seen in this example:
+
+```PHP
+class ValueObjectEventStub implements DomainEvent {
+
+    /** @var ValueObject */
+    public $vo;
+
+    public function __construct(ValueObject $vo) {
+        $this->vo = $vo;
+    }
+}
+```
+
+> Notice how `$vo` is the constructor argument and it assigns to the field of the same name `$vo`.
+
+So long as these requirements are met then the default serializer will be able to handle them effortlessly. It makes no discrimination as to whether you use private fields and getter methods or public fields.
 
 ## Commands and Handlers ##
 
