@@ -41,3 +41,19 @@ Aggregates provide public methods that trigger state changes. These public metho
 Domain events implement the `DomainEvent` interface. The interface is empty of public fields. It is used only as a marker to discriminate domain events. 
 
 All fields within a domain event are public and they must all extend one of the `SerializableValue` classes.
+
+## Commands and Handlers ##
+
+@todo
+
+## Event Store ##
+
+@todo
+
+## Event Dispatching and Listeners ##
+
+@todo
+
+## Process Managers ##
+
+@todo
