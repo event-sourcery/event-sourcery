@@ -14,12 +14,4 @@ class TestCountingEvent implements DomainEvent {
     public function number() : int {
         return $this->number;
     }
-
-    public function serialize() : array {
-        return [];
-    }
-
-    public static function deserialize(array $data) : DomainEvent {
-        return TestDomainEvent::deserialize();
-    }
 }

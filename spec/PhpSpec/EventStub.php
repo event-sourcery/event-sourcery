@@ -5,11 +5,11 @@ use EventSourcery\EventSourcing\DomainEvent;
 class EventStub implements DomainEvent {
 
     /** @var */
-    private $a;
+    public $a;
     /** @var */
-    private $b;
+    public $b;
     /** @var */
-    private $c;
+    public $c;
 
     public function __construct($a, $b, $c) {
         $this->a = $a;
@@ -17,11 +17,4 @@ class EventStub implements DomainEvent {
         $this->c = $c;
     }
 
-    public function serialize(): array {
-
-    }
-
-    public static function deserialize(array $data): DomainEvent {
-
-    }
 }

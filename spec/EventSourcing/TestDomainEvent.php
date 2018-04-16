@@ -11,16 +11,6 @@ class TestDomainEvent implements DomainEvent {
         $this->number = $number;
     }
 
-    public function serialize() : array {
-        return [
-            'number' => $this->number,
-        ];
-    }
-
-    public static function deserialize(array $data) : DomainEvent {
-        return new TestDomainEvent($data['number']);
-    }
-
     public function number() {
         return $this->number;
     }
