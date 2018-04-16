@@ -8,7 +8,7 @@ use spec\EventSourcery\EventSourcing\SerializationStubs\StringEventStub;
 use spec\EventSourcery\EventSourcing\SerializationStubs\ValueObject;
 use spec\EventSourcery\EventSourcing\SerializationStubs\ValueObjectEventStub;
 
-class DomainEventSerializerSpec extends ObjectBehavior {
+class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
 
     function let() {
         $classMap = new DomainEventClassMap();
