@@ -1,0 +1,44 @@
+{
+  "name": "event-sourcery/event-sourcery",
+  "description": "A PHP CQRS / ES Library.",
+  "authors": [
+    {
+      "name": "Shawn McCool",
+      "email": "shawn@heybigname.com",
+      "homepage": "http://heybigname.com/"
+    }
+  ],
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "mockery/mockery": "0.9.*",
+    "phpspec/phpspec": "^3.1",
+    "phpunit/phpunit": "~6.0",
+    "benconstable/phpspec-laravel": "^3.0"
+  },
+  "suggest": {
+  },
+  "autoload": {
+    "psr-4": {
+      "EventSourcery\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "spec\\EventSourcery\\": "spec/"
+    },
+    "files": ["spec/PhpSpec/expect.php"]
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "bin-dir": "bin"
+  },
+  "license": "MIT",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
