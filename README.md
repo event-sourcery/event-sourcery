@@ -44,7 +44,7 @@ Domain events implement the `DomainEvent` interface. The interface is empty of p
 
 ### Serialization ###
 
-There are a few requirements for the default implementation of the domain event serializer.
+There are a few requirements for the included reflection-based domain event serializer.
 
 1. It only handles strings, ints, bools, and any type that inherits from `SerializableValue`. 
 2. All values must be injected into the constructor and their fields should be assigned to fields with the same name as seen in this example:
@@ -63,7 +63,7 @@ class ValueObjectEventStub implements DomainEvent {
 
 > Notice how `$vo` is the constructor argument and it assigns to the field of the same name `$vo`.
 
-So long as these requirements are met then the default serializer will be able to handle them effortlessly. It makes no discrimination as to whether you use private fields and getter methods or public fields.
+So long as these requirements are met then the provided reflection-based serializer will be able to handle them effortlessly. It makes no discrimination as to whether you use private fields and getter methods or public fields.
 
 ## Commands and Handlers ##
 
