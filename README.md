@@ -123,7 +123,7 @@ class ExampleController {
             $request->get('voucherId'),
             $request->get('candidateName'),
             $request->get('candidateEmail'),
-            "2017-01-02 03:04:05",
+            "2017-01-02 03:04:05"
         ));
     }
 }
@@ -142,3 +142,9 @@ The command bus' job is to provide any amount of functionality as well as callin
 ## Process Managers ##
 
 @todo
+
+# General Data Protection Regulation Compliance
+
+Read up on [GDPR Compliance Requirements](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/) before continuing to develop your application.
+
+GDPR is an important 
