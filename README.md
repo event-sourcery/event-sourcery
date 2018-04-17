@@ -65,9 +65,68 @@ class ValueObjectEventStub implements DomainEvent {
 
 So long as these requirements are met then the provided reflection-based serializer will be able to handle them effortlessly. It makes no discrimination as to whether you use private fields and getter methods or public fields.
 
-## Commands and Handlers ##
+## Commands ##
 
-@todo
+Commands represent the "C" in CQRS. They are triggered behavior that results in some finite system state change or external side-effects. You choose.
+
+This example illustrates the idiom of the framework:
+
+```PHP
+class RegisterCandidate implements Command {
+
+    /** @var VoucherId */
+    private $voucherId;
+    /** @var CandidateName */
+    private $candidateName;
+    /** @var Email */
+    private $candidateEmail;
+    /** @var Timestamp */
+    private $registerAt;
+
+    public function __construct(string $voucherId, string $candidateName, string $candidateEmail, string $registerAt) {
+        $this->voucherId = VoucherId::fromString($voucherId);
+        $this->candidateName = CandidateName::fromString($candidateName);
+        $this->candidateEmail = Email::fromString($candidateEmail);
+        $this->registerAt = Timestamp::fromString($registerAt);
+    }
+
+    public function execute(EventStore $events) {
+        $candidate = Candidate::buildFrom($events->getStream($this->voucherId));
+        $candidate->doSomething();
+        $events->storeStream($candidate->flushEvents());
+    }
+}
+```
+
+This example contains two methods; the constructor and the execute(). 
+
+The `constructor` is used as a translation layer from primitives (collected in the UI) into domain objects.
+
+The `execute` method actual implements the behavior of the command. No arguments are necessary in the execute() method. However if you type-hint arguments, the framework will resolve those arguments from a [PSR-11 compliant](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md) container in order to resolve and automatically inject the dependencies into the `execute` method.
+
+The `execute` method is called by the command bus.
+
+Here is an example controller method:
+
+```PHP
+class ExampleController {
+
+    public function __construct(CommandBus $bus) {
+        $this->bus = $bus;
+    } 
+
+    public function controllerMethod(Request $request) {
+        $this->bus->execute(new RegisterCandidate(
+            $request->get('voucherId'),
+            $request->get('candidateName'),
+            $request->get('candidateEmail'),
+            "2017-01-02 03:04:05",
+        ));
+    }
+}
+```
+
+The command bus' job is to provide any amount of functionality as well as calling the `execute()` method. The provided implementation uses a [PSR-11 compliant service container](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md).
 
 ## Event Store ##
 
