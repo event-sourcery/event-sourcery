@@ -13,8 +13,7 @@ class ReflectionResolutionCommandBus implements CommandBus {
     }
 
     public function execute(Command $c) {
-        $params = $this->getExecutionParameters($c);
-        empty($params) ? $c->execute() : $c->execute(...$this->instantiateParameters($params));
+        $c->execute(...$this->instantiateParameters($this->getExecutionParameters($c)));
     }
 
     private function getExecutionParameters(Command $c) {

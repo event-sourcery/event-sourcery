@@ -147,4 +147,7 @@ The command bus' job is to provide any amount of functionality as well as callin
 
 Read up on [GDPR Compliance Requirements](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/) before continuing to develop your application.
 
-GDPR is an important 
+With this framework, GDPR is implemented with encryption and a personal key store.
+
+## Personal Key Store ##
+
