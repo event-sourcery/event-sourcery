@@ -9,7 +9,8 @@
     }
   ],
   "require": {
-    "php": "^7.1"
+    "php": "^7.1",
+    "ramsey/uuid": "^3.7"
   },
   "require-dev": {
     "phpspec/phpspec": "^4.0"

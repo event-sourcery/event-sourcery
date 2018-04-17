@@ -31,7 +31,7 @@ class Wrapper extends BaseWrapper
         $this->accessInspector = $accessInspector;
     }
 
-    public function wrap($value = null)
+    public function wrap($value = null): \PhpSpec\Wrapper\Subject
     {
         $exceptionFactory   = new ExceptionFactory($this->presenter);
         $wrappedObject      = new WrappedObject($value, $this->presenter);

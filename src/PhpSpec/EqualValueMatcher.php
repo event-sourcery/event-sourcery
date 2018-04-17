@@ -14,7 +14,7 @@ class EqualValueMatcher implements Matcher {
      *
      * @return Boolean
      */
-    public function supports($name, $subject, array $arguments) {
+    public function supports(string $name, $subject, array $arguments): bool {
         return $name == 'equalValue' || $name == 'equalValues';
     }
 
@@ -84,7 +84,7 @@ class EqualValueMatcher implements Matcher {
      *
      * @return integer
      */
-    public function getPriority() {
-
+    public function getPriority(): int {
+        return 0;
     }
 }

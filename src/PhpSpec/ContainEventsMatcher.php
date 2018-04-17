@@ -22,7 +22,7 @@ class ContainEventsMatcher implements Matcher {
      *
      * @return Boolean
      */
-    public function supports(string $name, $subject, array $arguments) {
+    public function supports(string $name, $subject, array $arguments): bool {
         return $name === 'containEvents' || $name === 'containEvent';
     }
 
@@ -76,7 +76,7 @@ class ContainEventsMatcher implements Matcher {
      *
      * @return integer
      */
-    public function getPriority() {
+    public function getPriority(): int {
         return 50;
     }
 
