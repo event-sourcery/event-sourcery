@@ -13,22 +13,12 @@ class ReflectionResolutionCommandBus implements CommandBus {
     }
 
     public function execute(Command $c) {
-        $c->execute(...$this->instantiateParameters($this->getExecutionParameters($c)));
+        $c->execute(...$this->instantiateParameters($c));
     }
 
-    private function getExecutionParameters(Command $c) {
-        $reflect = new ReflectionClass(get_class($c));
-        $method  = $reflect->getMethod('execute');
-        return $method->getParameters();
-    }
-
-    private function instantiateParameters($params) {
-        $classes = array_map(function(\ReflectionParameter $param) {
-            return $param->getType()->getName();
-        }, $params);
-
-        return array_map(function($class) {
-            return $this->container->get($class);
-        }, $classes);
+    private function instantiateParameters($c) {
+        return array_map(function(\ReflectionParameter $param) {
+            return $this->container->get($param->getType()->getName());
+        }, (new ReflectionClass(get_class($c)))->getMethod('execute')->getParameters());
     }
 }
