@@ -12,9 +12,6 @@
     "php": "^7.1"
   },
   "require-dev": {
-    "mockery/mockery": "0.9.*",
-    "phpspec/phpspec": "^3.1",
-    "phpunit/phpunit": "~6.0",
     "benconstable/phpspec-laravel": "^3.0"
   },
   "suggest": {
@@ -35,10 +32,5 @@
     "sort-packages": true,
     "bin-dir": "bin"
   },
-  "license": "MIT",
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0-dev"
-    }
-  }
+  "license": "MIT"
 }
