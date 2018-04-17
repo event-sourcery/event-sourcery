@@ -3,7 +3,7 @@
 use Psr\Container\ContainerInterface as Container;
 use ReflectionClass;
 
-class ReflectionResolutionCommandBus {
+class ReflectionResolutionCommandBus implements CommandBus {
 
     /** @var Container */
     private $container;
