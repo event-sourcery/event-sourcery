@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\PhpSpec;
+<?php namespace EventSourcery\PhpSpec;
 
 use EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcing\DomainEvents;

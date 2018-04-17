@@ -1,6 +1,6 @@
 <?php namespace spec\EventSourcery\EventSourcing;
 
-use function spec\EventSourcery\PhpSpec\expect;
+use function EventSourcery\PhpSpec\expect;
 use EventSourcery\EventSourcing\Projections;
 use EventSourcery\EventSourcing\ProjectionManager;
 use PhpSpec\ObjectBehavior;

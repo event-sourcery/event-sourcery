@@ -2,7 +2,7 @@
 
 use EventSourcery\EventSourcing\Collection;
 use PhpSpec\ObjectBehavior;
-use function spec\EventSourcery\PhpSpec\expect;
+use function EventSourcery\PhpSpec\expect;
 
 class CollectionSpec extends ObjectBehavior {
 

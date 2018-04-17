@@ -2,7 +2,7 @@
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use function spec\EventSourcery\PhpSpec\expect;
+use function EventSourcery\PhpSpec\expect;
 use EventSourcery\EventSourcing\CannotCompareDifferentIds;
 
 class IdSpec extends ObjectBehavior {

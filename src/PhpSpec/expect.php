@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\PhpSpec;
+<?php namespace EventSourcery\PhpSpec;
 
 use PhpSpec\CodeAnalysis\MagicAwareAccessInspector;
 use PhpSpec\CodeAnalysis\VisibilityAccessInspector;

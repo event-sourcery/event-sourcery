@@ -28,7 +28,7 @@
     "psr-4": {
       "spec\\EventSourcery\\": "spec/"
     },
-    "files": ["spec/PhpSpec/expect.php"]
+    "files": ["src/PhpSpec/expect.php"]
   },
   "config": {
     "preferred-install": "dist",

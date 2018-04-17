@@ -4,5 +4,5 @@ suites:
         psr4_prefix: EventSourcery
         src_path: src
 extensions:
-  spec\EventSourcery\PhpSpec\EventSourcingExtension: ~
+  EventSourcery\PhpSpec\EventSourcingExtension: ~
 formatter.name: pretty

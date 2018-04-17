@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\PhpSpec;
+<?php namespace EventSourcery\PhpSpec;
 
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Matcher\Matcher;
