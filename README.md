@@ -49,7 +49,8 @@ There are a few requirements for the included reflection-based domain event seri
 1. It only handles strings, ints, bools, and any type that inherits from `SerializableValue`. 
 2. All values must be injected into the constructor and their fields should be assigned to fields with the same name as seen in this example:
 
-```php?start_inline=1
+```php
+<?php
 class ValueObjectEventStub implements DomainEvent {
 
     /** @var ValueObject */
@@ -71,7 +72,8 @@ Commands represent the "C" in CQRS. They are triggered behavior that results in 
 
 This example illustrates the idiom of the framework:
 
-```php?start_inline=1
+```php
+<?php
 class RegisterCandidate implements Command {
 
     /** @var VoucherId */
@@ -108,7 +110,8 @@ The `execute` method is called by the command bus.
 
 Here is an example controller method:
 
-```php?start_inline=1
+```php
+<?php
 class ExampleController {
 
     public function __construct(CommandBus $bus) {
