@@ -12,7 +12,7 @@
     "php": "^7.1"
   },
   "require-dev": {
-    "benconstable/phpspec-laravel": "^3.0"
+    "phpspec/phpspec": "^4.0"
   },
   "suggest": {
   },
