@@ -2,12 +2,12 @@
 
 use EventSourcery\EventSourcing\DomainEvents;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use spec\EventSourcery\Collections\DomainEventStub;
 
 class DomainEventsSpec extends ObjectBehavior {
 
     function it_can_hold_domain_events() {
-        $this->beConstructedThrough('make', [[new TestDomainEvent(), new TestDomainEvent()]]);
+        $this->beConstructedThrough('make', [[new DomainEventStub(), new DomainEventStub()]]);
         $this->count()->shouldBe(2);
     }
 
