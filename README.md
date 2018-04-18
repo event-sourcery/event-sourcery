@@ -133,15 +133,27 @@ The command bus' job is to provide any amount of functionality as well as callin
 
 ## Event Store ##
 
-@todo
+The event store's job is to store and query back events. The core of our implementation is the `EventStore` interface. From there you can implement the store in any way you like.
+
+There's probably a provided RDBMS implementation. The provided implementation stores the event, then dispatches the event via the event dispatcher.
 
 ## Event Dispatching and Listeners ##
 
-@todo
+Event dispatching is the process of delivering newly stored events to event listeners.
+
+Event listeners are any kind of component that react to newly dispatched events.
+
+Behaviors like aggregate event replay do not trigger event listeners because these events were already delivered to listeners once when they were first stored. Listeners won't receive the same event more than once.
+
+Example use cases for e
 
 ## Process Managers ##
 
-@todo
+Process managers are considered a special type of event listener because they have the potential to directly mutate the state of the system through raising events or executing commands that result in new events.
+
+## Projections ##
+
+Projections are an interpretation of event streams. 
 
 # General Data Protection Regulation Compliance
 
