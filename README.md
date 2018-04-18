@@ -147,6 +147,8 @@ The command bus' job is to provide any amount of functionality as well as callin
 
 Read up on [GDPR Compliance Requirements](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/) before continuing to develop your application.
 
+GDPR must be considered at all times while developing. It's not something that can be implemented in an automatic way. However, this library seeks to provide quality-of-life features in regard to GDPR that should be able to make your life easier.
+
 With this framework, GDPR is implemented with encryption and a personal key store.
 
 ## Personal Key Store ##
@@ -171,4 +173,8 @@ The `encryption key` is used for decrypting private personal data.
 
 ## Invoking the Right to Erasure ##
 
-When invoking the `Right to Erasure` the `Personal Key Store` simply destroys the encryption key. 
+When invoking the `Right to Erasure` the `Personal Key Store` simply destroys the encryption key.
+
+## Right to Erasure and Projections ##
+
+@todo
