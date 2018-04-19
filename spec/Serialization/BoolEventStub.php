@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\EventSourcing\Serialization;
+<?php namespace spec\EventSourcery\Serialization;
 
 use EventSourcery\EventSourcing\DomainEvent;
 
