@@ -1,6 +1,6 @@
 <?php namespace EventSourcery\PersonalData;
 
 interface PersonalDataStore {
-    function getData(ProtectedDataKey $key): ProtectedData;
+    function getData(PersonalDataKey $key): PersonalData;
     function storeData(PersonalDataKey $personalKey, PersonalData $data);
 }
