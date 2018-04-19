@@ -1,5 +1,3 @@
 <?php namespace EventSourcery\PersonalData;
 
-interface PersonalData {
-
-}
+interface PersonalData {}
