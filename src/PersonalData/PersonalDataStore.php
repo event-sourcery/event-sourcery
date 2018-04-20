@@ -2,5 +2,5 @@
 
 interface PersonalDataStore {
     function getData(PersonalDataKey $key): PersonalData;
-    function storeData(PersonalDataKey $personalKey, PersonalData $data);
+    function storeData(PersonalKey $personalKey, PersonalDataKey $personalDataKey, PersonalData $data);
 }
