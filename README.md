@@ -2,6 +2,10 @@
 
 The Event Sourcing / CQRS framework whose core principle is keeping it simple.
 
+# Installation #
+
+`composer require heybigname/event-sourcery`
+
 # Components #
 
 ## Values ##
