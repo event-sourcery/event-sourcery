@@ -16,8 +16,6 @@
   },
   "require-dev": {
   },
-  "suggest": {
-  },
   "autoload": {
     "psr-4": {
       "EventSourcery\\": "src/"
