@@ -2,7 +2,7 @@
 
 use EventSourcery\Serialization\SerializableValue;
 
-class PersonalData implements SerializableValue {
+class EncryptedPersonalData implements SerializableValue {
 
     private $data;
 

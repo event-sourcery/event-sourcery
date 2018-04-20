@@ -1,6 +1,6 @@
 <?php namespace EventSourcery\PersonalData;
 
 interface PersonalDataStore {
-    function getData(PersonalDataKey $key): PersonalData;
-    function storeData(PersonalDataKey $personalKey, PersonalData $data);
+    function getData(PersonalDataKey $key): EncryptedPersonalData;
+    function storeData(PersonalKey $personalKey, PersonalDataKey $dataKey, EncryptedPersonalData $data);
 }
