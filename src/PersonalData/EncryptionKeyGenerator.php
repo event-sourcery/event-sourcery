@@ -1,5 +1,5 @@
 <?php namespace EventSourcery\PersonalData;
 
 interface EncryptionKeyGenerator {
-    function generate();
+    function generate(): CryptographicDetails;
 }
