@@ -25,7 +25,7 @@ class EqualValueMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function positiveMatch($name, $subject, array $arguments) {
+    public function positiveMatch(string $name, $subject, array $arguments) {
         $argumentCount = count($arguments);
 
         if ($argumentCount == 1) {
@@ -73,7 +73,7 @@ class EqualValueMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function negativeMatch($name, $subject, array $arguments) {
+    public function negativeMatch(string $name, $subject, array $arguments) {
         if ($subject->equals($arguments[0])) {
             throw new FailureException('<label>' . get_class($subject) . "</label> <value>{$subject->toString()}</value> should not equal <value>{$arguments[0]->toString()}</value> but does.");
         }

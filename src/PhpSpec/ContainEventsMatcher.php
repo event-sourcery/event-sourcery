@@ -36,7 +36,7 @@ class ContainEventsMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function positiveMatch($name, $subject, array $arguments) {
+    public function positiveMatch(string $name, $subject, array $arguments) {
         list($realEvents, $targetEvents) = $this->formatArguments($subject, $arguments);
 
         $notFoundEvents = $this->eventsNotFound($realEvents, $targetEvents);
@@ -57,7 +57,7 @@ class ContainEventsMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function negativeMatch($name, $subject, array $arguments) {
+    public function negativeMatch(string $name, $subject, array $arguments) {
         list($realEvents, $targetEvents) = $this->formatArguments($subject, $arguments);
 
         $notFoundEvents = $this->eventsNotFound($realEvents, $targetEvents);
