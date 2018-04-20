@@ -4,7 +4,7 @@ use EventSourcery\PersonalData\AesPersonalDataEncryption;
 use EventSourcery\PersonalData\CryptographicDetails;
 use EventSourcery\PersonalData\InitializationVector;
 use EventSourcery\PersonalData\Pbkdf2AesKeyGenerator;
-use EventSourcery\PersonalData\Pbkdf2EncryptionKey;
+use EventSourcery\PersonalData\EncryptionKey;
 use EventSourcery\PersonalData\PersonalData;
 use function EventSourcery\PhpSpec\expect;
 use PhpSpec\ObjectBehavior;
@@ -16,7 +16,7 @@ class AesPersonalDataEncryptionSpec extends ObjectBehavior {
     }
 
     function it_can_encrypt_and_decrypt_personal_data() {
-        $encryptionKey = Pbkdf2EncryptionKey::generate();
+        $encryptionKey = EncryptionKey::generate();
         $initializationVector = InitializationVector::generate(16);
 
         $crypto = new CryptographicDetails($encryptionKey, $initializationVector);
