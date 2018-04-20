@@ -4,6 +4,12 @@
 
 The Event Sourcing / CQRS framework whose core principle is keeping it simple.
 
+# Todo List #
+
+1. All commands are logged.
+2. Commands / events get unique ids.
+3. All the other stuff
+
 # Installation #
 
 `composer require heybigname/event-sourcery`
