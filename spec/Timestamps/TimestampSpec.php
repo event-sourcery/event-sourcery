@@ -1,8 +1,8 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\Timestamps;
 
 use PhpSpec\ObjectBehavior;
 
-class ImmutableTimestampSpec extends ObjectBehavior {
+class TimestampSpec extends ObjectBehavior {
 
     function let() {
         $this->beConstructedThrough('fromString', ['2017-01-02 03:04:05', 'Europe/Amsterdam']);
