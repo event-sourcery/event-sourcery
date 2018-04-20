@@ -1,5 +1,7 @@
 # Event Sourcery PHP CQRS / ES Library #
 
+**Library is under initial development. Do not use.**
+
 The Event Sourcing / CQRS framework whose core principle is keeping it simple.
 
 # Installation #
