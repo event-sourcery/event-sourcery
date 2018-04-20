@@ -18,7 +18,7 @@ class InitializationVector implements SerializableValue {
         return new static(base64_decode($string));
     }
 
-    public static function generate(int $length): InitializationVector {
+    public static function generate(): InitializationVector {
         $isSafe = false;
 
         do {

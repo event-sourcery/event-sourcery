@@ -4,7 +4,7 @@ use EventSourcery\Serialization\SerializableValue;
 
 class CryptographicDetails implements SerializableValue {
 
-    const DELIMITER = '|||';
+    private const DELIMITER = '|||';
 
     private $key;
     private $iv;
