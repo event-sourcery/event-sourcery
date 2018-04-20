@@ -1,11 +1,11 @@
 {
-  "name": "heybigname/event-sourcery",
+  "name": "event-sourcery/event-sourcery",
   "description": "A PHP CQRS / ES Library.",
   "authors": [
     {
       "name": "Shawn McCool",
       "email": "shawn@heybigname.com",
-      "homepage": "http://heybigname.com/"
+      "homepage": "http://shawnmc.cool/"
     }
   ],
   "require": {
