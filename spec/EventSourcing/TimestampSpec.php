@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\Timestamps;
+<?php namespace spec\EventSourcery\EventSourcing;
 
 use PhpSpec\ObjectBehavior;
 

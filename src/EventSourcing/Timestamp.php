@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\Timestamps;
+<?php namespace EventSourcery\EventSourcing;
 
 class Timestamp  {
 
