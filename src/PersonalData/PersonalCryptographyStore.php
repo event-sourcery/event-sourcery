@@ -1,7 +1,7 @@
 <?php namespace EventSourcery\PersonalData;
 
-interface PersonalEncryptionKeyStore {
+interface PersonalCryptographyStore {
     function addPerson(PersonalKey $person);
-    function getEncryptionKeyFor(PersonalKey $person): CryptographicDetails;
+    function getCryptographyFor(PersonalKey $person): CryptographicDetails;
     function removePerson(PersonalKey $person);
 }
