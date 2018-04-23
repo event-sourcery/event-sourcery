@@ -69,12 +69,16 @@ class PersonsName implements SerializableValue {
 
 ### Personal Data Value ###
 
+We can flag this value object as containing personal data by implementing the `PersonalDataValue` interface.
+
 ```php
 <?php
-class CandidateName implements SerializableValue, PersonalDataValue {
-    
+class PersonsName implements SerializableValue, PersonalDataValue {
+    // ...
 }
 ```
+
+Now, our serializer will know to store the data in the personal data store and reference that datum by the `PersonalDataKey`. When deserializing, it'll see that the field is an encrypted value, it'll then trigger the process to collect the encrypted data from the store, then it will deserialize the object.
 
 ## Entities ##
 
