@@ -5,7 +5,7 @@ use PhpSpec\ObjectBehavior;
 use spec\EventSourcery\Serialization\BoolEventStub;
 use spec\EventSourcery\Serialization\IntEventStub;
 use spec\EventSourcery\Serialization\StringEventStub;
-use spec\EventSourcery\Serialization\ValueObject;
+use spec\EventSourcery\Serialization\ValueObjectStub;
 use spec\EventSourcery\Serialization\ValueObjectEventStub;
 
 class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
@@ -90,7 +90,7 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
 
     function it_can_serialize_value_objects() {
         $this->serialize(
-            new ValueObjectEventStub(new ValueObject("str1", 123, "str2", 321))
+            new ValueObjectEventStub(new ValueObjectStub("str1", 123, "str2", 321))
         )->shouldReturn([
             'eventName' => 'ValueObjectEventStub',
             'fields' => ['vo' => '{"string1":"str1","integer1":123,"string2":"str2","integer2":321}']
@@ -103,7 +103,7 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
             'fields'    => ['vo' => '{"string1":"str1","integer1":123,"string2":"str2","integer2":321}']
         ]);
 
-        $obj->vo->shouldHaveType(ValueObject::class);
+        $obj->vo->shouldHaveType(ValueObjectStub::class);
         $obj->vo->string1->shouldBe("str1");
         $obj->vo->integer1->shouldBe(123);
         $obj->vo->string2->shouldBe("str2");

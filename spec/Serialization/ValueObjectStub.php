@@ -2,7 +2,7 @@
 
 use EventSourcery\EventSourcing\SerializableValue;
 
-class ValueObject implements SerializableValue {
+class ValueObjectStub implements SerializableValue {
 
     /** @var string */
     public $string1;

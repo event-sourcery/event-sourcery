@@ -7,7 +7,7 @@ The Event Sourcing / CQRS framework whose core principle is keeping it simple.
 # Todo List #
 
 1. All commands are logged.
-2. Commands / events get unique ids.
+2. Commands / events get unique IDs.
 3. All the other stuff
 
 # Installation #
@@ -23,9 +23,58 @@ Values represent things like names, temperature, ids, etc. Anything that uses va
 > Value semantics: equality is determined by comparing value, not ID. 
 
 1. `SerializableValue`
-2. `SerializablePersonalDetails`
+2. `PersonalDataValue`
 
-These contracts require that you implement `toString()` and `fromString()` methods that will be used during domain event serialization.
+The `SerializableValue` contract requires that you implement `toString()` and `fromString()` methods that will be used during domain event serialization.
+
+The `PersonalData` contract tags the value as containing secure personal data that complies with our data protection policies. (is encrypted on persistence and can be erased in compliance with GDPR)  
+
+### Serializable Value ###
+
+The `Serialization\SerializableValue` interface is used to provide to/from string serialization to value objects. This interface is used by the automatic domain-event and command serializer.
+
+Any value that is of type `string`, `int`, `bool`, or extends `SerializableValue` will be able to be automatically stored and retrieved without custom event/command serialization code in userland.
+
+This decision was made because it's easier to write / test the serialization of a value once than it is to test values N times where N is the number of events or commands that have to be written and individually tested. 
+
+```php
+<?php
+class PersonsName implements SerializableValue {
+
+    /** @var string */
+    public $firstName;
+    /** @var string */
+    public $lastName;
+
+    public function __construct(string $firstName, string $lastName) {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+    }
+
+    // Implemented from SerializableValue 
+    public function toString(): string {
+        return json_encode([
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+        ]);
+    }
+
+    // Implemented from SerializableValue
+    public static function fromString($string) {
+        $values = json_decode($string);
+        return new static($values->firstName, $values->lastName);
+    }
+}
+```
+
+### Personal Data Value ###
+
+```php
+<?php
+class CandidateName implements SerializableValue, PersonalDataValue {
+    
+}
+```
 
 ## Entities ##
 

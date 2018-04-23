@@ -4,10 +4,10 @@ use EventSourcery\EventSourcing\DomainEvent;
 
 class ValueObjectEventStub implements DomainEvent {
 
-    /** @var ValueObject */
+    /** @var ValueObjectStub */
     public $vo;
 
-    public function __construct(ValueObject $vo) {
+    public function __construct(ValueObjectStub $vo) {
         $this->vo = $vo;
     }
 }
