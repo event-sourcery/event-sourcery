@@ -74,19 +74,44 @@ We can flag this value object as containing personal data by implementing the `P
 ```php
 <?php
 class PersonsName implements SerializableValue, PersonalDataValue {
-    // ...
     
+    /** @var string */
+    public $firstName;
+    /** @var string */
+    public $lastName;
+
+    public function __construct(string $firstName, string $lastName) {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+    }
+
+    // Implemented to satisfy `SerializableValue` 
+    public function toString(): string {
+        return json_encode([
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+        ]);
+    }
+
+    // Implemented to satisfy `SerializableValue`
+    public static function fromString($string) {
+        $values = json_decode($string);
+        return new static($values->firstName, $values->lastName);
+    }
+    
+    // Implemented to satisfy `PersonalDataValue`
     public static function ErasedState() {
         $name = static("", "");
         $name->erased = true;
         return $name;
     }
     
-    private $erased = false;
-    
+    // Implemented to satisfy `PersonalDataValue`
     public function wasErased() {
         return $this->erased;
     }
+    
+    private $erased = false;
 }
 ```
 
