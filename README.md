@@ -100,6 +100,7 @@ class PersonsName implements SerializableValue, PersonalDataValue {
     }
     
     // Implemented to satisfy `PersonalDataValue`
+    // Sets the state for erased values.
     public static function ErasedState() {
         $name = static("", "");
         $name->erased = true;
@@ -107,6 +108,7 @@ class PersonsName implements SerializableValue, PersonalDataValue {
     }
     
     // Implemented to satisfy `PersonalDataValue`
+    // can be checked to see if this value was erased.
     public function wasErased() {
         return $this->erased;
     }
