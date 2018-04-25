@@ -46,9 +46,13 @@ class Email implements SerializablePersonalDataValue {
     /** @var string */
     private $address;
 
-    public function __construct(PersonalKey $personalKey, string $address) {
+    private function __construct(PersonalKey $personalKey, string $address) {
         $this->personalKey = $personalKey;
         $this->address = $address;
+    }
+    
+    public static function fromString(PersonalKey $personalKey, string $address) {
+        return static($personalKey, $address);
     }
 
     public function serialize(): string {
