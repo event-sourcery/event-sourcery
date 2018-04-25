@@ -25,7 +25,7 @@ Values represent things like names, temperature, ids, etc. Anything that uses va
 1. `SerializableValue`
 2. `PersonalDataValue`
 
-The `SerializableValue` contract requires that you implement `toString()` and `fromString()` methods that will be used during domain event serialization.
+The `SerializableValue` contract requires that you implement `serialize()` and `deserialize()` methods that will be used during domain event serialization.
 
 The `PersonalData` contract tags the value as containing secure personal data that complies with our data protection policies. (is encrypted on persistence and can be erased in compliance with GDPR)  
 
@@ -52,7 +52,7 @@ class PersonsName implements SerializableValue {
     }
 
     // Implemented from SerializableValue 
-    public function toString(): string {
+    public function serialize(): string {
         return json_encode([
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
@@ -60,7 +60,7 @@ class PersonsName implements SerializableValue {
     }
 
     // Implemented from SerializableValue
-    public static function fromString($string) {
+    public static function deserialize($string) {
         $values = json_decode($string);
         return new static($values->firstName, $values->lastName);
     }
@@ -89,18 +89,18 @@ class PersonsName implements SerializableValue, PersonalDataValue {
     }
 
     // Implemented to satisfy `SerializableValue` 
-    public function toString(): string {
+    public function serialize(): string {
         return json_encode([
-            'personalKey' => $this->personalKey->toString(),
+            'personalKey' => $this->personalKey->serialize(),
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
         ]);
     }
 
     // Implemented to satisfy `SerializableValue`
-    public static function fromString($string) {
+    public static function deserialize($string) {
         $values = json_decode($string);
-        return new static(PersonalKey::fromString($values->personId), $values->firstName, $values->lastName);
+        return new static(PersonalKey::fromString($values->personalKey), $values->firstName, $values->lastName);
     }
     
     // Implemented to satisfy `PersonalDataValue`
