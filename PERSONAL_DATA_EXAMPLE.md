@@ -39,6 +39,43 @@ class RegisterMember implements Command {
     }
 }
 
+class Email implements SerializablePersonalDataValue {
+    
+    /** @var PersonalKey */
+    private $personalKey;        
+    /** @var string */
+    private $address;
+
+    public function __construct(PersonalKey $personalKey, string $address) {
+        $this->personalKey = $personalKey;
+        $this->address = $address;
+    }
+
+    public function toString(): string {
+        return json_encode([
+            'personalKey' => $this->personalKey->toString(),
+            'address' => $this->address,
+        ]);
+    }
+
+    public static function fromString($string) {
+        $values = json_decode($string);
+        return new static(PersonalKey::fromString($values->personalKey), $values->address);
+    }
+    
+    public static function ErasedState(PersonalKey $personalKey) {
+        $email = static($personalKey, "unknown");
+        $email->erased = true;
+        return $email;
+    }
+    
+    public function wasErased() {
+        return $this->erased;
+    }
+    
+    private $erased = false;
+}
+
 class Member extends Aggregate {
     
     public static function register(MemberId $id, Name $name, Email $email) {
