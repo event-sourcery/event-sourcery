@@ -66,6 +66,9 @@ class Email implements SerializablePersonalDataValue {
     }
     
     public function toString() {
+        if ($this->wasErased()) {
+            throw new CannotRetrieveErasedPersonalData();
+        }
         return $this->address;
     }
 
@@ -82,8 +85,12 @@ class Email implements SerializablePersonalDataValue {
         return new static(PersonalKey::fromString($values->personalKey), $values->address);
     }
     
-    // for supporting erasable data
-    public static function erasedState(PersonalKey $personalKey) {
+    // for supporting erasable data    
+    public function personalKey(): PersonalKey {
+        return $this->personalKey;
+    }
+    
+    public static function fromErasedState(PersonalKey $personalKey) {
         $email = static($personalKey, "awareness-account@mycompany.com");
         $email->erased = true;
         return $email;
