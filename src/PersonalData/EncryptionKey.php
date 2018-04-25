@@ -9,12 +9,12 @@ class EncryptionKey implements SerializableValue {
         return new static(hash_pbkdf2('sha256', Uuid::uuid4()->toString(), openssl_random_pseudo_bytes(16), 1000, 20));
     }
 
-    public function toString(): string {
+    public function serialize(): string {
         return base64_encode($this->key);
     }
 
-    public static function fromString($string) {
-        return new static(base64_decode($string));
+    public static function deserialize($json) {
+        return new static(base64_decode($json));
     }
 
     private $key;

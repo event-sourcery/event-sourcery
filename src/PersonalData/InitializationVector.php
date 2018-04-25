@@ -6,7 +6,7 @@ class InitializationVector implements SerializableValue {
 
     private $iv;
 
-    public function toString(): string {
+    public function serialize(): string {
         return base64_encode($this->iv);
     }
 
@@ -14,8 +14,8 @@ class InitializationVector implements SerializableValue {
         return $this->iv;
     }
 
-    public static function fromString($string): InitializationVector {
-        return new static(base64_decode($string));
+    public static function deserialize($json) {
+        return new static(base64_decode($json));
     }
 
     public static function generate(): InitializationVector {

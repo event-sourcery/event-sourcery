@@ -3,12 +3,12 @@
 class AesPersonalDataEncryption implements PersonalDataEncryption {
 
     function encrypt(CryptographicDetails $crypto, PersonalData $data): EncryptedPersonalData {
-        return EncryptedPersonalData::fromString(
+        return EncryptedPersonalData::deserialize(
             base64_encode(
                 openssl_encrypt(
-                    $data->toString(),
+                    $data->serialize(),
                     'aes-256-cbc',
-                    $crypto->key()->toString(),
+                    $crypto->key()->serialize(),
                     OPENSSL_RAW_DATA,
                     $crypto->iv()->toBinary()
                 )
@@ -17,11 +17,11 @@ class AesPersonalDataEncryption implements PersonalDataEncryption {
     }
 
     function decrypt(CryptographicDetails $crypto, EncryptedPersonalData $data): PersonalData {
-        return PersonalData::fromString(
+        return PersonalData::deserialize(
             openssl_decrypt(
-                base64_decode($data->toString()),
+                base64_decode($data->serialize()),
                 'aes-256-cbc',
-                $crypto->key()->toString(),
+                $crypto->key()->serialize(),
                 OPENSSL_RAW_DATA,
                 $crypto->iv()->toBinary()
             )

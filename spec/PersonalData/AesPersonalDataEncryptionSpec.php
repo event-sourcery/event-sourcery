@@ -21,8 +21,8 @@ class AesPersonalDataEncryptionSpec extends ObjectBehavior {
 
         $crypto = new CryptographicDetails($encryptionKey, $initializationVector);
 
-        $encrypted = $this->encrypt($crypto, PersonalData::fromString("i like hats"))->getWrappedObject();
-        $decrypted = $this->decrypt($crypto, $encrypted)->toString()->getWrappedObject();
+        $encrypted = $this->encrypt($crypto, PersonalData::deserialize("i like hats"))->getWrappedObject();
+        $decrypted = $this->decrypt($crypto, $encrypted)->serialize()->getWrappedObject();
 
         expect($decrypted)->toBe("i like hats");
     }

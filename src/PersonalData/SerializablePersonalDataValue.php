@@ -1,7 +1,10 @@
 <?php namespace EventSourcery\PersonalData;
 
-interface SerializablePersonalDataValue {
+use EventSourcery\Serialization\SerializableValue;
+
+interface SerializablePersonalDataValue extends SerializableValue {
+
     public function personalKey(): PersonalKey;
-    public function toString(): string;
-    public static function fromString(PersonalKey $key, string $string);
+    public function serialize(): string;
+    public static function deserialize(string $json);
 }

@@ -1,6 +1,6 @@
 <?php namespace EventSourcery\Serialization;
 
 interface SerializableValue {
-    public function toString(): string;
-    public static function fromString($string);
+    public function serialize(): string;
+    public static function deserialize(string $json);
 }

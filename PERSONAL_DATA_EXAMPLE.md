@@ -51,19 +51,19 @@ class Email implements SerializablePersonalDataValue {
         $this->address = $address;
     }
 
-    public function toString(): string {
+    public function serialize(): string {
         return json_encode([
             'personalKey' => $this->personalKey->toString(),
             'address' => $this->address,
         ]);
     }
 
-    public static function fromString($string) {
+    public static function deserialize(string $string) {
         $values = json_decode($string);
         return new static(PersonalKey::fromString($values->personalKey), $values->address);
     }
     
-    public static function ErasedState(PersonalKey $personalKey) {
+    public static function erasedState(PersonalKey $personalKey) {
         $email = static($personalKey, "unknown");
         $email->erased = true;
         return $email;
@@ -87,7 +87,7 @@ class Member extends Aggregate {
     // ...
 }
 
-class MemberWasRegistered implements \EventSourcery\EventSourcing\DomainEvent {
+class MemberWasRegistered implements DomainEvent {
     
     /** @var MemberId */
     public $memberId;

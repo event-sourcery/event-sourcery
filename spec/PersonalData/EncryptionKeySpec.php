@@ -7,16 +7,16 @@ use PhpSpec\ObjectBehavior;
 class EncryptionKeySpec extends ObjectBehavior {
 
     function it_generates_keys() {
-        $key1 = EncryptionKey::generate()->toString();
-        $key2 = EncryptionKey::generate()->toString();
+        $key1 = EncryptionKey::generate()->serialize();
+        $key2 = EncryptionKey::generate()->serialize();
 
         expect($key1)->toNotBe($key2);
     }
 
     function it_can_be_serialized() {
-        $serialized = EncryptionKey::generate()->toString();
-        $deserialized = EncryptionKey::fromString($serialized);
+        $serialized = EncryptionKey::generate()->serialize();
+        $deserialized = EncryptionKey::deserialize($serialized);
 
-        expect($deserialized->toString())->toEqual($serialized);
+        expect($deserialized->serialize())->toEqual($serialized);
     }
 }

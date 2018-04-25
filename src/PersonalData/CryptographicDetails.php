@@ -9,14 +9,14 @@ class CryptographicDetails implements SerializableValue {
     private $key;
     private $iv;
 
-    public function toString(): string {
-        return $this->key->toString() . self::DELIMITER . $this->iv->toString();
+    public function serialize(): string {
+        return $this->key->serialize() . self::DELIMITER . $this->iv->serialize();
     }
 
-    public static function fromString($string) {
-        list($keyString, $ivString) = explode(self::DELIMITER, $string);
-        $key = EncryptionKey::fromString($keyString);
-        $iv = InitializationVector::fromString($ivString);
+    public static function deserialize($json) {
+        list($keyString, $ivString) = explode(self::DELIMITER, $json);
+        $key = EncryptionKey::deserialize($keyString);
+        $iv = InitializationVector::deserialize($ivString);
         return new static($key, $iv);
     }
 

@@ -8,12 +8,12 @@ class PersonalKeySpec extends ObjectBehavior {
 
     function it_can_be_serialized() {
         $this->beConstructedThrough('fromString', ['key123']);
-        $this->toString()->shouldBe('key123');
+        $this->serialize()->shouldBe('key123');
     }
 
     function it_can_be_generated() {
-        $id1 = (PersonalKey::generate())->toString();
-        $id2 = (PersonalKey::generate())->toString();
+        $id1 = (PersonalKey::generate())->serialize();
+        $id2 = (PersonalKey::generate())->serialize();
         expect($id1)->shouldNotEqual($id2);
     }
 }

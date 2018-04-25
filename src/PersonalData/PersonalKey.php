@@ -12,15 +12,19 @@ class PersonalKey implements SerializableValue {
         return new static(Uuid::uuid4()->toString());
     }
 
+    public static function fromString(string $string) {
+        return new static($string);
+    }
+
     public static function fromId(Id $id) {
         return static::fromString($id->toString());
     }
 
-    public static function fromString($string) {
-        return new static($string);
+    public static function deserialize(string $json) {
+        return new static($json);
     }
 
-    public function toString(): string {
+    public function serialize(): string {
         return $this->key;
     }
 
