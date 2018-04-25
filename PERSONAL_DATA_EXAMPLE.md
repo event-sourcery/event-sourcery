@@ -58,7 +58,12 @@ class Email implements SerializablePersonalDataValue {
     public static function fromString(PersonalKey $personalKey, string $address) {
         return new static($personalKey, $address);
     }
+    
+    public function toString() {
+        return $this->address;
+    }
 
+    // for serialization
     public function serialize(): string {
         return json_encode([
             'personalKey' => $this->personalKey->toString(),
@@ -71,6 +76,7 @@ class Email implements SerializablePersonalDataValue {
         return new static(PersonalKey::fromString($values->personalKey), $values->address);
     }
     
+    // for supporting erasable data
     public static function erasedState(PersonalKey $personalKey) {
         $email = static($personalKey, "awareness-account@mycompany.com");
         $email->erased = true;
