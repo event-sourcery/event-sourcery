@@ -52,7 +52,7 @@ class Email implements SerializablePersonalDataValue {
     }
     
     public static function fromString(PersonalKey $personalKey, string $address) {
-        return static($personalKey, $address);
+        return new static($personalKey, $address);
     }
 
     public function serialize(): string {
