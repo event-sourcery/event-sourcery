@@ -30,7 +30,7 @@ class RegisterMember implements Command {
         $this->memberId = MemberId::fromString($memberId);
         $personalKey = PersonalKey::fromId($this->memberId);        
         $this->name = new Name($personalKey, $firstName, $lastName);
-        $this->email = new Email($personalKey, $email);
+        $this->email = Email::fromString($personalKey, $email);
     }
     
     public function execute(EventStore $events) {
