@@ -75,12 +75,15 @@ We can flag this value object as containing personal data by implementing the `P
 <?php
 class PersonsName implements SerializableValue, PersonalDataValue {
     
+    /** @var PersonalKey */
+    public $personalKey;        
     /** @var string */
     public $firstName;
     /** @var string */
     public $lastName;
 
-    public function __construct(string $firstName, string $lastName) {
+    public function __construct(PersonalKey $personalKey, string $firstName, string $lastName) {
+        $this->personalKey = $personalKey;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
     }
@@ -88,6 +91,7 @@ class PersonsName implements SerializableValue, PersonalDataValue {
     // Implemented to satisfy `SerializableValue` 
     public function toString(): string {
         return json_encode([
+            'personalKey' => $this->personalKey->toString(),
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
         ]);
@@ -96,7 +100,7 @@ class PersonsName implements SerializableValue, PersonalDataValue {
     // Implemented to satisfy `SerializableValue`
     public static function fromString($string) {
         $values = json_decode($string);
-        return new static($values->firstName, $values->lastName);
+        return new static(PersonalKey::fromString($values->personId), $values->firstName, $values->lastName);
     }
     
     // Implemented to satisfy `PersonalDataValue`

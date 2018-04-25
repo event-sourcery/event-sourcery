@@ -1,5 +1,6 @@
 <?php namespace EventSourcery\PersonalData;
 
+use EventSourcery\EventSourcing\Id;
 use EventSourcery\Serialization\SerializableValue;
 use Ramsey\Uuid\Uuid;
 
@@ -9,6 +10,10 @@ class PersonalKey implements SerializableValue {
 
     public static function generate(): PersonalKey {
         return new static(Uuid::uuid4()->toString());
+    }
+
+    public static function fromId(Id $id) {
+        return static::fromString($id->toString());
     }
 
     public static function fromString($string) {
