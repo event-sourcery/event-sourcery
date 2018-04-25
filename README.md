@@ -11,7 +11,7 @@ The core concepts are:
 3. We are putting a lot of the heavy weight onto the value objects. These objects know how to serialize / deserialize themselves. This is done to prevent every single command / domain event from having serialization code that must be written and tested, when the values can be written / tested once. 
 4. We support 'personal data' value objects that store data outside of the event store. The event store contains a key that refers to a datum. The datum is stored in a separate store. This is entirely optional but enables compliance with GDPR (right to erasure). It just so happens that there are some messy parts when it comes to working with 'erased' values that we haven't resolved through design yet. Please feel free to contribute ideas if you think of something better. 
 
-Examples of working with personal data can be found in PERSONAL_DATA_EXAMPLE.md.
+Examples of working with personal data can be found in [PERSONAL_DATA_EXAMPLE.md](https://github.com/event-sourcery/event-sourcery/blob/master/PERSONAL_DATA_EXAMPLE.md).
 
 This framework is highly volatile and will change rapidly.
 
