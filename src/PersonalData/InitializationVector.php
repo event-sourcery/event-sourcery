@@ -14,8 +14,8 @@ class InitializationVector implements SerializableValue {
         return $this->iv;
     }
 
-    public static function deserialize($json) {
-        return new static(base64_decode($json));
+    public static function deserialize(string $string) {
+        return new static(base64_decode($string));
     }
 
     public static function generate(): InitializationVector {

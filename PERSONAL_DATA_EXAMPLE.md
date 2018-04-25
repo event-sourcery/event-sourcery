@@ -32,7 +32,7 @@ class RegisterMember implements Command {
     public function __construct($memberId, $firstName, $lastName, $email) {
         $this->memberId = MemberId::fromString($memberId);
         $personalKey = PersonalKey::fromId($this->memberId);        
-        $this->name = new Name($personalKey, $firstName, $lastName);
+        $this->name = Name::fromString($personalKey, $firstName, $lastName);
         $this->email = Email::fromString($personalKey, $email);
     }
     

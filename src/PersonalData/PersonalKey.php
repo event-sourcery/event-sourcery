@@ -20,8 +20,8 @@ class PersonalKey implements SerializableValue {
         return static::fromString($id->toString());
     }
 
-    public static function deserialize(string $json) {
-        return new static($json);
+    public static function deserialize(string $string) {
+        return new static($string);
     }
 
     public function serialize(): string {

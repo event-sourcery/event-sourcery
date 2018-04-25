@@ -13,8 +13,8 @@ class EncryptionKey implements SerializableValue {
         return base64_encode($this->key);
     }
 
-    public static function deserialize($json) {
-        return new static(base64_decode($json));
+    public static function deserialize(string $string) {
+        return new static(base64_decode($string));
     }
 
     private $key;

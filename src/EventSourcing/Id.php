@@ -1,8 +1,8 @@
 <?php namespace EventSourcery\EventSourcing;
 
-use Ramsey\Uuid\Uuid;
+use EventSourcery\Serialization\SerializableValue;
 
-abstract class Id {
+abstract class Id implements SerializableValue {
 
     /** @var string */
     protected $id;
@@ -15,16 +15,8 @@ abstract class Id {
         return new static($id);
     }
 
-    public static function generate(): Id {
-        return new static(Uuid::uuid4()->toString());
-    }
-
     public function toString(): string {
         return $this->id;
-    }
-
-    public function __toString(): string {
-        return $this->toString();
     }
 
     public function equals(self $that): bool {
@@ -32,5 +24,13 @@ abstract class Id {
             throw new CannotCompareDifferentIds;
         }
         return $this->id === $that->id;
+    }
+
+    public function serialize(): string {
+        return $this->toString();
+    }
+
+    public static function deserialize(string $string) {
+        return static::fromString($string);
     }
 }
