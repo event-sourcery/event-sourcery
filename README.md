@@ -154,7 +154,6 @@ Entities are objects that are represented with identifier equality. Two objects 
 Identification is the process of determining one entity from others. In this framework, IDs are subclasses of one of the following classes:
 
 1. Id
-2. UuidId
 2. StreamId
 
 The `Id` class exists to provide a basic Id implementation.
