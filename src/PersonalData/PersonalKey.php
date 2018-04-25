@@ -2,15 +2,10 @@
 
 use EventSourcery\EventSourcing\Id;
 use EventSourcery\Serialization\SerializableValue;
-use Ramsey\Uuid\Uuid;
 
 class PersonalKey implements SerializableValue {
 
     private $key;
-
-    public static function generate(): PersonalKey {
-        return new static(Uuid::uuid4()->toString());
-    }
 
     public static function fromString(string $string) {
         return new static($string);
