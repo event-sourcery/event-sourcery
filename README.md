@@ -34,7 +34,7 @@ Values represent things like names, temperature, ids, etc. Anything that uses va
 > Value semantics: equality is determined by comparing value, not ID. 
 
 1. `SerializableValue`
-2. `PersonalDataValue`
+2. `SerializablePersonalDataValue`
 
 The `SerializableValue` contract requires that you implement `serialize()` and `deserialize()` methods that will be used during domain event serialization.
 
@@ -78,52 +78,63 @@ class PersonsName implements SerializableValue {
 }
 ```
 
-### Personal Data Value ###
+### Serializable Personal Data Value ###
 
-We can flag this value object as containing personal data by implementing the `PersonalDataValue` interface.
+We can flag this value object as containing personal data by implementing the `SerializablePersonalDataValue` interface.
 
 ```php
 <?php
-class PersonsName implements SerializableValue, PersonalDataValue {
+class Email implements SerializablePersonalDataValue {
     
     /** @var PersonalKey */
-    public $personalKey;        
+    private $personalKey;        
     /** @var string */
-    public $firstName;
-    /** @var string */
-    public $lastName;
+    private $address;
 
-    public function __construct(PersonalKey $personalKey, string $firstName, string $lastName) {
+    private function __construct(PersonalKey $personalKey, string $address) {
         $this->personalKey = $personalKey;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
+        $this->address = $address;
+        
+        if ( ! filter_var($address, FILTER_VALIDATE_EMAIL)) {
+            throw new EmailAddressIsNotValid($address);
+        }
+    }
+    
+    public static function fromString(PersonalKey $personalKey, string $address) {
+        return new static($personalKey, $address);
+    }
+    
+    public function toString() {
+        if ($this->wasErased()) {
+            throw new CannotRetrieveErasedPersonalData();
+        }
+        return $this->address;
     }
 
-    // Implemented to satisfy `SerializableValue` 
+    // for serialization
     public function serialize(): string {
         return json_encode([
-            'personalKey' => $this->personalKey->serialize(),
-            'firstName' => $this->firstName,
-            'lastName' => $this->lastName,
+            'personalKey' => $this->personalKey->toString(),
+            'address' => $this->address,
         ]);
     }
 
-    // Implemented to satisfy `SerializableValue`
-    public static function deserialize($string) {
+    public static function deserialize(string $string) {
         $values = json_decode($string);
-        return new static(PersonalKey::fromString($values->personalKey), $values->firstName, $values->lastName);
+        return new static(PersonalKey::fromString($values->personalKey), $values->address);
     }
     
-    // Implemented to satisfy `PersonalDataValue`
-    // Sets the state for erased values.
-    public static function ErasedState() {
-        $name = static("", "");
-        $name->erased = true;
-        return $name;
+    // for supporting erasable data    
+    public function personalKey(): PersonalKey {
+        return $this->personalKey;
     }
     
-    // Implemented to satisfy `PersonalDataValue`
-    // can be checked to see if this value was erased.
+    public static function fromErasedState(PersonalKey $personalKey) {
+        $email = static($personalKey, "erased-account@mycompany.com");
+        $email->erased = true;
+        return $email;
+    }
+    
     public function wasErased() {
         return $this->erased;
     }
@@ -143,6 +154,7 @@ Entities are objects that are represented with identifier equality. Two objects 
 Identification is the process of determining one entity from others. In this framework, IDs are subclasses of one of the following classes:
 
 1. Id
+2. UuidId
 2. StreamId
 
 The `Id` class exists to provide a basic Id implementation.

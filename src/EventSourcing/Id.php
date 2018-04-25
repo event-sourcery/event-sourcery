@@ -11,6 +11,10 @@ abstract class Id implements SerializableValue {
         $this->id = $id;
     }
 
+    public static function generate(): Id {
+        return new static(Uuid::uuid4()->toString());
+    }
+
     public static function fromString(string $id): Id {
         return new static($id);
     }
