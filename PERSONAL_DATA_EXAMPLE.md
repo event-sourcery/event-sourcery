@@ -38,4 +38,15 @@ class RegisterMember implements Command {
         $events->storeStream($member->flushEvents());
     }
 }
+
+class Member extends Aggregate {
+    
+    public static function register(MemberId $id, Name $name, Email $email) {
+        $member = new Member;
+        $member->raise(new MemberWasRegistered($id, $name, $email));
+        return $member;
+    }
+    
+    // ...
+}
 ```
