@@ -16,7 +16,10 @@ class UiController {
         );
     }
 }
+```
 
+```php
+<?php
 class RegisterMember implements Command {
     
     /** @var MemberId */
@@ -38,7 +41,10 @@ class RegisterMember implements Command {
         $events->storeStream($member->flushEvents());
     }
 }
+```
 
+```php
+<?php
 class Email implements SerializablePersonalDataValue {
     
     /** @var PersonalKey */
@@ -89,7 +95,10 @@ class Email implements SerializablePersonalDataValue {
     
     private $erased = false;
 }
+```
 
+```php
+<?php
 class Member extends Aggregate {
     
     public static function register(MemberId $id, Name $name, Email $email) {
@@ -100,7 +109,10 @@ class Member extends Aggregate {
     
     // ...
 }
+```
 
+```php
+<?php
 class MemberWasRegistered implements DomainEvent {
     
     /** @var MemberId */
@@ -116,7 +128,10 @@ class MemberWasRegistered implements DomainEvent {
         $this->email = $email;
     }
 }
+```
 
+```php
+<?php
 class SendMemberWelcomeEmail implements Listener {
     public function handle(DomainEvent $event): void {
         if ($event instanceof MemberWasRegistered) {
