@@ -64,7 +64,7 @@ class Email implements SerializablePersonalDataValue {
     }
     
     public static function erasedState(PersonalKey $personalKey) {
-        $email = static($personalKey, "unknown");
+        $email = static($personalKey, "awareness-account@mycompany.com");
         $email->erased = true;
         return $email;
     }
