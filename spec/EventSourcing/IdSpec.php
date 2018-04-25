@@ -16,10 +16,6 @@ class IdSpec extends ObjectBehavior {
         $this->toString()->shouldReturn('anId');
     }
 
-    function it_can_be_cast_to_string() {
-        expect((string) $this->getWrappedObject())->toBe('anId');
-    }
-
     function it_compares_ids_by_value() {
         $this->shouldEqualValue(TestId::fromString('anId'));
     }
@@ -27,10 +23,5 @@ class IdSpec extends ObjectBehavior {
     function it_compares_ids_of_the_same_type_only() {
         $this->shouldThrow(CannotCompareDifferentIds::class)
             ->during('equals', [TestIdTwo::fromString('anId')]);
-    }
-
-    function it_can_generate_new_ids() {
-        $this->beConstructedThrough('generate');
-        $this->shouldNotEqualValue(TestId::generate());
     }
 }
