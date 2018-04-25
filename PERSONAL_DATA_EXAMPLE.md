@@ -49,4 +49,32 @@ class Member extends Aggregate {
     
     // ...
 }
+
+class MemberWasRegistered implements \EventSourcery\EventSourcing\DomainEvent {
+    
+    /** @var MemberId */
+    public $memberId;
+    /** @var Name */
+    public $name;
+    /** @var Email */
+    public $email;
+    
+    public function __construct(MemberId $memberId, Name $name, Email $email) {
+        $this->memberId = $memberId;
+        $this->name = $name;
+        $this->email = $email;
+    }
+}
+
+class SendMemberWelcomeEmail implements Listener {
+    public function handle(DomainEvent $event): void {
+        if ($event instanceof MemberWasRegistered) {
+            $registration = (MemberWasRegistered) $event;
+            if ($registration->email->wasErased()) {
+                return;
+            }
+            // send email
+        }
+    }
+}
 ```
