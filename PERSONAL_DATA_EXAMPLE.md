@@ -49,6 +49,10 @@ class Email implements SerializablePersonalDataValue {
     private function __construct(PersonalKey $personalKey, string $address) {
         $this->personalKey = $personalKey;
         $this->address = $address;
+        
+        if ( ! filter_var($address, FILTER_VALIDATE_EMAIL)) {
+            throw new EmailAddressIsNotValid($address);
+        }
     }
     
     public static function fromString(PersonalKey $personalKey, string $address) {
