@@ -11,11 +11,15 @@ class PersonalDataKey implements SerializableValue {
         return new static(Uuid::uuid4()->toString());
     }
 
-    public static function fromString(string $string) {
+    public static function fromString(string $string): PersonalDataKey {
         return new static($string);
     }
 
-    public static function deserialize(string $string) {
+    public function toString(): string {
+        return $this->key;
+    }
+
+    public static function deserialize(string $string): PersonalDataKey {
         return new static($string);
     }
 
@@ -23,7 +27,7 @@ class PersonalDataKey implements SerializableValue {
         return $this->key;
     }
 
-    private function __construct($key) {
+    private function __construct(string $key) {
         $this->key = $key;
     }
 }

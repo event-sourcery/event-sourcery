@@ -7,15 +7,19 @@ class PersonalKey implements SerializableValue {
 
     private $key;
 
-    public static function fromString(string $string) {
+    public static function fromString(string $string): PersonalKey {
         return new static($string);
     }
 
-    public static function fromId(Id $id) {
+    public function toString(): string {
+        return $this->key;
+    }
+
+    public static function fromId(Id $id): PersonalKey {
         return static::fromString($id->toString());
     }
 
-    public static function deserialize(string $string) {
+    public static function deserialize(string $string): PersonalKey {
         return new static($string);
     }
 
@@ -23,7 +27,7 @@ class PersonalKey implements SerializableValue {
         return $this->key;
     }
 
-    private function __construct($key) {
+    private function __construct(string $key) {
         $this->key = $key;
     }
 }

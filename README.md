@@ -337,3 +337,7 @@ Implementations of the stores will be provided as drivers.
 The first time that Personal Data is stored for `PersonalKey`, `cryptographic details` are assigned to the `Personal Key`. The `Personal Cryptography Store` can be queried to get the `cryptographic details`. The `cryptographic details` should never be cached and should always instead be queried from the `Personal Cryptography Store`.
 
 The `cryptographic details` are used for decrypting private personal data.
+
+# Notes #
+
+1. Serialize() and Deserialize() are different from toString() and fromString(). The former methods are used SPECIFICALLY for serialization. The latter are used for utilizing strings as implementation or for outputting (for example to read models or exceptions).
