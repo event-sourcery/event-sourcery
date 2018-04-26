@@ -10,7 +10,7 @@ class PersonalData implements SerializableValue {
         return $this->data;
     }
 
-    public static function deserialize(string $string) {
+    public static function deserialize(string $string): PersonalData {
         return new static($string);
     }
 
@@ -20,5 +20,9 @@ class PersonalData implements SerializableValue {
 
     public static function fromString(string $string): PersonalData {
         return new static($string);
+    }
+
+    public function toString(): string {
+        return $this->data;
     }
 }
