@@ -1,5 +1,6 @@
 <?php namespace EventSourcery\Serialization;
 
+use EventSourcery\PersonalData\PersonalDataStore;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
@@ -8,52 +9,44 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
     /** @var DomainEventClassMap */
     private $eventClasses;
+    /** @var PersonalDataStore */
+    private $personalData;
+    /** @var ValueSerializer */
+    private $valueSerializer;
 
-    public function __construct(DomainEventClassMap $eventClasses) {
-        $this->eventClasses = $eventClasses;
+    public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer) {
+        $this->eventClasses    = $eventClasses;
+        $this->personalData    = $personalData;
+        $this->valueSerializer = $valueSerializer;
     }
 
     // change to use new reflection based serializer
     public function serialize(DomainEvent $event): array {
         $reflect = new ReflectionObject($event);
-        $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
+        $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
 
-        $serialized = [
+        return [
             'eventName' => $this->eventNameForClass(get_class($event)),
-            'fields' => []
+            'fields'    => array_map(function (ReflectionProperty $prop) {
+                /** @var ReflectionProperty $prop */
+                $prop->setAccessible(true);
+                $serialized['fields'][$prop->getName()] = $this->valueSerializer->serialize($prop->getValue());
+            }, $props),
         ];
-
-        foreach ($props as $prop) {
-            $prop->setAccessible(true);
-
-
-            // check to see if it's a value object
-            if (is_object($prop->getValue($event))) {
-                if ($prop->getValue($event) instanceof SerializableValue) {
-                    $serialized['fields'][$prop->getName()] = $prop->getValue($event)->toString();
-                } else {
-                    throw new \Exception("I don't know how to serialize an object of type " . get_class($prop->getValue($event)));
-                }
-            } else {
-                $serialized['fields'][$prop->getName()] = $prop->getValue($event);
-            }
-        }
-
-        return $serialized;
     }
 
     public function deserialize(array $serialized): DomainEvent {
         $className = $this->classNameForEvent($serialized['eventName']);
 
         $reflect = new ReflectionClass($className);
-        $const = $reflect->getConstructor();
+        $const   = $reflect->getConstructor();
 
         // reflect on constructor to get name / type
         $constParams = [];
         foreach ($const->getParameters() as $param) {
             $constParams[] = [
                 $param->getType()->getName(),
-                $param->getName()
+                $param->getName(),
             ];
         }
 
@@ -68,7 +61,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
             }
 
             $constParamValues[] = [
-                $type, $name, $serialized['fields'][$name]
+                $type, $name, $serialized['fields'][$name],
             ];
         }
 
