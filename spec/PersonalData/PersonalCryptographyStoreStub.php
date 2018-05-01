@@ -1,6 +1,6 @@
 <?php namespace spec\EventSourcery\PersonalData;
 
-use EventSourcery\PersonalData\CouldNotFindCryptographyForPerson;
+use EventSourcery\PersonalData\CanNotFindCryptographyForPerson;
 use EventSourcery\PersonalData\CryptographicDetails;
 use EventSourcery\PersonalData\PersonalCryptographyStore;
 use EventSourcery\PersonalData\PersonalKey;
@@ -15,7 +15,7 @@ class PersonalCryptographyStoreStub implements PersonalCryptographyStore {
 
     function getCryptographyFor(PersonalKey $person): CryptographicDetails {
         if ( ! isset($this->personCrypto[$person->toString()])) {
-            throw new CouldNotFindCryptographyForPerson("No cryptography exists for person " . $person->toString());
+            throw new CanNotFindCryptographyForPerson("No cryptography exists for person " . $person->toString());
         }
         return $this->personCrypto[$person->toString()];
     }

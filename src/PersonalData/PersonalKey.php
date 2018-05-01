@@ -30,4 +30,8 @@ class PersonalKey implements SerializableValue {
     private function __construct(string $key) {
         $this->key = $key;
     }
+
+    public function equals(PersonalKey $that) {
+        return $this->key === $that->key;
+    }
 }

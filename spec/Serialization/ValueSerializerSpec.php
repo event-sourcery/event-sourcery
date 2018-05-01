@@ -1,5 +1,6 @@
 <?php namespace spec\EventSourcery\Serialization;
 
+use EventSourcery\PersonalData\PersonalDataStore;
 use EventSourcery\PersonalData\PersonalKey;
 use function EventSourcery\PhpSpec\expect;
 use EventSourcery\Serialization\ValueSerializer;
@@ -8,8 +9,12 @@ use spec\EventSourcery\PersonalData\PersonalDataStoreStub;
 
 class ValueSerializerSpec extends ObjectBehavior {
 
+    /** @var PersonalDataStore */
+    private $dataStore;
+
     function let() {
-        $this->beConstructedWith(new PersonalDataStoreStub());
+        $this->dataStore = new PersonalDataStoreStub();
+        $this->beConstructedWith($this->dataStore);
     }
 
     function it_is_initializable() {
@@ -45,11 +50,11 @@ class ValueSerializerSpec extends ObjectBehavior {
         // add crypto for key 'ham'
         $key = PersonalKey::fromString("ham");
 
-        // serialize object
+        // serialize object - a bit hokey how this all works probably
         $serialized = $this->serialize(new PersonalDataValueObjectStub($key, 'a', 1, 'b', 2))->getWrappedObject();
-
         $deserialized = $this->deserializePersonalValue(PersonalDataValueObjectStub::class, $serialized);
 
+        // check values
         $deserialized->personalKey()->serialize()->shouldEqual($key->serialize());
         $deserialized->string1()->shouldBe('a');
         $deserialized->integer1()->shouldBe(1);

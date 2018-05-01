@@ -43,7 +43,7 @@ class ValueSerializer {
         
     }
 
-    public function deserializePersonalValue(string $type, string $json) {
+    public function deserializePersonalValue(string $type, string $json): SerializablePersonalDataValue {
         $values = json_decode($json);
 
         $personalKey = PersonalKey::deserialize($values->personalKey);

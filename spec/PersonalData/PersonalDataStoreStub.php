@@ -1,5 +1,6 @@
 <?php namespace spec\EventSourcery\PersonalData;
 
+use EventSourcery\PersonalData\CanNotFindPersonalDataByKey;
 use EventSourcery\PersonalData\PersonalData;
 use EventSourcery\PersonalData\PersonalDataKey;
 use EventSourcery\PersonalData\PersonalDataStore;
@@ -7,13 +8,35 @@ use EventSourcery\PersonalData\PersonalKey;
 
 class PersonalDataStoreStub implements PersonalDataStore {
 
-    private $dataKeyData = [];
+    public $dataKeyData = [];
 
     function storeData(PersonalKey $personalKey, PersonalDataKey $dataKey, PersonalData $data) {
-        $this->dataKeyData[$dataKey->toString()] = $data->serialize();
+        $this->dataKeyData[$dataKey->toString()] = new StoredPersonalDataStub($personalKey, $data);
     }
 
     function retrieveData(PersonalKey $personalKey, PersonalDataKey $dataKey): PersonalData {
-        return PersonalData::deserialize($this->dataKeyData[$dataKey->toString()]);
+        if ( ! isset($this->dataKeyData[$dataKey->toString()])) {
+            throw new CanNotFindPersonalDataByKey($dataKey->toString());
+        }
+        return $this->dataKeyData[$dataKey->toString()]->personalData;
+    }
+
+    function removeDataFor(PersonalKey $personalKey) {
+        $this->dataKeyData = array_filter($this->dataKeyData, function(StoredPersonalDataStub $stored) use ($personalKey) {
+            return $stored->personalKey->equals($personalKey);
+        });
+    }
+}
+
+class StoredPersonalDataStub {
+
+    /** @var PersonalKey */
+    public $personalKey;
+    /** @var PersonalData */
+    public $personalData;
+
+    public function __construct(PersonalKey $personalKey, PersonalData $dataKey) {
+        $this->personalKey = $personalKey;
+        $this->personalData = $dataKey;
     }
 }
