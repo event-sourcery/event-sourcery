@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\PersonalData;
+<?php namespace EventSourcery\EventSourcery\PersonalData;
 
 interface PersonalDataEncryption {
     function encrypt(CryptographicDetails $crypto, PersonalData $data): EncryptedPersonalData;

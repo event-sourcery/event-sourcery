@@ -1,8 +1,8 @@
-<?php namespace spec\EventSourcery\Collections;
+<?php namespace spec\EventSourcery\EventSourcery\Collections;
 
-use EventSourcery\Collections\Collection;
+use EventSourcery\EventSourcery\Collections\Collection;
 use PhpSpec\ObjectBehavior;
-use function EventSourcery\PhpSpec\expect;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
 
 class CollectionSpec extends ObjectBehavior {
 

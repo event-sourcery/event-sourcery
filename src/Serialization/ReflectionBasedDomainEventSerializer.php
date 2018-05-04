@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\Serialization;
+<?php namespace EventSourcery\EventSourcery\Serialization;
 
-use EventSourcery\PersonalData\PersonalDataStore;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;

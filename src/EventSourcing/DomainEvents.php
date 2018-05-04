@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\EventSourcing;
+<?php namespace EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\Collections\TypedCollection;
+use EventSourcery\EventSourcery\Collections\TypedCollection;
 
 class DomainEvents extends TypedCollection {
 

@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\Commands;
+<?php namespace EventSourcery\EventSourcery\Commands;
 
 interface CommandBus {
     public function execute(Command $command);

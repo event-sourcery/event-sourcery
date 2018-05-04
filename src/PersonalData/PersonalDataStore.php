@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\PersonalData;
+<?php namespace EventSourcery\EventSourcery\PersonalData;
 
 interface PersonalDataStore {
     function retrieveData(PersonalKey $personalKey, PersonalDataKey $dataKey): PersonalData;

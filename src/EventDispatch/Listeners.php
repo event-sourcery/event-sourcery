@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\EventDispatch;
+<?php namespace EventSourcery\EventSourcery\EventDispatch;
 
-use EventSourcery\Collections\TypedCollection;
+use EventSourcery\EventSourcery\Collections\TypedCollection;
 
 final class Listeners extends TypedCollection {
 

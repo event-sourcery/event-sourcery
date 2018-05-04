@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\Queries;
+<?php namespace EventSourcery\EventSourcery\Queries;
 
-use EventSourcery\EventDispatch\Listener;
+use EventSourcery\EventSourcery\EventDispatch\Listener;
 
 interface Projection extends Listener {
 

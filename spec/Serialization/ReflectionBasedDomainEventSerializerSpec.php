@@ -1,12 +1,12 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\DomainEventClassMap;
+use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
 use PhpSpec\ObjectBehavior;
-use spec\EventSourcery\Serialization\BoolEventStub;
-use spec\EventSourcery\Serialization\IntEventStub;
-use spec\EventSourcery\Serialization\StringEventStub;
-use spec\EventSourcery\Serialization\ValueObjectStub;
-use spec\EventSourcery\Serialization\ValueObjectEventStub;
+use spec\EventSourcery\EventSourcery\Serialization\BoolEventStub;
+use spec\EventSourcery\EventSourcery\Serialization\IntEventStub;
+use spec\EventSourcery\EventSourcery\Serialization\StringEventStub;
+use spec\EventSourcery\EventSourcery\Serialization\ValueObjectStub;
+use spec\EventSourcery\EventSourcery\Serialization\ValueObjectEventStub;
 
 class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
 

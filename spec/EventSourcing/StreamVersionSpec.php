@@ -1,6 +1,6 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\StreamVersion;
+use EventSourcery\EventSourcery\EventSourcing\StreamVersion;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

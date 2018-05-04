@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\Collections;
+<?php namespace EventSourcery\EventSourcery\Collections;
 
 class Collection implements \IteratorAggregate, \Countable {
 

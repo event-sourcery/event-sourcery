@@ -1,7 +1,7 @@
-<?php namespace EventSourcery\EventDispatch;
+<?php namespace EventSourcery\EventSourcery\EventDispatch;
 
-use EventSourcery\EventSourcing\DomainEvent;
-use EventSourcery\EventSourcing\DomainEvents;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
 
 class ImmediateEventDispatcher implements EventDispatcher {
 

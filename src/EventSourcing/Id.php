@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\EventSourcing;
+<?php namespace EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\Serialization\SerializableValue;
+use EventSourcery\EventSourcery\Serialization\SerializableValue;
 
 abstract class Id implements SerializableValue {
 

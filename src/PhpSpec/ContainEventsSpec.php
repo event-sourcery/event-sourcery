@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\PhpSpec;
+<?php namespace EventSourcery\EventSourcery\PhpSpec;
 
-use EventSourcery\EventSourcing\DomainEvents;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
 use PhpSpec\ObjectBehavior;
 
 class ContainEventsSpec extends ObjectBehavior {

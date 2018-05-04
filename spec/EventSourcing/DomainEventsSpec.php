@@ -1,8 +1,8 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\DomainEvents;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
 use PhpSpec\ObjectBehavior;
-use spec\EventSourcery\Collections\DomainEventStub;
+use spec\EventSourcery\EventSourcery\Collections\DomainEventStub;
 
 class DomainEventsSpec extends ObjectBehavior {
 

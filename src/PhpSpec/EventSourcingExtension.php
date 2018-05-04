@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\PhpSpec;
+<?php namespace EventSourcery\EventSourcery\PhpSpec;
 
 use PhpSpec\Extension;
 use PhpSpec\ServiceContainer;

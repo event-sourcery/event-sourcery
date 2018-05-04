@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\PersonalData;
+<?php namespace EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\Serialization\SerializableValue;
+use EventSourcery\EventSourcery\Serialization\SerializableValue;
 use Ramsey\Uuid\Uuid;
 
 class PersonalDataKey implements SerializableValue {

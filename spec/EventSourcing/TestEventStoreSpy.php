@@ -1,12 +1,12 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\DomainEvent;
-use EventSourcery\EventSourcing\DomainEvents;
-use EventSourcery\EventSourcing\EventStore;
-use EventSourcery\EventSourcing\StreamEvent;
-use EventSourcery\EventSourcing\StreamEvents;
-use EventSourcery\EventSourcing\StreamId;
-use EventSourcery\EventSourcing\StreamVersion;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
+use EventSourcery\EventSourcery\EventSourcing\EventStore;
+use EventSourcery\EventSourcery\EventSourcing\StreamEvent;
+use EventSourcery\EventSourcery\EventSourcing\StreamEvents;
+use EventSourcery\EventSourcery\EventSourcing\StreamId;
+use EventSourcery\EventSourcery\EventSourcing\StreamVersion;
 
 class TestEventStoreSpy implements EventStore {
 

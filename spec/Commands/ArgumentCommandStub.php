@@ -1,6 +1,6 @@
-<?php namespace spec\EventSourcery\Commands;
+<?php namespace spec\EventSourcery\EventSourcery\Commands;
 
-use EventSourcery\Commands\Command;
+use EventSourcery\EventSourcery\Commands\Command;
 
 class ArgumentCommandStub implements Command {
 

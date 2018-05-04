@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\EventSourcing;
+<?php namespace EventSourcery\EventSourcery\EventSourcing;
 
 abstract class Aggregate {
 

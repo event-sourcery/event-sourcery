@@ -1,7 +1,7 @@
-<?php namespace spec\EventSourcery\Serialization;
+<?php namespace spec\EventSourcery\EventSourcery\Serialization;
 
-use EventSourcery\PersonalData\PersonalKey;
-use EventSourcery\PersonalData\SerializablePersonalDataValue;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
+use EventSourcery\EventSourcery\PersonalData\SerializablePersonalDataValue;
 
 class PersonalDataValueObjectStub implements SerializablePersonalDataValue {
 

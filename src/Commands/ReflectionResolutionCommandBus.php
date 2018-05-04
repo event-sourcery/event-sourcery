@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\Commands;
+<?php namespace EventSourcery\EventSourcery\Commands;
 
 use Psr\Container\ContainerInterface as Container;
 use ReflectionClass;

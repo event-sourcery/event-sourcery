@@ -1,8 +1,8 @@
-<?php namespace spec\EventSourcery\EventDispatch;
+<?php namespace spec\EventSourcery\EventSourcery\EventDispatch;
 
-use EventSourcery\EventDispatch\ImmediateEventDispatcher;
-use EventSourcery\EventSourcing\DomainEvents;
-use EventSourcery\EventDispatch\Listener;
+use EventSourcery\EventSourcery\EventDispatch\ImmediateEventDispatcher;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
+use EventSourcery\EventSourcery\EventDispatch\Listener;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

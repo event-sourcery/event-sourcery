@@ -1,9 +1,9 @@
-<?php namespace spec\EventSourcery\PersonalData;
+<?php namespace spec\EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\PersonalData\CanNotFindCryptographyForPerson;
-use EventSourcery\PersonalData\CryptographicDetails;
-use EventSourcery\PersonalData\PersonalCryptographyStore;
-use EventSourcery\PersonalData\PersonalKey;
+use EventSourcery\EventSourcery\PersonalData\CanNotFindCryptographyForPerson;
+use EventSourcery\EventSourcery\PersonalData\CryptographicDetails;
+use EventSourcery\EventSourcery\PersonalData\PersonalCryptographyStore;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
 
 class PersonalCryptographyStoreStub implements PersonalCryptographyStore {
 

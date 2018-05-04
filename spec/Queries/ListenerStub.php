@@ -1,7 +1,7 @@
-<?php namespace spec\EventSourcery\Queries;
+<?php namespace spec\EventSourcery\EventSourcery\Queries;
 
-use EventSourcery\EventDispatch\Listener;
-use EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventDispatch\Listener;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 
 class ListenerStub implements Listener {
 

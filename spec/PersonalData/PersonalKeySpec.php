@@ -1,7 +1,7 @@
-<?php namespace spec\EventSourcery\PersonalData;
+<?php namespace spec\EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\PersonalData\PersonalKey;
-use function EventSourcery\PhpSpec\expect;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
 use PhpSpec\ObjectBehavior;
 
 class PersonalKeySpec extends ObjectBehavior {

@@ -1,6 +1,12 @@
 {
   "name": "event-sourcery/event-sourcery",
   "description": "A PHP CQRS / ES Library.",
+  "keywords": [
+    "event sourcing",
+    "cqrs",
+    "domain event",
+    "reactive"
+  ],
   "authors": [
     {
       "name": "Shawn McCool",
@@ -18,14 +24,16 @@
   },
   "autoload": {
     "psr-4": {
-      "EventSourcery\\": "src/"
+      "EventSourcery\\EventSourcery\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "spec\\EventSourcery\\": "spec/"
+      "spec\\EventSourcery\\EventSourcery\\": "spec/"
     },
-    "files": ["src/PhpSpec/expect.php"]
+    "files": [
+      "src/PhpSpec/expect.php"
+    ]
   },
   "config": {
     "preferred-install": "dist",

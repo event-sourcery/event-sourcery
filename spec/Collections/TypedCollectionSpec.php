@@ -1,10 +1,10 @@
-<?php namespace spec\EventSourcery\Collections;
+<?php namespace spec\EventSourcery\EventSourcery\Collections;
 
-use EventSourcery\Collections\Collection;
-use EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\Collections\Collection;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use EventSourcery\Collections\TypedCollection;
+use EventSourcery\EventSourcery\Collections\TypedCollection;
 
 class TypedCollectionSpec extends ObjectBehavior {
 

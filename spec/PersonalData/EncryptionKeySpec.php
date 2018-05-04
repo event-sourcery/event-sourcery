@@ -1,7 +1,7 @@
-<?php namespace spec\EventSourcery\PersonalData;
+<?php namespace spec\EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\PersonalData\EncryptionKey;
-use function EventSourcery\PhpSpec\expect;
+use EventSourcery\EventSourcery\PersonalData\EncryptionKey;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
 use PhpSpec\ObjectBehavior;
 
 class EncryptionKeySpec extends ObjectBehavior {

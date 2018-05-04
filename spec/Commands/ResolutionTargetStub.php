@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\Commands;
+<?php namespace spec\EventSourcery\EventSourcery\Commands;
 
 class ResolutionTargetStub {
 

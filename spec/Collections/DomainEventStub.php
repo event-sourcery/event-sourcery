@@ -1,6 +1,6 @@
-<?php namespace spec\EventSourcery\Collections;
+<?php namespace spec\EventSourcery\EventSourcery\Collections;
 
-use EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 
 class DomainEventStub implements DomainEvent {
 

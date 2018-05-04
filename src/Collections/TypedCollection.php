@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\Collections;
+<?php namespace EventSourcery\EventSourcery\Collections;
 
 abstract class TypedCollection extends Collection {
 

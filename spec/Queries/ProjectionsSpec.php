@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\Queries;
+<?php namespace spec\EventSourcery\EventSourcery\Queries;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

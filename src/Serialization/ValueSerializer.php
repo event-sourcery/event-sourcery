@@ -1,10 +1,10 @@
-<?php namespace EventSourcery\Serialization;
+<?php namespace EventSourcery\EventSourcery\Serialization;
 
-use EventSourcery\PersonalData\PersonalData;
-use EventSourcery\PersonalData\PersonalDataKey;
-use EventSourcery\PersonalData\PersonalDataStore;
-use EventSourcery\PersonalData\PersonalKey;
-use EventSourcery\PersonalData\SerializablePersonalDataValue;
+use EventSourcery\EventSourcery\PersonalData\PersonalData;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataKey;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
+use EventSourcery\EventSourcery\PersonalData\SerializablePersonalDataValue;
 
 class ValueSerializer {
 

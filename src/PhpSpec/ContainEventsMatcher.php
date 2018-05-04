@@ -1,9 +1,9 @@
-<?php namespace EventSourcery\PhpSpec;
+<?php namespace EventSourcery\EventSourcery\PhpSpec;
 
-use EventSourcery\EventSourcing\DomainEvent;
-use EventSourcery\EventSourcing\DomainEvents;
-use EventSourcery\EventSourcing\StreamEvent;
-use EventSourcery\EventSourcing\StreamEvents;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
+use EventSourcery\EventSourcery\EventSourcing\StreamEvent;
+use EventSourcery\EventSourcery\EventSourcing\StreamEvents;
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Matcher\Matcher;
 

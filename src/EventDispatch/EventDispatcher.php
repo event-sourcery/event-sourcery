@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\EventDispatch;
+<?php namespace EventSourcery\EventSourcery\EventDispatch;
 
-use EventSourcery\EventSourcing\DomainEvents;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
 
 interface EventDispatcher {
 

@@ -1,4 +1,4 @@
-<?php namespace spec\EventSourcery\EventDispatch;
+<?php namespace spec\EventSourcery\EventSourcery\EventDispatch;
 
 use PhpSpec\ObjectBehavior;
 

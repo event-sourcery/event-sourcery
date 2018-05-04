@@ -1,5 +1,5 @@
-<?php namespace spec\EventSourcery\EventDispatch;
+<?php namespace spec\EventSourcery\EventSourcery\EventDispatch;
 
-use EventSourcery\EventSourcing\Id;
+use EventSourcery\EventSourcery\EventSourcing\Id;
 
 class TestId extends Id  {}

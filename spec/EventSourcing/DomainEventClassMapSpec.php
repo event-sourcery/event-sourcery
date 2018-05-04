@@ -1,6 +1,6 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\DomainEventClassMap;
+use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

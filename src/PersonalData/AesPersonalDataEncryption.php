@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\PersonalData;
+<?php namespace EventSourcery\EventSourcery\PersonalData;
 
 class AesPersonalDataEncryption implements PersonalDataEncryption {
 

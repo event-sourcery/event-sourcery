@@ -1,10 +1,10 @@
-<?php namespace spec\EventSourcery\PersonalData;
+<?php namespace spec\EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\PersonalData\CanNotFindPersonalDataByKey;
-use EventSourcery\PersonalData\PersonalData;
-use EventSourcery\PersonalData\PersonalDataKey;
-use EventSourcery\PersonalData\PersonalDataStore;
-use EventSourcery\PersonalData\PersonalKey;
+use EventSourcery\EventSourcery\PersonalData\CanNotFindPersonalDataByKey;
+use EventSourcery\EventSourcery\PersonalData\PersonalData;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataKey;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
 
 class PersonalDataStoreStub implements PersonalDataStore {
 

@@ -1,8 +1,8 @@
 suites:
     main:
-        namespace: EventSourcery
-        psr4_prefix: EventSourcery
+        namespace: EventSourcery\EventSourcery
+        psr4_prefix: EventSourcery\EventSourcery
         src_path: src
 extensions:
-  EventSourcery\PhpSpec\EventSourcingExtension: ~
+  EventSourcery\EventSourcery\PhpSpec\EventSourcingExtension: ~
 formatter.name: pretty

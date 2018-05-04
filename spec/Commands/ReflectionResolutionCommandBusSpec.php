@@ -1,6 +1,6 @@
-<?php namespace spec\EventSourcery\Commands;
+<?php namespace spec\EventSourcery\EventSourcery\Commands;
 
-use function EventSourcery\PhpSpec\expect;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
 use PhpSpec\ObjectBehavior;
 
 class ReflectionResolutionCommandBusSpec extends ObjectBehavior {

@@ -1,6 +1,6 @@
-<?php namespace spec\EventSourcery\Serialization;
+<?php namespace spec\EventSourcery\EventSourcery\Serialization;
 
-use EventSourcery\Serialization\SerializableValue;
+use EventSourcery\EventSourcery\Serialization\SerializableValue;
 
 class ValueObjectStub implements SerializableValue {
 

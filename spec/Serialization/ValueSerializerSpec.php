@@ -1,11 +1,11 @@
-<?php namespace spec\EventSourcery\Serialization;
+<?php namespace spec\EventSourcery\EventSourcery\Serialization;
 
-use EventSourcery\PersonalData\PersonalDataStore;
-use EventSourcery\PersonalData\PersonalKey;
-use function EventSourcery\PhpSpec\expect;
-use EventSourcery\Serialization\ValueSerializer;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
+use EventSourcery\EventSourcery\Serialization\ValueSerializer;
 use PhpSpec\ObjectBehavior;
-use spec\EventSourcery\PersonalData\PersonalDataStoreStub;
+use spec\EventSourcery\EventSourcery\PersonalData\PersonalDataStoreStub;
 
 class ValueSerializerSpec extends ObjectBehavior {
 

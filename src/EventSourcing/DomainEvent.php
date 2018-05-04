@@ -1,3 +1,3 @@
-<?php namespace EventSourcery\EventSourcing;
+<?php namespace EventSourcery\EventSourcery\EventSourcing;
 
 interface DomainEvent {}

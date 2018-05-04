@@ -1,6 +1,6 @@
-<?php namespace spec\EventSourcery\Serialization;
+<?php namespace spec\EventSourcery\EventSourcery\Serialization;
 
-use EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 
 class IntEventStub implements DomainEvent {
 

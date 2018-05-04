@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\Queries;
+<?php namespace EventSourcery\EventSourcery\Queries;
 
-use EventSourcery\Collections\TypedCollection;
+use EventSourcery\EventSourcery\Collections\TypedCollection;
 
 final class Projections extends TypedCollection {
 

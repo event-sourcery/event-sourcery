@@ -1,9 +1,9 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\StreamEvents;
+use EventSourcery\EventSourcery\EventSourcing\StreamEvents;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use EventSourcery\EventSourcing\StreamVersion;
+use EventSourcery\EventSourcery\EventSourcing\StreamVersion;
 
 class AggregateSpec extends ObjectBehavior {
 

@@ -1,8 +1,8 @@
-<?php namespace spec\EventSourcery\Queries;
+<?php namespace spec\EventSourcery\EventSourcery\Queries;
 
-use function EventSourcery\PhpSpec\expect;
-use EventSourcery\Queries\Projections;
-use EventSourcery\Queries\ProjectionManager;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
+use EventSourcery\EventSourcery\Queries\Projections;
+use EventSourcery\EventSourcery\Queries\ProjectionManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

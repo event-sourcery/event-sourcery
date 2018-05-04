@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\PhpSpec;
+<?php namespace EventSourcery\EventSourcery\PhpSpec;
 
 use PhpSpec\Wrapper\Subject as BaseSubject;
 

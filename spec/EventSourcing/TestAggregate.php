@@ -1,9 +1,9 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\Aggregate;
-use EventSourcery\EventSourcing\DomainEvent;
-use EventSourcery\EventSourcing\Id;
-use EventSourcery\EventSourcing\StreamId;
+use EventSourcery\EventSourcery\EventSourcing\Aggregate;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventSourcing\Id;
+use EventSourcery\EventSourcery\EventSourcing\StreamId;
 
 class TestAggregate extends Aggregate {
 

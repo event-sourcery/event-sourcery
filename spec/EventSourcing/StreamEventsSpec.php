@@ -1,10 +1,10 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcing\StreamEvent;
-use EventSourcery\EventSourcing\StreamId;
-use EventSourcery\EventSourcing\StreamVersion;
+use EventSourcery\EventSourcery\EventSourcing\StreamEvent;
+use EventSourcery\EventSourcery\EventSourcing\StreamId;
+use EventSourcery\EventSourcery\EventSourcing\StreamVersion;
 use PhpSpec\ObjectBehavior;
-use spec\EventSourcery\Collections\DomainEventStub;
+use spec\EventSourcery\EventSourcery\Collections\DomainEventStub;
 
 class StreamEventsSpec extends ObjectBehavior {
 

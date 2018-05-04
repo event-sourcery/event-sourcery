@@ -1,4 +1,4 @@
-<?php namespace EventSourcery\Serialization;
+<?php namespace EventSourcery\EventSourcery\Serialization;
 
 interface SerializableValue {
     public function serialize(): string;

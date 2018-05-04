@@ -1,12 +1,12 @@
-<?php namespace spec\EventSourcery\PersonalData;
+<?php namespace spec\EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\PersonalData\AesPersonalDataEncryption;
-use EventSourcery\PersonalData\CryptographicDetails;
-use EventSourcery\PersonalData\InitializationVector;
-use EventSourcery\PersonalData\Pbkdf2AesKeyGenerator;
-use EventSourcery\PersonalData\EncryptionKey;
-use EventSourcery\PersonalData\PersonalData;
-use function EventSourcery\PhpSpec\expect;
+use EventSourcery\EventSourcery\PersonalData\AesPersonalDataEncryption;
+use EventSourcery\EventSourcery\PersonalData\CryptographicDetails;
+use EventSourcery\EventSourcery\PersonalData\InitializationVector;
+use EventSourcery\EventSourcery\PersonalData\Pbkdf2AesKeyGenerator;
+use EventSourcery\EventSourcery\PersonalData\EncryptionKey;
+use EventSourcery\EventSourcery\PersonalData\PersonalData;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
 use PhpSpec\ObjectBehavior;
 
 class AesPersonalDataEncryptionSpec extends ObjectBehavior {

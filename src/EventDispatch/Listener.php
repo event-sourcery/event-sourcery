@@ -1,6 +1,6 @@
-<?php namespace EventSourcery\EventDispatch;
+<?php namespace EventSourcery\EventSourcery\EventDispatch;
 
-use EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 
 interface Listener {
     public function handle(DomainEvent $event) : void;

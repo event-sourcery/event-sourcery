@@ -1,8 +1,8 @@
-<?php namespace EventSourcery\Queries;
+<?php namespace EventSourcery\EventSourcery\Queries;
 
-use EventSourcery\Collections\Collection;
-use EventSourcery\EventDispatch\Listener;
-use EventSourcery\EventSourcing\DomainEvent;
+use EventSourcery\EventSourcery\Collections\Collection;
+use EventSourcery\EventSourcery\EventDispatch\Listener;
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 
 class ProjectionManager implements Listener {
 

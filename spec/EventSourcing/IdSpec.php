@@ -1,9 +1,9 @@
-<?php namespace spec\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use function EventSourcery\PhpSpec\expect;
-use EventSourcery\EventSourcing\CannotCompareDifferentIds;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
+use EventSourcery\EventSourcery\EventSourcing\CannotCompareDifferentIds;
 
 class IdSpec extends ObjectBehavior {
 

@@ -1,7 +1,7 @@
-<?php namespace EventSourcery\PersonalData;
+<?php namespace EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\EventSourcing\Id;
-use EventSourcery\Serialization\SerializableValue;
+use EventSourcery\EventSourcery\EventSourcing\Id;
+use EventSourcery\EventSourcery\Serialization\SerializableValue;
 
 class PersonalKey implements SerializableValue {
 
