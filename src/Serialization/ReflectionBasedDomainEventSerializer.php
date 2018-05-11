@@ -1,5 +1,6 @@
 <?php namespace EventSourcery\EventSourcery\Serialization;
 
+use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
 use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
 use ReflectionClass;
 use ReflectionObject;
@@ -9,14 +10,11 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
     /** @var DomainEventClassMap */
     private $eventClasses;
-    /** @var PersonalDataStore */
-    private $personalData;
     /** @var ValueSerializer */
     private $valueSerializer;
 
     public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer) {
         $this->eventClasses    = $eventClasses;
-        $this->personalData    = $personalData;
         $this->valueSerializer = $valueSerializer;
     }
 
