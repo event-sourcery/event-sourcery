@@ -1,6 +1,6 @@
 {
   "name": "event-sourcery/event-sourcery",
-  "description": "A PHP CQRS / ES Library.",
+  "description": "Event Sourcery PHP Event Sourcing CQRS Library",
   "keywords": [
     "event sourcing",
     "cqrs",
