@@ -330,7 +330,11 @@ These tips can help ensure that this is the case:
 
 ## Driver Implementations ##
 
-Implementations of the stores will be provided as drivers.
+Implementations of the stores will be provided as drivers. 
+
+[Laravel Driver](https://github.com/event-sourcery/laravel-event-sourcery-driver) 
+
+If you're using the Laravel framework then install the Laravel driver instead of the event-sourcery base package. 
 
 ### Encryption Keys ###
 
