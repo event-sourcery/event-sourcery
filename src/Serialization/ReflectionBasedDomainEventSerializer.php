@@ -28,7 +28,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
             'fields'    => array_map(function (ReflectionProperty $prop) {
                 /** @var ReflectionProperty $prop */
                 $prop->setAccessible(true);
-                $serialized['fields'][$prop->getName()] = $this->valueSerializer->serialize($prop->getValue());
+                $serialized['fields'][$prop->getName()] = $this->valueSerializer->serialize($prop->getValue($event));
             }, $props),
         ];
     }
