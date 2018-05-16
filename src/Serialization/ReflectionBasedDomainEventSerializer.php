@@ -1,5 +1,6 @@
 <?php namespace EventSourcery\EventSourcery\Serialization;
 
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
 use ReflectionClass;
 use ReflectionObject;
