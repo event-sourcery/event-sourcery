@@ -1,6 +1,7 @@
 <?php namespace EventSourcery\EventSourcery\EventSourcing;
 
 use EventSourcery\EventSourcery\Serialization\SerializableValue;
+use Ramsey\Uuid\Uuid;
 
 abstract class Id implements SerializableValue {
 
