@@ -344,4 +344,4 @@ The `cryptographic details` are used for decrypting private personal data.
 
 # Notes #
 
-1. Serialize() and Deserialize() are different from toString() and fromString(). The former methods are used SPECIFICALLY for serialization. The latter are used for utilizing strings as implementation or for outputting (for example to read models or exceptions).
+1. Serialize() and Deserialize() are different from toString() and fromString(). The former methods are used SPECIFICALLY for serialization. The latter are used for utilizing strings as implementation or for outputting (for example to read models or exceptions) and individual implementations may require different.
