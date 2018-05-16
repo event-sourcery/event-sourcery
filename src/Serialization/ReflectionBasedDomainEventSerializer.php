@@ -84,11 +84,11 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         return new $className(...$finishedConstructorValues);
     }
 
-    private function classNameForEvent($eventName): string {
+    public function classNameForEvent($eventName): string {
         return $this->eventClasses->classNameForEvent($eventName);
     }
 
-    private function eventNameForClass(string $className): string {
+    public function eventNameForClass(string $className): string {
         return $this->eventClasses->eventNameForClass($className);
     }
 }
