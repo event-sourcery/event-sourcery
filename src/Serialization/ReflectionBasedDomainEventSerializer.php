@@ -18,19 +18,25 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         $this->valueSerializer = $valueSerializer;
     }
 
-    // change to use new reflection based serializer
-    public function serialize(DomainEvent $event): array {
+        // change to use new reflection based serializer
+    public function serialize(DomainEvent $event): string {
         $reflect = new ReflectionObject($event);
         $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
 
-        return [
+        return json_encode([
             'eventName' => $this->eventNameForClass(get_class($event)),
-            'fields'    => array_map(function (ReflectionProperty $prop) {
-                /** @var ReflectionProperty $prop */
-                $prop->setAccessible(true);
-                $serialized['fields'][$prop->getName()] = $this->valueSerializer->serialize($prop->getValue($event));
-            }, $props),
-        ];
+            'fields'    => $this->serializeFields($props),
+        ]);
+    }
+
+    private function serializeFields($props) {
+        array_map(function (ReflectionProperty $prop) use (&$fields) {
+            /** @var ReflectionProperty $prop */
+            $prop->setAccessible(true);
+            $fields[$prop->getName()] = $this->valueSerializer->serialize($prop->getName());
+        }, $props);
+
+        return $fields;
     }
 
     public function deserialize(array $serialized): DomainEvent {
