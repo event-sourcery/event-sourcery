@@ -16,9 +16,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
     private $eventClasses;
     /** @var ValueSerializer */
     private $valueSerializer;
-    /**
-     * @var LaravelPersonalDataStore
-     */
+    /** @var LaravelPersonalDataStore */
     private $personalDataStore;
 
     public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer, LaravelPersonalDataStore $personalDataStore) {
@@ -111,18 +109,15 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         return new $className(...$finishedConstructorValues);
     }
 
-    public
-    function classNameForEvent(string $eventName): string {
+    public function classNameForEvent(string $eventName): string {
         return $this->eventClasses->classNameForEvent($eventName);
     }
 
-    public
-    function eventNameForClass(string $className): string {
+    public function eventNameForClass(string $className): string {
         return $this->eventClasses->eventNameForClass($className);
     }
 
-    private
-    function isPersonalData($type) {
+    private function isPersonalData($type) {
 
         $reflect = new ReflectionClass($type);
 
