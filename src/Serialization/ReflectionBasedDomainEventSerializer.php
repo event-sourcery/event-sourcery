@@ -77,9 +77,13 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
             switch ($type) {
                 case 'string':
+                    $finishedConstructorValues[] = (string) $value;
+                    break;
                 case 'int':
+                    $finishedConstructorValues[] = (int) $value;
+                    break;
                 case 'bool':
-                    $finishedConstructorValues[] = $value;
+                    $finishedConstructorValues[] = (bool) $value;
                     break;
                 default:
                     $finishedConstructorValues[] = $type::fromString($value);
