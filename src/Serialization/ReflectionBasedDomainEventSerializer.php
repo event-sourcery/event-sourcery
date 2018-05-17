@@ -78,19 +78,17 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         }
 
         // reconstruct the serialized values into the correct type
-        $finishedConstructorValues = [];
-
-        foreach ($constParamValues as $constParamValue) {
+       return new $className(...array_map(function ($constParamValue) {
             list($type, $name, $value) = $constParamValue;
             switch ($type) {
                 case 'string':
-                    $finishedConstructorValues[] = (string) $value;
+                    return (string) $value;
                     break;
                 case 'int':
-                    $finishedConstructorValues[] = (int) $value;
+                    return (int) $value;
                     break;
                 case 'bool':
-                    $finishedConstructorValues[] = (bool) $value;
+                    return (bool) $value;
                     break;
                 default:
                     if ($this->isPersonalData($type)) {
@@ -99,15 +97,12 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
                             PersonalKey::fromString($values['personalKey']),
                             PersonalDataKey::fromString($values['dataKey'])
                         );
-                        $finishedConstructorValues[] = $type::deserialize($po->toString());
+                        return $type::deserialize($po->toString());
                     } else {
-                        $finishedConstructorValues[] = $type::deserialize($value);
+                        return $type::deserialize($value);
                     }
             };
-        }
-
-        // construct
-        return new $className(...$finishedConstructorValues);
+        }, $constParamValues));
     }
 
     public function classNameForEvent(string $eventName): string {
@@ -119,7 +114,6 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
     }
 
     private function isPersonalData($type) {
-
         $reflect = new ReflectionClass($type);
 
         return $reflect->implementsInterface(SerializablePersonalDataValue::class);
