@@ -3,6 +3,7 @@
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
 use EventSourcery\EventSourcery\PersonalData\PersonalDataKey;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
 use EventSourcery\EventSourcery\PersonalData\PersonalKey;
 use EventSourcery\EventSourcery\PersonalData\SerializablePersonalDataValue;
 use EventSourcery\Laravel\LaravelPersonalDataStore;
@@ -19,7 +20,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
     /** @var LaravelPersonalDataStore */
     private $personalDataStore;
 
-    public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer, LaravelPersonalDataStore $personalDataStore) {
+    public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer, PersonalDataStore $personalDataStore) {
         $this->eventClasses = $eventClasses;
         $this->valueSerializer = $valueSerializer;
         $this->personalDataStore = $personalDataStore;
