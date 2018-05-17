@@ -1,5 +1,6 @@
 <?php namespace EventSourcery\EventSourcery\Serialization;
 
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
 use ReflectionClass;
 use ReflectionObject;
@@ -27,7 +28,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
             'fields'    => array_map(function (ReflectionProperty $prop) {
                 /** @var ReflectionProperty $prop */
                 $prop->setAccessible(true);
-                $serialized['fields'][$prop->getName()] = $this->valueSerializer->serialize($prop->getValue());
+                $serialized['fields'][$prop->getName()] = $this->valueSerializer->serialize($prop->getValue($event));
             }, $props),
         ];
     }
@@ -84,11 +85,11 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         return new $className(...$finishedConstructorValues);
     }
 
-    private function classNameForEvent($eventName): string {
+    public function classNameForEvent($eventName): string {
         return $this->eventClasses->classNameForEvent($eventName);
     }
 
-    private function eventNameForClass(string $className): string {
+    public function eventNameForClass(string $className): string {
         return $this->eventClasses->eventNameForClass($className);
     }
 }
