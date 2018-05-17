@@ -2,6 +2,10 @@
 
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataKey;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
+use EventSourcery\EventSourcery\PersonalData\SerializablePersonalDataValue;
+use EventSourcery\Laravel\LaravelPersonalDataStore;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
@@ -12,16 +16,21 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
     private $eventClasses;
     /** @var ValueSerializer */
     private $valueSerializer;
+    /**
+     * @var LaravelPersonalDataStore
+     */
+    private $personalDataStore;
 
-    public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer) {
-        $this->eventClasses    = $eventClasses;
+    public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer, LaravelPersonalDataStore $personalDataStore) {
+        $this->eventClasses = $eventClasses;
         $this->valueSerializer = $valueSerializer;
+        $this->personalDataStore = $personalDataStore;
     }
 
     // change to use new reflection based serializer
     public function serialize(DomainEvent $event): string {
         $reflect = new ReflectionObject($event);
-        $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
+        $props = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
 
         return json_encode([
             'eventName' => $this->eventNameForClass(get_class($event)),
@@ -43,7 +52,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         $className = $this->classNameForEvent($serialized['eventName']);
 
         $reflect = new ReflectionClass($className);
-        $const   = $reflect->getConstructor();
+        $const = $reflect->getConstructor();
 
         // reflect on constructor to get name / type
         $constParams = [];
@@ -59,13 +68,14 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
         foreach ($constParams as $constParam) {
             list($type, $name) = $constParam;
-
             if ( ! isset($serialized['fields'][$name])) {
                 throw new \Exception("Cannot find serialized field {$name}.");
             }
 
             $constParamValues[] = [
-                $type, $name, $serialized['fields'][$name],
+                $type,
+                $name,
+                $serialized['fields'][$name],
             ];
         }
 
@@ -74,7 +84,6 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
         foreach ($constParamValues as $constParamValue) {
             list($type, $name, $value) = $constParamValue;
-
             switch ($type) {
                 case 'string':
                     $finishedConstructorValues[] = (string) $value;
@@ -86,8 +95,16 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
                     $finishedConstructorValues[] = (bool) $value;
                     break;
                 default:
-                    $finishedConstructorValues[] = $type::deserialize($value);
-//                    throw new \Exception("Could not deserialize type {$type}");
+                    if ($this->isPersonalData($type)) {
+                        $values = json_decode($value, true);
+                        $po = $this->personalDataStore->retrieveData(
+                            PersonalKey::fromString($values['personalKey']),
+                            PersonalDataKey::fromString($values['dataKey'])
+                        );
+                        $finishedConstructorValues[] = $type::deserialize($po->toString());
+                    } else {
+                        $finishedConstructorValues[] = $type::deserialize($value);
+                    }
             };
         }
 
@@ -95,11 +112,21 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         return new $className(...$finishedConstructorValues);
     }
 
-    public function classNameForEvent(string $eventName): string {
+    public
+    function classNameForEvent(string $eventName): string {
         return $this->eventClasses->classNameForEvent($eventName);
     }
 
-    public function eventNameForClass(string $className): string {
+    public
+    function eventNameForClass(string $className): string {
         return $this->eventClasses->eventNameForClass($className);
+    }
+
+    private
+    function isPersonalData($type) {
+
+        $reflect = new ReflectionClass($type);
+
+        return $reflect->implementsInterface(SerializablePersonalDataValue::class);
     }
 }
