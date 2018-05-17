@@ -86,7 +86,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
                     $finishedConstructorValues[] = (bool) $value;
                     break;
                 default:
-                    $finishedConstructorValues[] = $type::fromString($value);
+                    $finishedConstructorValues[] = $type::deserialize($value);
 //                    throw new \Exception("Could not deserialize type {$type}");
             };
         }
