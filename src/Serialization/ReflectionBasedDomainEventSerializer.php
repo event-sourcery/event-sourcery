@@ -65,17 +65,16 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
         // get the values for the constructor fields from the serialized event
         $constParamValues = [];
-
         foreach ($constParams as $constParam) {
             list($type, $name) = $constParam;
-            if ( ! isset($serialized['fields'][$name])) {
+            $fields = (array) $serialized['fields'];
+            if ( ! isset($fields[$name])) {
                 throw new \Exception("Cannot find serialized field {$name}.");
             }
-
             $constParamValues[] = [
                 $type,
                 $name,
-                $serialized['fields'][$name],
+                $fields[$name],
             ];
         }
 
