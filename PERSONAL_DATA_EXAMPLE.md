@@ -142,7 +142,7 @@ class MemberWasRegistered implements DomainEvent {
 class SendMemberWelcomeEmail implements Listener {
     public function handle(DomainEvent $event): void {
         if ($event instanceof MemberWasRegistered) {
-            $registration = (MemberWasRegistered) $event;
+            $registration = $event;
             if ($registration->email->wasErased()) {
                 return;
             }

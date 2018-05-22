@@ -6,14 +6,14 @@ The Event Sourcing / CQRS framework whose core principle is keeping it simple.
 
 The core values / concepts are:
 
-1. Do away with the moving pieces that developersThe library aims to reduce the amount of moving pieces that developers need to write / test.
-2. Ideally we use idiomatic expression, but we don't shy away from a bit of magic to accomplish our goals.
-3. We are putting a lot of the heavy weight onto the value objects. These objects know how to serialize / deserialize themselves. This is done to prevent every single command / domain event from having serialization code that must be written and tested, when the values can be written / tested once. 
-4. We support 'personal data' value objects that store data outside of the event store. The event store contains a key that refers to a datum. The datum is stored in a separate store. This is entirely optional but enables compliance with GDPR (right to erasure). It just so happens that there are some messy parts when it comes to working with 'erased' values that we haven't resolved through design yet. Please feel free to contribute ideas if you think of something better. 
+1. Reduce the amount of moving pieces that developers need to write / test.
+2. Implement with simple idiomatic code that can easily be analyzed by your favorite IDE. 
+3. No custom event serialization. Push any serialization to value objects so that you implement and test serialiation once and not with every event you create. 
+4. Optional personal data value objects store into a separate data store. The event stays within the typical event store. Easily remove all personal data for an individual who invokes the 'right to erasure'.  
 
 Examples of working with personal data can be found in [PERSONAL_DATA_EXAMPLE.md](https://github.com/event-sourcery/event-sourcery/blob/master/PERSONAL_DATA_EXAMPLE.md).
 
-This framework is highly volatile and will change rapidly.
+This library is highly volatile and will change rapidly. It's being implemented into multiple production projects and will stabilize more soon.
 
 # Todo List #
 
@@ -275,8 +275,6 @@ Event listeners are any kind of component that react to newly dispatched events.
 
 Behaviors like aggregate event replay do not trigger event listeners because these events were already delivered to listeners once when they were first stored. Listeners won't receive the same event more than once.
 
-Example use cases for e
-
 ## Process Managers ##
 
 Process managers are considered a special type of event listener because they have the potential to directly mutate the state of the system through raising events or executing commands that result in new events.
@@ -332,9 +330,11 @@ These tips can help ensure that this is the case:
 
 Implementations of the stores will be provided as drivers. 
 
-[Laravel Driver](https://github.com/event-sourcery/laravel-event-sourcery-driver) 
+* [Laravel Driver](https://github.com/event-sourcery/laravel-event-sourcery-driver)
+* Symfony Driver
+* Stand-alone Driver  
 
-If you're using the Laravel framework then install the Laravel driver instead of the event-sourcery base package. 
+When using a driver, composer require the driver rather than this package. 
 
 ### Encryption Keys ###
 
