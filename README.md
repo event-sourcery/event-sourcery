@@ -4,6 +4,12 @@ The Event Sourcing / CQRS framework whose core principle is keeping it simple.
 
 **Library is under conceptual development. Do not use.**
 
+This library is highly volatile and will change rapidly. It's being implemented into multiple production projects and will stabilize more soon.
+
+Much of the implementation has been spiked and some of it is even untested. By release 1.0 the entire thing will be re-cut with lessons learned from using it in its current form.
+
+# Values #
+
 The core values / concepts are:
 
 1. Reduce the amount of moving pieces that developers need to write / test.
@@ -12,8 +18,6 @@ The core values / concepts are:
 4. Optional personal data value objects store into a separate data store. The event stays within the typical event store. Easily remove all personal data for an individual who invokes the 'right to erasure'.  
 
 Examples of working with personal data can be found in [PERSONAL_DATA_EXAMPLE.md](https://github.com/event-sourcery/event-sourcery/blob/master/PERSONAL_DATA_EXAMPLE.md).
-
-This library is highly volatile and will change rapidly. It's being implemented into multiple production projects and will stabilize more soon.
 
 # Todo List #
 
