@@ -1,6 +1,12 @@
 <?php namespace EventSourcery\EventSourcery\Serialization;
 
+use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataKey;
+use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
+use EventSourcery\EventSourcery\PersonalData\PersonalKey;
+use EventSourcery\EventSourcery\PersonalData\SerializablePersonalDataValue;
+use EventSourcery\Laravel\LaravelPersonalDataStore;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
@@ -11,32 +17,41 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
     private $eventClasses;
     /** @var ValueSerializer */
     private $valueSerializer;
+    /** @var LaravelPersonalDataStore */
+    private $personalDataStore;
 
-    public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer) {
-        $this->eventClasses    = $eventClasses;
+    public function __construct(DomainEventClassMap $eventClasses, ValueSerializer $valueSerializer, PersonalDataStore $personalDataStore) {
+        $this->eventClasses = $eventClasses;
         $this->valueSerializer = $valueSerializer;
+        $this->personalDataStore = $personalDataStore;
     }
 
     // change to use new reflection based serializer
-    public function serialize(DomainEvent $event): array {
+    public function serialize(DomainEvent $event): string {
         $reflect = new ReflectionObject($event);
-        $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
+        $props = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
 
-        return [
+        return json_encode([
             'eventName' => $this->eventNameForClass(get_class($event)),
-            'fields'    => array_map(function (ReflectionProperty $prop) {
-                /** @var ReflectionProperty $prop */
-                $prop->setAccessible(true);
-                $serialized['fields'][$prop->getName()] = $this->valueSerializer->serialize($prop->getValue());
-            }, $props),
-        ];
+            'fields'    => $this->serializeFields($props, $event),
+        ]);
+    }
+
+    private function serializeFields($props, $event) {
+        array_map(function (ReflectionProperty $prop) use (&$fields, $event) {
+            /** @var ReflectionProperty $prop */
+            $prop->setAccessible(true);
+            $fields[$prop->getName()] = $this->valueSerializer->serialize($prop->getValue($event));
+        }, $props);
+
+        return $fields;
     }
 
     public function deserialize(array $serialized): DomainEvent {
         $className = $this->classNameForEvent($serialized['eventName']);
 
         $reflect = new ReflectionClass($className);
-        $const   = $reflect->getConstructor();
+        $const = $reflect->getConstructor();
 
         // reflect on constructor to get name / type
         $constParams = [];
@@ -49,46 +64,58 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
         // get the values for the constructor fields from the serialized event
         $constParamValues = [];
-
         foreach ($constParams as $constParam) {
             list($type, $name) = $constParam;
-
-            if ( ! isset($serialized['fields'][$name])) {
+            $fields = (array) $serialized['fields'];
+            if ( ! isset($fields[$name])) {
                 throw new \Exception("Cannot find serialized field {$name}.");
             }
-
             $constParamValues[] = [
-                $type, $name, $serialized['fields'][$name],
+                $type,
+                $name,
+                $fields[$name],
             ];
         }
 
         // reconstruct the serialized values into the correct type
-        $finishedConstructorValues = [];
-
-        foreach ($constParamValues as $constParamValue) {
+       return new $className(...array_map(function ($constParamValue) {
             list($type, $name, $value) = $constParamValue;
-
             switch ($type) {
                 case 'string':
+                    return (string) $value;
+                    break;
                 case 'int':
+                    return (int) $value;
+                    break;
                 case 'bool':
-                    $finishedConstructorValues[] = $value;
+                    return (bool) $value;
                     break;
                 default:
-                    $finishedConstructorValues[] = $type::fromString($value);
-//                    throw new \Exception("Could not deserialize type {$type}");
+                    if ($this->isPersonalData($type)) {
+                        $values = json_decode($value, true);
+                        $po = $this->personalDataStore->retrieveData(
+                            PersonalKey::fromString($values['personalKey']),
+                            PersonalDataKey::fromString($values['dataKey'])
+                        );
+                        return $type::deserialize($po->toString());
+                    } else {
+                        return $type::deserialize($value);
+                    }
             };
-        }
-
-        // construct
-        return new $className(...$finishedConstructorValues);
+        }, $constParamValues));
     }
 
-    private function classNameForEvent($eventName): string {
+    public function classNameForEvent(string $eventName): string {
         return $this->eventClasses->classNameForEvent($eventName);
     }
 
-    private function eventNameForClass(string $className): string {
+    public function eventNameForClass(string $className): string {
         return $this->eventClasses->eventNameForClass($className);
+    }
+
+    private function isPersonalData($type) {
+        $reflect = new ReflectionClass($type);
+
+        return $reflect->implementsInterface(SerializablePersonalDataValue::class);
     }
 }
