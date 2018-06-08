@@ -14,7 +14,7 @@ Much of the implementation has been spiked and some of it is even untested. By r
 * [Todo List](#todo-list)
 * [Installation](#installation)
 * [Components](#components)
-    * [Values](#value-1)
+    * [Values](#values-1)
         * [Serializable Value](#serializable-value)
         * [Serializable Personal Data Value](#serializable-personal-data-value)
         * [Serializable Personal Data Value](#serializable-personal-data-value)
