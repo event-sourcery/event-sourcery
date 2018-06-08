@@ -10,7 +10,7 @@ Much of the implementation has been spiked and some of it is even untested. By r
 
 # Table of Contents
 
-* [Core Values / Concepts](#values)
+* [Core Values / Concepts (don't skip this)](#values)
 * [Todo List](#todo-list)
 * [Installation](#installation)
 * [Components](#components)
