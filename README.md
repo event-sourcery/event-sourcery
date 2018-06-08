@@ -8,6 +8,35 @@ This library is highly volatile and will change rapidly. It's being implemented 
 
 Much of the implementation has been spiked and some of it is even untested. By release 1.0 the entire thing will be re-cut with lessons learned from using it in its current form.
 
+# Table of Contents
+
+* [Core Values / Concepts](#values)
+* [Todo List](#todo-list)
+* [Installation](#installation)
+* [Components](#components)
+    * [Values](#value-1)
+        * [Serializable Value](#serializable-value)
+        * [Serializable Personal Data Value](#serializable-personal-data-value)
+        * [Serializable Personal Data Value](#serializable-personal-data-value)
+    * [Entities](#entities)
+        * [Entity IDs](#entity-ids)
+    * [Aggregates](#aggregates)
+    * [Domain Events](#domain-events)
+        * [Serialization](#serialization)
+    * [Commands](#commands)
+    * [Event Store](#event-store)
+    * [Event Dispatching and Listeners](#event-dispatching-and-listeners)
+    * [Process Managers / Sagas](#process-managers)
+    * [Projections](#projections)
+* [Personal Data Security](#personal-data-security)
+    * [Personal Keys](#personal-keys)
+    * [Personal Data Store](#personal-data-store)
+    * [Personal Cryptography Store](#personal-cryptography-store)
+    * [Best Practices for Personal Data and Encryption Key Stores](#best-practices-for-personal-data-and-encryption-key-stores)
+    * [Driver Implementations](#driver-implementations)
+        * [Encryption Keys](#encryption-keys)
+* [Notes](#notes)
+
 # Values #
 
 The core values / concepts are:
