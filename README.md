@@ -17,7 +17,6 @@ Much of the implementation has been spiked and some of it is even untested. By r
     * [Values](#values-1)
         * [Serializable Value](#serializable-value)
         * [Serializable Personal Data Value](#serializable-personal-data-value)
-        * [Serializable Personal Data Value](#serializable-personal-data-value)
     * [Entities](#entities)
         * [Entity IDs](#entity-ids)
     * [Aggregates](#aggregates)
