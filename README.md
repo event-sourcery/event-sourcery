@@ -67,7 +67,7 @@ Examples of working with personal data can be found in [PERSONAL_DATA_EXAMPLE.md
 
 ## Laravel ##
 
-[Laravel driver](https://github.com/event-sourcery/laravel-event-sourcery-driver)
+The [Laravel driver](https://github.com/event-sourcery/laravel-event-sourcery-driver) can be found here.
 
 ## Symfony ##
 
