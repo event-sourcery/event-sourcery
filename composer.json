@@ -1,10 +1,12 @@
 {
   "name": "event-sourcery/event-sourcery",
-  "description": "Event Sourcery PHP Event Sourcing CQRS Library",
+  "description": "A Minimalistic PHP Event Sourcing / CQRS Library with GDPR Support",
   "keywords": [
+    "event sourcery",
     "event sourcing",
     "cqrs",
     "domain event",
+    "gdpr",
     "reactive"
   ],
   "authors": [
