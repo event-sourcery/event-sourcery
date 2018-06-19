@@ -3,6 +3,7 @@
 class LibSodiumEncryption implements PersonalDataEncryption {
 
     function generateCryptographicDetails(): CryptographicDetails {
+
         return new CryptographicDetails([
             'encryption' => 'libsodium',
             'secretKey'  => sodium_crypto_secretbox_keygen(),
