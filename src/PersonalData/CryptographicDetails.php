@@ -13,11 +13,11 @@ class CryptographicDetails implements SerializableValue {
      * the name of the encryption type used
      * @var string
      */
-    private $type;
+    private $encryption;
 
-    public function __construct(string $type, array $details) {
-        $this->type = $type;
-        $this->details = $details;
+    public function __construct(string $encryption, array $details) {
+        $this->encryption = $encryption;
+        $this->details    = $details;
     }
 
     /**
@@ -25,8 +25,8 @@ class CryptographicDetails implements SerializableValue {
      *
      * @return string
      */
-    public function type(): string {
-        return $this->type;
+    public function encryption(): string {
+        return $this->encryption;
     }
 
     /**
@@ -45,14 +45,14 @@ class CryptographicDetails implements SerializableValue {
 
     // serialization methods
     public function serialize(): string {
-        return json_encode($this->details + ['type' => $this->type]);
+        return json_encode($this->details + ['encryption' => $this->encryption]);
     }
 
     public static function deserialize(string $string) {
         $data = (array) json_decode($string);
-        $type = $data['type'];
-        unset($data['type']);
+        $encryption = $data['encryption'];
+        unset($data['encryption']);
 
-        return new static($type, $data);
+        return new static($encryption, $data);
     }
 }

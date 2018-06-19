@@ -18,7 +18,7 @@ class CryptographicDetailsSpec extends ObjectBehavior {
         $details = new CryptographicDetails('encryptionType', ['key1' => 'val']);
         $serialized = $details->serialize();
         $crypto = CryptographicDetails::deserialize($serialized);
-        expect($crypto)->type()->toBe('encryptionType');
+        expect($crypto)->encryption()->toBe('encryptionType');
         expect($crypto)->key('key1')->toBe('val');
     }
 }

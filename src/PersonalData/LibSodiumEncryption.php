@@ -12,8 +12,8 @@ class LibSodiumEncryption implements PersonalDataEncryption {
 
     function encrypt(PersonalData $data, CryptographicDetails $crypto): EncryptedPersonalData {
 
-        if ( ! $crypto->type() == 'libsodium') {
-            throw new CryptographicDetailsNotCompatibleWithEncryption("{$crypto->type()} received, expected 'libsodium'");
+        if ( ! $crypto->encryption() == 'libsodium') {
+            throw new CryptographicDetailsNotCompatibleWithEncryption("{$crypto->encryption()} received, expected 'libsodium'");
         }
 
         $data      = $data->toString();
@@ -27,8 +27,8 @@ class LibSodiumEncryption implements PersonalDataEncryption {
 
     function decrypt(EncryptedPersonalData $data, CryptographicDetails $crypto): PersonalData {
 
-        if ( ! $crypto->type() == 'libsodium') {
-            throw new CryptographicDetailsNotCompatibleWithEncryption("{$crypto->type()} received, expected 'libsodium'");
+        if ( ! $crypto->encryption() == 'libsodium') {
+            throw new CryptographicDetailsNotCompatibleWithEncryption("{$crypto->encryption()} received, expected 'libsodium'");
         }
 
         $encrypted = $data->toString();
