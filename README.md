@@ -21,11 +21,10 @@ Examples of working with personal data can be found in [PERSONAL_DATA_EXAMPLE.md
 
 # Todo List #
 
-1. Switch to libsodium / better encryption model
-2. All commands are logged.
-3. Commands / events get unique IDs.
-4. All the other stuff
-5. Key management systems?
+1. all commands are logged
+2. commands / events get unique ids
+3. all the other stuff
+4. enterprise key management
 
 # Installation #
 
