@@ -1,3 +1,3 @@
 <?php namespace EventSourcery\EventSourcery\PersonalData;
 
-class CouldNotRetrievePersonalData extends \Exception {}
+class PersonalDataKeyCouldNotBeFound extends \Exception {}
