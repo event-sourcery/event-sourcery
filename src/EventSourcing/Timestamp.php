@@ -1,6 +1,6 @@
 <?php namespace EventSourcery\EventSourcery\EventSourcing;
 
-class Timestamp  {
+class Timestamp {
 
     /** @var \DateTimeImmutable */
     private $dateTime;

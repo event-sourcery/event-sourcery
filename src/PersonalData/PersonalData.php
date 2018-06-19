@@ -14,7 +14,7 @@ class PersonalData implements SerializableValue {
         return new static($string);
     }
 
-    public function __construct(string $data) {
+    private function __construct(string $data) {
         $this->data = $data;
     }
 
