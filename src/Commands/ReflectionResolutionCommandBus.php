@@ -12,7 +12,7 @@ class ReflectionResolutionCommandBus implements CommandBus {
         $this->container = $container;
     }
 
-    public function execute(Command $command) {
+    public function execute(Command $command): void {
         $command->execute(...$this->instantiateParameters($command));
     }
 

@@ -10,7 +10,7 @@ class PersonalDataStoreStub implements PersonalDataStore {
 
     public $dataKeyData = [];
 
-    function storeData(PersonalKey $personalKey, PersonalDataKey $dataKey, PersonalData $data) {
+    function storeData(PersonalKey $personalKey, PersonalDataKey $dataKey, PersonalData $data): void {
         $this->dataKeyData[$dataKey->toString()] = new StoredPersonalDataStub($personalKey, $data);
     }
 
@@ -21,7 +21,7 @@ class PersonalDataStoreStub implements PersonalDataStore {
         return $this->dataKeyData[$dataKey->toString()]->personalData;
     }
 
-    function removeDataFor(PersonalKey $personalKey) {
+    function removeDataFor(PersonalKey $personalKey): void {
         $this->dataKeyData = array_filter($this->dataKeyData, function(StoredPersonalDataStub $stored) use ($personalKey) {
             return $stored->personalKey->equals($personalKey);
         });

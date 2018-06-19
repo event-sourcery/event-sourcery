@@ -45,10 +45,14 @@ class CryptographicDetails implements SerializableValue {
 
     // serialization methods
     public function serialize(): string {
-        return json_encode($this->details);
+        return json_encode($this->details + ['type' => $this->type]);
     }
 
     public static function deserialize(string $string) {
-        return new static($string);
+        $data = (array) json_decode($string);
+        $type = $data['type'];
+        unset($data['type']);
+
+        return new static($type, $data);
     }
 }
