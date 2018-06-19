@@ -1,5 +1,11 @@
 <?php namespace EventSourcery\EventSourcery\Commands;
 
 interface CommandBus {
-    public function execute(Command $command);
+
+    /**
+     * execute a command
+     *
+     * @param Command $command
+     */
+    public function execute(Command $command): void;
 }
