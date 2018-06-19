@@ -13,12 +13,12 @@ interface DomainEventSerializer {
     function serialize(DomainEvent $event): string;
 
     /**
-     * deserialize a domain event from a string
+     * deserialize a domain event from a stdclass object
      *
-     * @param array $serialized
+     * @param \stdClass $serialized
      * @return DomainEvent
      */
-    function deserialize(array $serialized): DomainEvent;
+    function deserialize(\stdClass $serialized): DomainEvent;
 
     /**
      * get the event name for an event represented by a specific class
