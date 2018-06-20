@@ -55,7 +55,13 @@ class CryptographicDetails implements SerializableValue {
      * @return string
      */
     public function serialize(): string {
-        return json_encode($this->details + ['encryption' => $this->encryption]);
+        // base 64 encode
+        $details = array_map(function($value) {
+            return base64_encode($value);
+        }, $this->details);
+
+        // enrich with encryption type
+        return json_encode($details + ['encryption' => $this->encryption]);
     }
 
     /**
@@ -67,15 +73,22 @@ class CryptographicDetails implements SerializableValue {
      * @throws CannotDeserializeCryptographicDetails
      */
     public static function deserialize(string $string): CryptographicDetails {
+        // json string to array
         $data = (array) json_decode($string);
 
         if ( ! isset($data['encryption'])) {
             throw new CannotDeserializeCryptographicDetails('Encryption type could not be identified from serialized form.');
         }
 
+        // pull out the encryption key
         $encryption = $data['encryption'];
         unset($data['encryption']);
 
-        return new static($encryption, $data);
+        // base64 decode
+        $details = array_map(function($value) {
+            return base64_decode($value);
+        }, $data);
+
+        return new static($encryption, $details);
     }
 }
