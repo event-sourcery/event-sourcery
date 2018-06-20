@@ -48,13 +48,31 @@ class CryptographicDetails implements SerializableValue {
         return $this->details[$name];
     }
 
-    // serialization methods
+    /**
+     * serialize() returns a string form of the value for persistence
+     * which will be deserialized when needed
+     *
+     * @return string
+     */
     public function serialize(): string {
         return json_encode($this->details + ['encryption' => $this->encryption]);
     }
 
-    public static function deserialize(string $string) {
+    /**
+     * deserialize() returns a value object from a string received
+     * from persistence
+     *
+     * @param string $string
+     * @return mixed
+     * @throws CannotDeserializeCryptographicDetails
+     */
+    public static function deserialize(string $string): CryptographicDetails {
         $data = (array) json_decode($string);
+
+        if ( ! isset($data['encryption'])) {
+            throw new CannotDeserializeCryptographicDetails('Encryption type could not be identified from serialized form.');
+        }
+
         $encryption = $data['encryption'];
         unset($data['encryption']);
 
