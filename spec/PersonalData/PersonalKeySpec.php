@@ -6,14 +6,16 @@ use PhpSpec\ObjectBehavior;
 
 class PersonalKeySpec extends ObjectBehavior {
 
-    function it_can_be_serialized() {
-        $this->beConstructedThrough('fromString', ['key123']);
+    function let() {
+        $this->beConstructedThrough('fromString', ['a person']);
+    }
 
+    function it_can_be_serialized() {
         $serialized = $this->serialize();
-        $serialized->shouldBe('key123');
+        $serialized->shouldBe('a person');
 
         $deserialized = PersonalKey::deserialize($serialized->getWrappedObject());
-        expect($deserialized->toString())->shouldBe('key123');
+        expect($deserialized->toString())->shouldBe('a person');
     }
 
     function it_can_be_built_from_strings() {

@@ -2,6 +2,13 @@
 
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 
+/**
+ * A DomainEventSerializer turns a DomainEvent into a
+ * form that can be used with string-based persistence mechanisms
+ *
+ * Interface DomainEventSerializer
+ * @package EventSourcery\EventSourcery\Serialization
+ */
 interface DomainEventSerializer {
 
     /**

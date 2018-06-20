@@ -1,49 +1,47 @@
 <?php namespace EventSourcery\EventSourcery\EventSourcing;
 
-abstract class Aggregate {
+/**
+ * An aggregate is an immediately consistent transactional barrier
+ * that allows raising of events that must conform to invariants.
+ *
+ * In clearer terms, you might use an aggregate when an event must
+ * be raised that requires state from previous events in order to
+ * make some kind of business rule validation check.
+ *
+ * Interface Aggregate
+ * @package EventSourcery\EventSourcery\EventSourcing
+ */
+interface Aggregate {
 
-    private $streamEvents;
-    private $version;
+    /**
+     * returns the Id of the aggregate
+     *
+     * @return StreamId
+     */
+    function aggregateId(): StreamId;
 
-    protected function __construct() {
-        $this->streamEvents = StreamEvents::make();
-        $this->version = StreamVersion::zero();
-    }
+    /**
+     * return the version of the aggregate
+     *
+     * @return StreamVersion
+     */
+    function aggregateVersion() : StreamVersion;
 
-    protected function raise(DomainEvent $event) : void {
-        $this->apply($event);
-        $this->streamEvents = $this->streamEvents->add(
-            new StreamEvent($this->id(), $this->aggregateVersion(), $event)
-        );
-    }
+    /**
+     * returns and clears the internal pending stream events.
+     * this DOES violate CQS, however it's important not to
+     * retrieve or store these events multiple times. pass these
+     * directly into the event store.
+     *
+     * @return StreamEvents
+     */
+    function flushEvents(): StreamEvents;
 
-    abstract public function id() : Id;
-
-    public function flushEvents() : StreamEvents {
-        $events = $this->streamEvents->copy();
-        $this->streamEvents = StreamEvents::make();
-        return $events;
-    }
-
-    public static function buildFrom(DomainEvents $events) : Aggregate {
-        $aggregate = new static;
-        $events->each(function (DomainEvent $event) use ($aggregate) {
-            $aggregate->apply($event);
-        });
-        return $aggregate;
-    }
-
-    public function aggregateVersion() : StreamVersion {
-        return $this->version;
-    }
-
-    protected function apply(DomainEvent $event) : void {
-        // project event application
-        $eventName = explode('\\', get_class($event));
-        $method = 'apply' . $eventName[count($eventName) - 1];
-        $this->$method($event);
-
-        // increment version
-        $this->version = $this->version->next();
-    }
+    /**
+     * reconstruct the aggregate state from domain events
+     *
+     * @param DomainEvents $events
+     * @return Aggregate
+     */
+    static function buildFrom(DomainEvents $events): Aggregate;
 }

@@ -5,10 +5,10 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use EventSourcery\EventSourcery\EventSourcing\StreamVersion;
 
-class AggregateSpec extends ObjectBehavior {
+class MagicAggregateSpec extends ObjectBehavior {
 
     function let() {
-        $this->beAnInstanceOf(TestAggregate::class);
+        $this->beAnInstanceOf(TestMagicAggregate::class);
         $this->beConstructedThrough('create');
     }
 

@@ -1,6 +1,5 @@
-<?php namespace spec\EventSourcery\EventSourcery\Queries;
+<?php namespace spec\EventSourcery\EventSourcery\StreamProcessing;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ProjectionsSpec extends ObjectBehavior {
 

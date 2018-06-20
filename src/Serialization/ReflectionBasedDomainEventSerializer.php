@@ -10,6 +10,14 @@ use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
 
+/**
+ * The ReflectionBasedDomainEventSerializer is a default (yet optional)
+ * implementation of DomainEventSerializer which uses reflection to
+ * automatically serialize value objects and thus the entire DomainEvent.
+ *
+ * All value objects must implement either SerializableValue or
+ * SerializablePersonalDataValue.
+ */
 class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
     /** @var DomainEventClassMap */
@@ -25,7 +33,12 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         $this->personalDataStore = $personalDataStore;
     }
 
-    // change to use new reflection based serializer
+    /**
+     * serialize a domain event into event sourcery library
+     * storage conventions
+     * @param DomainEvent $event
+     * @return string
+     */
     public function serialize(DomainEvent $event): string {
         $reflect = new ReflectionObject($event);
         $props = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
@@ -36,6 +49,13 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         ]);
     }
 
+    /**
+     * Serialize the fields of a domain event into a key => value hash
+     *
+     * @param $props
+     * @param $event
+     * @return mixed
+     */
     private function serializeFields($props, $event) {
         array_map(function (ReflectionProperty $prop) use (&$fields, $event) {
             /** @var ReflectionProperty $prop */
@@ -46,6 +66,14 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         return $fields;
     }
 
+    /**
+     * deserialize a domain event from event sourcery library
+     * storage conventions
+     *
+     * @param \stdClass $serialized
+     * @return DomainEvent
+     * @throws \ReflectionException
+     */
     public function deserialize(\stdClass $serialized): DomainEvent {
         $className = $this->classNameForEvent($serialized->eventName);
 
@@ -104,17 +132,38 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         }, $constParamValues));
     }
 
+    /**
+     * return the fully qualified class name for the domain event
+     * mapped to the string name provided
+     *
+     * @param string $eventName
+     * @return string
+     */
     public function classNameForEvent(string $eventName): string {
         return $this->eventClasses->classNameForEvent($eventName);
     }
 
+    /**
+     * return the string representation of an event name based on
+     * the provided fully qualified class name
+     *
+     * @param string $className
+     * @return string
+     */
     public function eventNameForClass(string $className): string {
         return $this->eventClasses->eventNameForClass($className);
     }
 
+    /**
+     * returns true if the provided class name implements the
+     * SerializablePersonalDataValue interface
+     *
+     * @param $type
+     * @return bool
+     * @throws \ReflectionException
+     */
     private function isPersonalData($type) {
         $reflect = new ReflectionClass($type);
-
         return $reflect->implementsInterface(SerializablePersonalDataValue::class);
     }
 }

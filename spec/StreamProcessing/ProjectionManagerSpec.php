@@ -1,10 +1,8 @@
-<?php namespace spec\EventSourcery\EventSourcery\Queries;
+<?php namespace spec\EventSourcery\EventSourcery\StreamProcessing;
 
-use function EventSourcery\EventSourcery\PhpSpec\expect;
-use EventSourcery\EventSourcery\Queries\Projections;
-use EventSourcery\EventSourcery\Queries\ProjectionManager;
+use EventSourcery\EventSourcery\StreamProcessing\Projections;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use function EventSourcery\EventSourcery\PhpSpec\expect;
 
 class ProjectionManagerSpec extends ObjectBehavior {
 
@@ -26,7 +24,7 @@ class ProjectionManagerSpec extends ObjectBehavior {
     }
 
     function it_can_list_projections() {
-        $this->list()->shouldContain($this->projection->name());
+        $this->listNames()->shouldContain($this->projection->name());
     }
 
     function it_can_reset_all_projections() {

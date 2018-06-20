@@ -2,6 +2,14 @@
 
 use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
 
+/**
+ * An EventDispatcher is first loaded with listeners. Then
+ * once the dispatch() method receives a collection of
+ * DomainEvents, each event is handed of to each listener.
+ *
+ * Interface EventDispatcher
+ * @package EventSourcery\EventSourcery\EventDispatch
+ */
 interface EventDispatcher {
 
     /**

@@ -1,8 +1,8 @@
-<?php namespace spec\EventSourcery\EventSourcery\Queries;
+<?php namespace spec\EventSourcery\EventSourcery\StreamProcessing;
 
 
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
-use EventSourcery\EventSourcery\Queries\Projection;
+use EventSourcery\EventSourcery\StreamProcessing\Projection;
 
 class ProjectionStub implements Projection {
 

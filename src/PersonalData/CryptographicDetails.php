@@ -2,6 +2,11 @@
 
 use EventSourcery\EventSourcery\Serialization\SerializableValue;
 
+/**
+ * CryptographicDetails is the value object that contains the
+ * necessary details to encrypt and decrypt personal data for
+ * a single person.
+ */
 class CryptographicDetails implements SerializableValue {
 
     /**

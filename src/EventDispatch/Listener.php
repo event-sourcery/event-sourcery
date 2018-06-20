@@ -2,6 +2,15 @@
 
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 
+/**
+ * A listener is an object that is notified when domain events
+ * are raised and persisted. Listener implementations include
+ * any type of object that responds to events in any way,
+ * including process managers and projections.
+ *
+ * Interface Listener
+ * @package EventSourcery\EventSourcery\EventDispatch
+ */
 interface Listener {
 
     /**

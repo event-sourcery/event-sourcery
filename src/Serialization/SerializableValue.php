@@ -1,5 +1,15 @@
 <?php namespace EventSourcery\EventSourcery\Serialization;
 
+/**
+ * The SerializableValue is implemented in value objects that
+ * appear within Commands or DomainEvents.
+ *
+ * When these Commands or DomainEvents are serialized into
+ * storage, these methods will be called to do the work.
+ *
+ * Interface SerializableValue
+ * @package EventSourcery\EventSourcery\Serialization
+ */
 interface SerializableValue {
 
     /**

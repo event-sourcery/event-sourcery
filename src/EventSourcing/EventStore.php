@@ -1,5 +1,12 @@
 <?php namespace EventSourcery\EventSourcery\EventSourcing;
 
+/**
+ * An EventStore is the storage mechanism into which
+ * domain events are serialized and from which are deserialized.
+ *
+ * Interface EventStore
+ * @package EventSourcery\EventSourcery\EventSourcing
+ */
 interface EventStore {
 
     /**

@@ -6,6 +6,15 @@ use EventSourcery\EventSourcery\PersonalData\PersonalDataStore;
 use EventSourcery\EventSourcery\PersonalData\PersonalKey;
 use EventSourcery\EventSourcery\PersonalData\SerializablePersonalDataValue;
 
+/**
+ * The ValueSerializer is used for the ReflectionBasedDomainEventSerializer,
+ * a default (yet optional) implementation of DomainEventSerializer.
+ *
+ * ValueSerializer's job is to serialize and deserialize value objects.
+ *
+ * SerializablePersonalDataValues require interaction with the PersonalDataStore
+ * and the Personal Cryptographic Store.
+ */
 class ValueSerializer {
 
     /** @var PersonalDataStore */
@@ -15,6 +24,12 @@ class ValueSerializer {
         $this->dataStore = $dataStore;
     }
 
+    /**
+     * serialize a value object into its string-based persistence form
+     *
+     * @param $value
+     * @return string
+     */
     public function serialize($value) {
         if ($value instanceof SerializablePersonalDataValue) {
             return $this->serializePersonalDataValue($value);
@@ -24,10 +39,22 @@ class ValueSerializer {
         return $value;
     }
 
+    /**
+     * serialize a value that implements SerializableValue
+     *
+     * @param SerializableValue $value
+     * @return string
+     */
     private function serializeValue(SerializableValue $value): string {
         return $value->serialize();
     }
 
+    /**
+     * serialize a value that contains personal data
+     *
+     * @param SerializablePersonalDataValue $value
+     * @return string
+     */
     private function serializePersonalDataValue(SerializablePersonalDataValue $value): string {
         $dataKey = PersonalDataKey::generate();
 
@@ -39,10 +66,13 @@ class ValueSerializer {
         ]);
     }
 
-    public function deserializeValue(string $json) {
-        
-    }
-
+    /**
+     * deserialize a value that contains personal data
+     *
+     * @param string $type
+     * @param string $json
+     * @return SerializablePersonalDataValue
+     */
     public function deserializePersonalValue(string $type, string $json): SerializablePersonalDataValue {
         $values = json_decode($json);
 

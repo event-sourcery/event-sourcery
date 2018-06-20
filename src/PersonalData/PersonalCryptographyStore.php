@@ -1,5 +1,13 @@
 <?php namespace EventSourcery\EventSourcery\PersonalData;
 
+/**
+ * A PersonalCryptographyStore is the storage mechanism that holds
+ * the cryptographic details for individuals (identified by
+ * PersonalKey).
+ *
+ * Interface PersonalCryptographyStore
+ * @package EventSourcery\EventSourcery\PersonalData
+ */
 interface PersonalCryptographyStore {
 
     /**

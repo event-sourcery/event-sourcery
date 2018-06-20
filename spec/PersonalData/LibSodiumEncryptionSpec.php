@@ -20,9 +20,11 @@ class LibSodiumEncryptionSpec extends ObjectBehavior {
     function it_can_generate_new_encryption_keys() {
         $crypto = $this->generateCryptographicDetails();
         $crypto->shouldHaveType(CryptographicDetails::class);
+
         $crypto->encryption()->shouldBe('libsodium');
 
         $crypto->shouldNotThrow(CryptographicDetailsDoNotContainKey::class)->during('key', ['secretKey']);
+        $crypto->shouldNotThrow(CryptographicDetailsDoNotContainKey::class)->during('key', ['nonce']);
     }
 
     function it_can_encrypt_strings() {

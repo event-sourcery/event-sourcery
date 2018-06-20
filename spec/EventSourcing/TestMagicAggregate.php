@@ -1,11 +1,10 @@
 <?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use EventSourcery\EventSourcery\EventSourcing\Aggregate;
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
-use EventSourcery\EventSourcery\EventSourcing\Id;
+use EventSourcery\EventSourcery\EventSourcing\MagicAggregate;
 use EventSourcery\EventSourcery\EventSourcing\StreamId;
 
-class TestAggregate extends Aggregate {
+class TestMagicAggregate extends MagicAggregate {
 
     // this value in incremented by events
     private $number = 0;
@@ -14,7 +13,7 @@ class TestAggregate extends Aggregate {
         return new static;
     }
 
-    public function appliedEventCount() : int {
+    public function appliedEventCount(): int {
         return $this->number;
     }
 
@@ -23,7 +22,7 @@ class TestAggregate extends Aggregate {
     }
 
     // returns an arbitrary Id
-    public function id() : Id {
+    public function aggregateId(): StreamId {
         return StreamId::fromString("id");
     }
 

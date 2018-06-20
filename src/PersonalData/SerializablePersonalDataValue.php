@@ -2,10 +2,18 @@
 
 use EventSourcery\EventSourcery\Serialization\SerializableValue;
 
+/**
+ * The SerializablePersonalDataValue interface is implemented
+ * by value objects that contain protected personal data.
+ *
+ * Interface SerializablePersonalDataValue
+ * @package EventSourcery\EventSourcery\PersonalData
+ */
 interface SerializablePersonalDataValue extends SerializableValue {
 
     /**
-     * the personal key is the identity of the person whom the personal data identifies
+     * the personal key is the identity of the person whom the
+     * personal data identifies
      *
      * @return PersonalKey
      */
@@ -19,7 +27,8 @@ interface SerializablePersonalDataValue extends SerializableValue {
     public function serialize(): string;
 
     /**
-     * deserialization function for reconstructing data from a string
+     * deserialization function for reconstructing data from
+     * a string
      * 
      * @param string $string
      */
