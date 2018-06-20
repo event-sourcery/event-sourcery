@@ -40,8 +40,8 @@ interface Aggregate {
     /**
      * reconstruct the aggregate state from domain events
      *
-     * @param DomainEvents $events
+     * @param StreamEvents $events
      * @return Aggregate
      */
-    static function buildFrom(DomainEvents $events): Aggregate;
+    static function buildFrom(StreamEvents $events): Aggregate;
 }

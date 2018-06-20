@@ -66,10 +66,10 @@ abstract class MagicAggregate implements Aggregate {
     /**
      * reconstruct the aggregate state from domain events
      *
-     * @param DomainEvents $events
+     * @param StreamEvents $events
      * @return Aggregate
      */
-    public static function buildFrom(DomainEvents $events): Aggregate {
+    public static function buildFrom(StreamEvents $events): Aggregate {
         $aggregate = new static;
         $events->each(function (DomainEvent $event) use ($aggregate) {
             $aggregate->apply($event);
