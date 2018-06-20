@@ -71,8 +71,11 @@ abstract class MagicAggregate implements Aggregate {
      */
     public static function buildFrom(StreamEvents $events): Aggregate {
         $aggregate = new static;
-        $events->each(function (DomainEvent $event) use ($aggregate) {
-            $aggregate->apply($event);
+        $events->each(function (StreamEvent $event) use ($aggregate) {
+            $aggregate->apply($event->event());
+            if ( ! $event->version()->equals($aggregate->aggregateVersion())) {
+                throw new UnexpectedAggregateVersionWhenBuildingFromEvents("When building from stream events aggregate {$aggregate->aggregateId()->toString()} expected version {$event->version()->toInt()} but got {$aggregate->aggregateVersion()->toInt()}.");
+            }
         });
         return $aggregate;
     }
