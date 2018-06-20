@@ -8,6 +8,38 @@ This library is highly volatile and will change rapidly. It's being implemented 
 
 Much of the implementation has been spiked and some of it is even untested. By release 1.0 the entire thing will be re-cut with lessons learned from using it in its current form.
 
+# Table of Contents
+
+* [Core Values / Concepts (don't skip this)](#values)
+* [Todo List](#todo-list)
+* [Installation](#installation)
+* [Framework Support](#framework-support)
+   * [Laravel](#laravel)
+   * [Symfony](#symfony)
+   * [Others?](#others)
+* [Components](#components)
+    * [Values](#values-1)
+        * [Serializable Value](#serializable-value)
+        * [Serializable Personal Data Value](#serializable-personal-data-value)
+    * [Entities](#entities)
+        * [Entity IDs](#entity-ids)
+    * [Aggregates](#aggregates)
+    * [Domain Events](#domain-events)
+        * [Serialization](#serialization)
+    * [Commands](#commands)
+    * [Event Store](#event-store)
+    * [Event Dispatching and Listeners](#event-dispatching-and-listeners)
+    * [Process Managers / Sagas](#process-managers)
+    * [Projections](#projections)
+* [Personal Data Security](#personal-data-security)
+    * [Personal Keys](#personal-keys)
+    * [Personal Data Store](#personal-data-store)
+    * [Personal Cryptography Store](#personal-cryptography-store)
+    * [Best Practices for Personal Data and Encryption Key Stores](#best-practices-for-personal-data-and-encryption-key-stores)
+    * [Driver Implementations](#driver-implementations)
+        * [Encryption Keys](#encryption-keys)
+* [Notes](#notes)
+
 # Values #
 
 The core values / concepts are:
@@ -29,6 +61,20 @@ Examples of working with personal data can be found in [PERSONAL_DATA_EXAMPLE.md
 # Installation #
 
 `composer require event-sourcery/event-sourcery`
+
+# Framework Support
+
+## Laravel ##
+
+The [Laravel driver](https://github.com/event-sourcery/laravel-event-sourcery-driver) can be found here.
+
+## Symfony ##
+
+Coming soon.
+
+## Others? ##
+
+Please [create an issue](https://github.com/event-sourcery/event-sourcery/issues) with the particular framework support request.
 
 # Components #
 
