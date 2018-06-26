@@ -12,6 +12,14 @@ use EventSourcery\EventSourcery\Serialization\SerializableValue;
 interface SerializablePersonalDataValue extends SerializableValue {
 
     /**
+     * the factory method to build this data from erased state
+     *
+     * @param PersonalKey $personalKey
+     * @return mixed
+     */
+    public static function fromErasedState(PersonalKey $personalKey);
+
+    /**
      * the personal key is the identity of the person whom the
      * personal data identifies
      *

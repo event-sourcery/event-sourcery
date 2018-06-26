@@ -7,6 +7,8 @@ class PersonalDataValueObjectStub implements SerializablePersonalDataValue {
 
     /** @var PersonalKey */
     private $personalKey;
+    /** @var bool */
+    private $erased = false;
     /** @var string */
     public $string1;
     /** @var int */
@@ -22,6 +24,18 @@ class PersonalDataValueObjectStub implements SerializablePersonalDataValue {
         $this->integer1 = $integer1;
         $this->string2 = $string2;
         $this->integer2 = $integer2;
+    }
+
+    /**
+     * the factory method to build this data from erased state
+     *
+     * @param PersonalKey $personalKey
+     * @return mixed
+     */
+    public static function fromErasedState(PersonalKey $personalKey) {
+        $value = new static($personalKey, '', 0, '', 0);
+        $value->erased = true;
+        return value;
     }
 
     public function serialize(): string {
