@@ -7,7 +7,7 @@
  */
 class DomainEventClassMap {
 
-    private $eventClasses;
+    private $eventClasses = [];
 
     /**
      * add a mapping from an 'event name' to a fully qualified

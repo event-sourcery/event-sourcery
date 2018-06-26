@@ -1,6 +1,7 @@
 <?php namespace spec\EventSourcery\EventSourcery\Commands;
 
 use EventSourcery\EventSourcery\Commands\Command;
+use EventSourcery\EventSourcery\EventSourcing\EventStore;
 
 class EmptyArgumentCommandStub implements Command {
 
@@ -12,7 +13,7 @@ class EmptyArgumentCommandStub implements Command {
         $this->b = $b;
     }
 
-    public function execute() {
+    public function execute(EventStore $store) {
 
     }
 }
