@@ -20,6 +20,15 @@ interface SerializablePersonalDataValue extends SerializableValue {
     public static function fromErasedState(PersonalKey $personalKey);
 
     /**
+     * the wasErased method returns true if built fromErasedState.
+     * due to the requirements for individual value objects, this must
+     * be implemented manually
+     *
+     * @return bool
+     */
+    public function wasErased(): bool;
+
+    /**
      * the personal key is the identity of the person whom the
      * personal data identifies
      *
