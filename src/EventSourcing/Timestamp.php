@@ -13,6 +13,17 @@ class Timestamp {
     }
 
     /**
+     * now() creates a new timestamp for the current moment based
+     * on the server's php datetime configuration
+     *
+     * @return Timestamp
+     * @throws \Exception
+     */
+    public static function now(): Timestamp {
+        return new static(new \DateTimeImmutable());
+    }
+
+    /**
      * construct a timestamp from string using the system timezone
      *
      * @param $timeString
