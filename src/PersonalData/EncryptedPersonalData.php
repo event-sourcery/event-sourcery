@@ -1,13 +1,11 @@
 <?php namespace EventSourcery\EventSourcery\PersonalData;
 
-use EventSourcery\EventSourcery\Serialization\SerializableValue;
-
 /**
  * EncryptedPersonalData is a value object for personal data that
  * has been encrypted. EncryptedPersonalData can be decrypted by
  * an encryption method. The decrypted data will be of type PersonalData.
  */
-class EncryptedPersonalData implements SerializableValue {
+class EncryptedPersonalData {
 
     private $data;
 
@@ -35,27 +33,25 @@ class EncryptedPersonalData implements SerializableValue {
     }
 
     /**
-     * serialize() returns an associated array form of the
+     * serialize() returns a string form of the
      * value for persistence which will be deserialized when needed.
      *
      * the array should contain primitives for both keys and values.
      *
-     * @return array
+     * @return string
      */
-    public function serialize(): array {
-        return [
-            'data' => $this->data
-        ];
+    public function serialize(): string {
+        return $this->data;
     }
 
     /**
      * deserialize() returns a value object from an associative array received
      * from persistence
      *
-     * @param array $data
+     * @param string $data
      * @return mixed
      */
-    public static function deserialize(array $data): EncryptedPersonalData {
-        return new static($data['data']);
+    public static function deserialize(string $data): EncryptedPersonalData {
+        return new static($data);
     }
 }
