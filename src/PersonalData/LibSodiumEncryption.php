@@ -16,8 +16,8 @@ class LibSodiumEncryption implements PersonalDataEncryption {
     function generateCryptographicDetails(): CryptographicDetails {
 
         return new CryptographicDetails('libsodium', [
-            'secretKey'  => sodium_crypto_secretbox_keygen(),
-            'nonce'      => random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES),
+            'secretKey' => sodium_crypto_secretbox_keygen(),
+            'nonce'     => random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES),
         ]);
     }
 
@@ -36,13 +36,13 @@ class LibSodiumEncryption implements PersonalDataEncryption {
             throw new CryptographicDetailsNotCompatibleWithEncryption("{$crypto->encryption()} received, expected 'libsodium'");
         }
 
-        $data      = $data->toString();
-        $secretKey = $crypto->key('secretKey');
-        $nonce     = $crypto->key('nonce');
+        $dataString = $data->toString();
+        $secretKey  = $crypto->key('secretKey');
+        $nonce      = $crypto->key('nonce');
 
-        $encrypted = sodium_crypto_secretbox($data, $nonce, $secretKey);
+        $encrypted = sodium_crypto_secretbox($dataString, $nonce, $secretKey);
 
-        return EncryptedPersonalData::deserialize($encrypted);
+        return EncryptedPersonalData::fromString($encrypted);
     }
 
     /**
@@ -66,6 +66,6 @@ class LibSodiumEncryption implements PersonalDataEncryption {
 
         $decrypted = sodium_crypto_secretbox_open($encrypted, $nonce, $secretKey);
 
-        return PersonalData::deserialize($decrypted);
+        return PersonalData::fromString($decrypted);
     }
 }

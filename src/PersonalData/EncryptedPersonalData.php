@@ -35,21 +35,27 @@ class EncryptedPersonalData implements SerializableValue {
     }
 
     /**
-     * serialize the instance of encrypted personal data to string for persistence
+     * serialize() returns an associated array form of the
+     * value for persistence which will be deserialized when needed.
      *
-     * @return string
+     * the array should contain primitives for both keys and values.
+     *
+     * @return array
      */
-    public function serialize(): string {
-        return $this->data;
+    public function serialize(): array {
+        return [
+            'data' => $this->data
+        ];
     }
 
     /**
-     * deserialize the instance of encrypted personal data from string-based persistence
+     * deserialize() returns a value object from an associative array received
+     * from persistence
      *
-     * @param string $string
-     * @return EncryptedPersonalData
+     * @param array $data
+     * @return mixed
      */
-    public static function deserialize(string $string): EncryptedPersonalData {
-        return new static($string);
+    public static function deserialize(array $data): EncryptedPersonalData {
+        return new static($data['data']);
     }
 }

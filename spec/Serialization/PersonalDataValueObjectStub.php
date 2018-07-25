@@ -38,19 +38,18 @@ class PersonalDataValueObjectStub implements SerializablePersonalDataValue {
         return value;
     }
 
-    public function serialize(): string {
-        return json_encode([
+    public function serialize(): array {
+        return [
             'personalKey' => $this->personalKey->serialize(),
             'string1' => $this->string1,
             'integer1' => $this->integer1,
             'string2' => $this->string2,
             'integer2' => $this->integer2,
-        ]);
+        ];
     }
 
-    public static function deserialize(string $string) {
-        $values = json_decode($string);
-        return new static(PersonalKey::deserialize($values->personalKey), $values->string1, $values->integer1, $values->string2, $values->integer2);
+    public static function deserialize(array $data) {
+        return new static(PersonalKey::deserialize($data['personalKey']), $data['string1'], $data['integer1'], $data['string2'], $data['integer2']);
     }
 
     public function personalKey(): PersonalKey {
@@ -71,5 +70,16 @@ class PersonalDataValueObjectStub implements SerializablePersonalDataValue {
 
     public function integer2(): int {
         return $this->integer2;
+    }
+
+    /**
+     * the wasErased method returns true if built fromErasedState.
+     * due to the requirements for individual value objects, this must
+     * be implemented manually
+     *
+     * @return bool
+     */
+    public function wasErased(): bool {
+        return false;
     }
 }

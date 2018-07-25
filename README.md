@@ -396,3 +396,4 @@ The `cryptographic details` are used for decrypting private personal data.
 # Notes #
 
 1. Serialize() and Deserialize() are different from toString() and fromString(). The former methods are used SPECIFICALLY for serialization. The latter are used for utilizing strings as implementation or for outputting (for example to read models or exceptions) and individual implementations may require different.
+2. Serialization methods need to return and take arrays because this allows the final json encoded serialization form that goes into the event store to be one big json object. If another process receives this object it can just json decode it and pull it apart rather than it having to know that a specific field is a json encoded string that has been escaped inside a json object definition.

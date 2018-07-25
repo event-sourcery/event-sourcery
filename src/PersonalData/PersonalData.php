@@ -7,7 +7,7 @@ use EventSourcery\EventSourcery\Serialization\SerializableValue;
  * personal data. This can be encrypted using an encryption method
  * which will return an instance of EncryptedPersonalData.
  */
-class PersonalData implements SerializableValue {
+class PersonalData {
 
     private $data;
 
@@ -32,26 +32,5 @@ class PersonalData implements SerializableValue {
      */
     public function toString(): string {
         return $this->data;
-    }
-
-    /**
-     * return a serialized for of this instance of personal data for
-     * string-based persistence
-     *
-     * @return string
-     */
-    public function serialize(): string {
-        return $this->data;
-    }
-
-    /**
-     * instantiate an instance of personal data from string-based
-     * persistence
-     *
-     * @param string $string
-     * @return PersonalData
-     */
-    public static function deserialize(string $string): PersonalData {
-        return new static($string);
     }
 }

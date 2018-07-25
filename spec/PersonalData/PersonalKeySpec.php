@@ -12,8 +12,6 @@ class PersonalKeySpec extends ObjectBehavior {
 
     function it_can_be_serialized() {
         $serialized = $this->serialize();
-        $serialized->shouldBe('a person');
-
         $deserialized = PersonalKey::deserialize($serialized->getWrappedObject());
         expect($deserialized->toString())->shouldBe('a person');
     }

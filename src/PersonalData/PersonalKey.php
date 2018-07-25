@@ -56,23 +56,25 @@ class PersonalKey implements SerializableValue {
     }
 
     /**
-     * serialize() returns a string form of the value for persistence
+     * serialize() returns an associative array form of the value for persistence
      * which will be deserialized when needed
      *
-     * @return string
+     * @return array
      */
-    public function serialize(): string {
-        return $this->key;
+    public function serialize(): array {
+        return [
+            'keyString' => $this->key
+        ];
     }
 
     /**
-     * deserialize() returns a value object from a string received
+     * deserialize() returns a value object from an associative array received
      * from persistence
      *
-     * @param string $string
+     * @param array $data
      * @return mixed
      */
-    public static function deserialize(string $string): PersonalKey {
-        return new static($string);
+    public static function deserialize(array $data): PersonalKey {
+        return new static($data['keyString']);
     }
 }

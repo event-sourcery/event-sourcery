@@ -36,17 +36,16 @@ class ValueObjectStub implements SerializableValue {
         $this->integer2 = $integer2;
     }
 
-    public function serialize(): string {
-        return json_encode([
+    public function serialize(): array{
+        return [
             'string1' => $this->string1,
             'integer1' => $this->integer1,
             'string2' => $this->string2,
             'integer2' => $this->integer2,
-        ]);
+        ];
     }
 
-    public static function deserialize(string $string) {
-        $values = json_decode($string);
-        return new static($values->string1, $values->integer1, $values->string2, $values->integer2);
+    public static function deserialize(array $data) {
+        return new static($data['string1'], $data['integer1'], $data['string2'], $data['integer2']);
     }
 }

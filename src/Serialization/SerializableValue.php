@@ -13,19 +13,21 @@
 interface SerializableValue {
 
     /**
-     * serialize() returns a string form of the value for persistence
-     * which will be deserialized when needed
+     * serialize() returns an associated array form of the
+     * value for persistence which will be deserialized when needed.
      *
-     * @return string
+     * the array should contain primitives for both keys and values.
+     *
+     * @return array
      */
-    public function serialize(): string;
+    public function serialize(): array;
 
     /**
-     * deserialize() returns a value object from a string received
-     * from persistence
+     * deserialize() returns a value object from an associative
+     * array received from persistence
      *
-     * @param string $string
+     * @param array $data
      * @return mixed
      */
-    public static function deserialize(string $string);
+    public static function deserialize(array $data);
 }

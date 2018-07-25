@@ -67,23 +67,27 @@ abstract class Id implements SerializableValue {
     }
 
     /**
-     * serialize() returns a string form of the value for persistence
-     * which will be deserialized when needed
+     * serialize() returns an associated array form of the
+     * value for persistence which will be deserialized when needed.
      *
-     * @return string
+     * the array should contain primitives for both keys and values.
+     *
+     * @return array
      */
-    public function serialize(): string {
-        return $this->toString();
+    public function serialize(): array {
+        return [
+            'idString' => $this->toString()
+        ];
     }
 
     /**
-     * deserialize() returns a value object from a string received
+     * deserialize() returns a value object from an associative array received
      * from persistence
      *
-     * @param string $string
+     * @param array $data
      * @return mixed
      */
-    public static function deserialize(string $string) {
-        return static::fromString($string);
+    public static function deserialize(array $data) {
+        return static::fromString($data['idString']);
     }
 }

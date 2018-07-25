@@ -28,7 +28,7 @@ class ValueSerializer {
      * serialize a value object into its string-based persistence form
      *
      * @param $value
-     * @return string
+     * @return array
      */
     public function serialize($value) {
         if ($value instanceof SerializablePersonalDataValue) {
@@ -43,9 +43,9 @@ class ValueSerializer {
      * serialize a value that implements SerializableValue
      *
      * @param SerializableValue $value
-     * @return string
+     * @return array
      */
-    private function serializeValue(SerializableValue $value): string {
+    private function serializeValue(SerializableValue $value): array {
         return $value->serialize();
     }
 
@@ -53,17 +53,18 @@ class ValueSerializer {
      * serialize a value that contains personal data
      *
      * @param SerializablePersonalDataValue $value
-     * @return string
+     * @return array
      */
-    private function serializePersonalDataValue(SerializablePersonalDataValue $value): string {
-        $dataKey = PersonalDataKey::generate();
+    private function serializePersonalDataValue(SerializablePersonalDataValue $value): array {
+        $dataKey    = PersonalDataKey::generate();
+        $dataString = json_encode($value->serialize());
 
-        $this->dataStore->storeData($value->personalKey(), $dataKey, PersonalData::fromString($value->serialize()));
+        $this->dataStore->storeData($value->personalKey(), $dataKey, PersonalData::fromString($dataString));
 
-        return json_encode([
+        return [
             'personalKey' => $value->personalKey()->serialize(),
             'dataKey'     => $dataKey->serialize(),
-        ]);
+        ];
     }
 
     /**
@@ -77,8 +78,8 @@ class ValueSerializer {
         $values = json_decode($json);
 
         $personalKey = PersonalKey::deserialize($values->personalKey);
-        $dataKey = PersonalDataKey::deserialize($values->dataKey);
-
+        $dataKey     = PersonalDataKey::deserialize($values->dataKey);
+        
         return $type::deserialize($this->dataStore->retrieveData($personalKey, $dataKey)->toString());
     }
 }

@@ -37,17 +37,19 @@ interface SerializablePersonalDataValue extends SerializableValue {
     public function personalKey(): PersonalKey;
 
     /**
-     * serialization function for storing data as a string
+     * serialization function for storing data as an array
+     * the array should contain only primitives for both
+     * keys and values
      *
-     * @return string
+     * @return array
      */
-    public function serialize(): string;
+    public function serialize(): array;
 
     /**
      * deserialization function for reconstructing data from
      * a string
-     * 
-     * @param string $string
+     *
+     * @param array $data
      */
-    public static function deserialize(string $string);
+    public static function deserialize(array $data);
 }

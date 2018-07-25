@@ -91,8 +91,9 @@ abstract class MagicAggregate implements Aggregate {
 
         $method = 'apply' . $eventName[count($eventName) - 1];
 
-        $this->$method($event);
-
-        $this->version = $this->version->next();
+        if (method_exists($this, $method)) {
+            $this->$method($event);
+            $this->version = $this->version->next();
+        }
     }
 }
