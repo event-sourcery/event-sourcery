@@ -23,7 +23,7 @@ abstract class Id implements SerializableValue {
      *
      * the Id is implemented internally with a UUID
      *
-     * @return Id
+     * @return static
      */
     public static function generate(): Id {
         return new static(Uuid::uuid4()->toString());
@@ -33,7 +33,7 @@ abstract class Id implements SerializableValue {
      * generate an Id instance from a string representation
      *
      * @param string $id
-     * @return Id
+     * @return static
      */
     public static function fromString(string $id): Id {
         return new static($id);
@@ -85,7 +85,7 @@ abstract class Id implements SerializableValue {
      * from persistence
      *
      * @param array $data
-     * @return mixed
+     * @return static
      */
     public static function deserialize(array $data) {
         return static::fromString($data['idString']);

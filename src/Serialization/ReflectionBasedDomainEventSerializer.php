@@ -70,12 +70,13 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
      * deserialize a domain event from event sourcery library
      * storage conventions
      *
-     * @param \stdClass $serialized
+     * @param array $serialized
      * @return DomainEvent
      * @throws \ReflectionException
+     * @throws \Exception
      */
-    public function deserialize(\stdClass $serialized): DomainEvent {
-        $className = $this->classNameForEvent($serialized->eventName);
+    public function deserialize(array $serialized): DomainEvent {
+        $className = $this->classNameForEvent($serialized['eventName']);
 
         $reflect = new ReflectionClass($className);
         $const = $reflect->getConstructor();
@@ -93,7 +94,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         $constParamValues = [];
         foreach ($constParams as $constParam) {
             list($type, $name) = $constParam;
-            $fields = (array) $serialized->fields;
+            $fields = $serialized['fields'];
             if ( ! isset($fields[$name])) {
                 throw new \Exception("Cannot find serialized field {$name} for {$className}.");
             }

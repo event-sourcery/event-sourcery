@@ -17,7 +17,7 @@ class Timestamp implements SerializableValue {
      * now() creates a new timestamp for the current moment based
      * on the server's php datetime configuration
      *
-     * @return Timestamp
+     * @return static
      * @throws \Exception
      */
     public static function now(): Timestamp {
@@ -28,7 +28,7 @@ class Timestamp implements SerializableValue {
      * construct a timestamp from string using the system timezone
      *
      * @param $timeString
-     * @return Timestamp
+     * @return static
      * @throws \Exception
      */
     public static function fromString($timeString): Timestamp {
@@ -42,7 +42,7 @@ class Timestamp implements SerializableValue {
      *
      * @param $timeString
      * @param $timeZone
-     * @return Timestamp
+     * @return static
      * @throws \Exception
      */
     public static function fromStringWithTimezone($timeString, $timeZone): Timestamp {
@@ -89,7 +89,7 @@ class Timestamp implements SerializableValue {
      * from persistence
      *
      * @param array $data
-     * @return mixed
+     * @return static
      * @throws \Exception
      */
     public static function deserialize(array $data) {

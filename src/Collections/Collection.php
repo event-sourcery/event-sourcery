@@ -17,7 +17,7 @@ class Collection implements \IteratorAggregate, \Countable {
      * construct a collection from an array
      *
      * @param array $items
-     * @return Collection
+     * @return static
      */
     public static function make(array $items = []) : Collection {
         return new static($items);
@@ -36,7 +36,7 @@ class Collection implements \IteratorAggregate, \Countable {
      * add an item to the collection
      *
      * @param $item
-     * @return Collection
+     * @return static
      */
     public function add($item) : Collection {
         $newItems = $this->items;
@@ -75,7 +75,7 @@ class Collection implements \IteratorAggregate, \Countable {
      * existing collection using the transformation function provided.
      *
      * @param callable $f
-     * @return Collection
+     * @return static
      */
     public function map(Callable $f) : Collection {
         return new static(array_map($f, $this->items));
@@ -98,7 +98,7 @@ class Collection implements \IteratorAggregate, \Countable {
      * collection but filtered by the provided function.
      *
      * @param callable $f
-     * @return Collection
+     * @return static
      */
     public function filter(Callable $f) {
         return new static(array_filter($this->items, $f));
@@ -127,7 +127,7 @@ class Collection implements \IteratorAggregate, \Countable {
      * create a new collection that is a copy of the original
      * collection.
      *
-     * @return Collection
+     * @return static
      */
     public function copy() : Collection {
         return new static($this->items);

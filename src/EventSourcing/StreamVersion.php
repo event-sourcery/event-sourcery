@@ -16,7 +16,7 @@ class StreamVersion {
      * return a stream version instance from integer
      *
      * @param int $version
-     * @return StreamVersion
+     * @return static
      */
     public static function fromInt(int $version) : StreamVersion {
         return new StreamVersion($version);
@@ -26,7 +26,7 @@ class StreamVersion {
      * create a new stream version instance for the beginning
      * of a newly created stream
      *
-     * @return StreamVersion
+     * @return static
      */
     public static function zero() : StreamVersion {
         return new StreamVersion(0);
@@ -36,7 +36,7 @@ class StreamVersion {
      * return a new stream version that is incremented by one
      * from the current version.
      *
-     * @return StreamVersion
+     * @return static
      */
     public function next() : StreamVersion {
         return new StreamVersion($this->version + 1);
@@ -45,10 +45,10 @@ class StreamVersion {
     /**
      * compare two stream versions for equality
      *
-     * @param StreamVersion $that
+     * @param self $that
      * @return bool
      */
-    public function equals(StreamVersion $that) : bool {
+    public function equals(self $that) : bool {
         return $this->version === $that->version;
     }
 

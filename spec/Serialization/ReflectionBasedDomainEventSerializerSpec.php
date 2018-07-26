@@ -1,18 +1,17 @@
-<?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
+<?php namespace spec\EventSourcery\EventSourcery\Serialization;
 
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
+use EventSourcery\EventSourcery\Serialization\ValueSerializer;
 use PhpSpec\ObjectBehavior;
-use spec\EventSourcery\EventSourcery\Serialization\BoolEventStub;
-use spec\EventSourcery\EventSourcery\Serialization\IntEventStub;
-use spec\EventSourcery\EventSourcery\Serialization\StringEventStub;
-use spec\EventSourcery\EventSourcery\Serialization\ValueObjectStub;
-use spec\EventSourcery\EventSourcery\Serialization\ValueObjectEventStub;
+use spec\EventSourcery\EventSourcery\PersonalData\PersonalDataStoreStub;
 
 class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
 
     function let() {
-        $classMap = new DomainEventClassMap();
-        $this->beConstructedWith($classMap);
+        $personalDataStore = new PersonalDataStoreStub;
+        $valueSerializer = new ValueSerializer($personalDataStore);
+        $classMap = new DomainEventClassMap;
+        $this->beConstructedWith($classMap, $valueSerializer, $personalDataStore);
 
         $classMap->add('StringEventStub', StringEventStub::class);
         $classMap->add('IntEventStub', IntEventStub::class);
@@ -23,10 +22,7 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
     function it_can_serialize_strings() {
         $this->serialize(
             new StringEventStub("hats")
-        )->shouldReturn([
-            'eventName' => 'StringEventStub',
-            'fields' => ['str' => 'hats']
-        ]);
+        )->shouldReturn('{"eventName":"StringEventStub","fields":{"str":"hats"}}');
     }
 
     function it_can_deserialize_strings() {
@@ -41,10 +37,7 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
     function it_can_serialize_ints() {
         $this->serialize(
             new IntEventStub(123)
-        )->shouldReturn([
-            'eventName' => 'IntEventStub',
-            'fields' => ['int' => 123]
-        ]);
+        )->shouldReturn('{"eventName":"IntEventStub","fields":{"int":123}}');
     }
 
     function it_can_deserialize_ints() {
@@ -59,17 +52,11 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
     function it_can_serialize_bools() {
         $this->serialize(
             new BoolEventStub(true)
-        )->shouldReturn([
-            'eventName' => 'BoolEventStub',
-            'fields' => ['bool' => true]
-        ]);
+        )->shouldReturn('{"eventName":"BoolEventStub","fields":{"bool":true}}');
 
         $this->serialize(
             new BoolEventStub(false)
-        )->shouldReturn([
-            'eventName' => 'BoolEventStub',
-            'fields' => ['bool' => false]
-        ]);
+        )->shouldReturn('{"eventName":"BoolEventStub","fields":{"bool":false}}');
     }
 
     function it_can_deserialize_bools() {
@@ -91,16 +78,13 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
     function it_can_serialize_value_objects() {
         $this->serialize(
             new ValueObjectEventStub(new ValueObjectStub("str1", 123, "str2", 321))
-        )->shouldReturn([
-            'eventName' => 'ValueObjectEventStub',
-            'fields' => ['vo' => '{"string1":"str1","integer1":123,"string2":"str2","integer2":321}']
-        ]);
+        )->shouldReturn('{"eventName":"ValueObjectEventStub","fields":{"vo":{"string1":"str1","integer1":123,"string2":"str2","integer2":321}}}');
     }
 
     function it_can_deserialize_value_objects() {
         $obj = $this->deserialize([
             'eventName' => 'ValueObjectEventStub',
-            'fields'    => ['vo' => '{"string1":"str1","integer1":123,"string2":"str2","integer2":321}']
+            'fields'    => ['vo' => ['string1' => 'str1', 'integer1' => 123, 'string2' => 'str2', 'integer2' => 321]]
         ]);
 
         $obj->vo->shouldHaveType(ValueObjectStub::class);
