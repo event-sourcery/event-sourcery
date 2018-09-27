@@ -19,7 +19,7 @@
   "require": {
     "php": "^7.1",
     "ramsey/uuid": "^3.7",
-    "psr/container": "1.0.0",
+    "psr/container": "^1",
     "phpspec/phpspec": "^4.0.3"
   },
   "require-dev": {
