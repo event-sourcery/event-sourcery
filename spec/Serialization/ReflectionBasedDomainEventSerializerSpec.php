@@ -1,6 +1,7 @@
 <?php namespace spec\EventSourcery\EventSourcery\Serialization;
 
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
+use EventSourcery\EventSourcery\Serialization\CouldNotDeserializeValueObject;
 use EventSourcery\EventSourcery\Serialization\ValueSerializer;
 use PhpSpec\ObjectBehavior;
 use spec\EventSourcery\EventSourcery\PersonalData\PersonalDataStoreStub;
@@ -17,6 +18,8 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
         $classMap->add('IntEventStub', IntEventStub::class);
         $classMap->add('BoolEventStub', BoolEventStub::class);
         $classMap->add('ValueObjectEventStub', ValueObjectEventStub::class);
+        $classMap->add('NestedValueObjectsEventStub', NestedValueObjectsEventStub::class);
+        $classMap->add('InvalidNestedValueObjectsEventStub', InvalidNestedValueObjectsEventStub::class);
     }
 
     function it_can_serialize_strings() {
@@ -92,5 +95,28 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
         $obj->vo->integer1->shouldBe(123);
         $obj->vo->string2->shouldBe("str2");
         $obj->vo->integer2->shouldBe(321);
+    }
+
+    function it_can_serialize_nested_value_objects() {
+        $nested = new NestedValueObjectsStub(new SimpleValueObjectStub('str1'), 'str2');
+        $this->serialize(new NestedValueObjectsEventStub($nested))
+            ->shouldReturn('{"eventName":"NestedValueObjectsEventStub","fields":{"vo":{"simple":{"string1":"str1"},"string1":"str2"}}}');
+    }
+
+    function it_can_deserialize_nested_value_objects() {
+        $obj = $this->deserialize([
+            'eventName' => 'NestedValueObjectsEventStub',
+            'fields' => ['vo' => ['simple' => ['string1' => 'str1'], 'string1' => 'str2']]
+        ]);
+        $obj->vo->shouldHaveType(NestedValueObjectsStub::class);
+    }
+
+    function it_throw_when_deserializing_nested_value_objects_without_calling_deserialize_on_the_nested_objects() {
+        $this->shouldThrow(CouldNotDeserializeValueObject::class)->during('deserialize', [
+            [
+                'eventName' => 'InvalidNestedValueObjectsEventStub',
+                'fields' => ['vo' => ['simple' => ['string1' => 'str1'], 'string1' => 'str2']]
+            ]
+        ]);
     }
 }

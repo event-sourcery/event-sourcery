@@ -119,16 +119,20 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
                     return (bool) $value;
                     break;
                 default:
-                    if ($this->isPersonalData($type)) {
-                        $personalData = $this->personalDataStore->retrieveData(
-                            PersonalKey::deserialize($value['personalKey']),
-                            PersonalDataKey::deserialize($value['dataKey'])
-                        );
-                        /** @var SerializableValue $type */
-                        return $type::deserialize(json_decode($personalData->toString(), true));
-                    } else {
-                        /** @var SerializableValue $type */
-                        return $type::deserialize($value);
+                    try {
+                        if ($this->isPersonalData($type)) {
+                            $personalData = $this->personalDataStore->retrieveData(
+                                PersonalKey::deserialize($value['personalKey']),
+                                PersonalDataKey::deserialize($value['dataKey'])
+                            );
+                            /** @var SerializableValue $type */
+                            return $type::deserialize(json_decode($personalData->toString(), true));
+                        } else {
+                            /** @var SerializableValue $type */
+                            return $type::deserialize($value);
+                        }
+                    } catch (\TypeError $e) {
+                        throw new CouldNotDeserializeValueObject($e);
                     }
             };
         }, $constParamValues));
