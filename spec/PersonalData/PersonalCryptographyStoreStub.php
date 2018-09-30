@@ -13,7 +13,7 @@ class PersonalCryptographyStoreStub implements PersonalCryptographyStore {
         $this->personCrypto[$person->toString()] = $crypto;
     }
 
-    function getOrCreateCryptographyFor(PersonalKey $person): CryptographicDetails {
+    function getCryptographyFor(PersonalKey $person): CryptographicDetails {
         if ( ! isset($this->personCrypto[$person->toString()])) {
             throw new CanNotFindCryptographyForPerson("No cryptography exists for person " . $person->toString());
         }
