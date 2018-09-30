@@ -24,7 +24,7 @@ interface PersonalCryptographyStore {
      * @param PersonalKey $person
      * @return CryptographicDetails
      */
-    function getCryptographyFor(PersonalKey $person): CryptographicDetails;
+    function getOrCreateCryptographyFor(PersonalKey $person): CryptographicDetails;
 
     /**
      * remove cryptographic details for a person (identified by personal key)
