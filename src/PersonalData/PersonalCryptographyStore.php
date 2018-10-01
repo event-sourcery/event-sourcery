@@ -37,4 +37,9 @@ interface PersonalCryptographyStore {
      * @return CryptographicDetails
      */
     function getCryptographyFor(PersonalKey $person): CryptographicDetails;
+
+    /**
+     * get the current encryption algorithm.
+     */
+    function getEncryption(): PersonalDataEncryption;
 }
