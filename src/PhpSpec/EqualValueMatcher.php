@@ -3,7 +3,8 @@
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Matcher\Matcher;
 
-class EqualValueMatcher implements Matcher {
+class EqualValueMatcher implements Matcher
+{
 
     /**
      * Checks if matcher supports provided subject and matcher name.
@@ -14,7 +15,8 @@ class EqualValueMatcher implements Matcher {
      *
      * @return Boolean
      */
-    public function supports(string $name, $subject, array $arguments): bool {
+    public function supports(string $name, $subject, array $arguments): bool
+    {
         return $name == 'equalValue' || $name == 'equalValues';
     }
 
@@ -25,20 +27,22 @@ class EqualValueMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function positiveMatch(string $name, $subject, array $arguments) {
+    public function positiveMatch(string $name, $subject, array $arguments): ?\PhpSpec\Wrapper\DelayedCall
+    {
         $argumentCount = count($arguments);
 
         if ($argumentCount == 1) {
             $this->compare($subject, $arguments[0]);
         } else {
-            for ($i=0; $i<$argumentCount; $i++) {
+            for ($i = 0; $i < $argumentCount; $i++) {
                 $this->compare($subject[0], $arguments[0]);
             }
         }
-        return true;
+        return null;
     }
 
-    private function compare($subject, $argument) {
+    private function compare($subject, $argument)
+    {
         // compare scalars
         if ((is_null($subject) || is_null($argument)) && $subject !== $argument) {
             if (is_null($subject)) {
@@ -66,6 +70,7 @@ class EqualValueMatcher implements Matcher {
             throw new FailureException('Value of type <label>' . get_class($subject) . "</label> <value>{$subject->toString()}</value> should equal <value>{$argument->toString()}</value> but does not.");
         }
     }
+
     /**
      * Evaluates negative match.
      *
@@ -73,7 +78,8 @@ class EqualValueMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function negativeMatch(string $name, $subject, array $arguments) {
+    public function negativeMatch(string $name, $subject, array $arguments): ?\PhpSpec\Wrapper\DelayedCall
+    {
         if ($subject->equals($arguments[0])) {
             throw new FailureException('<label>' . get_class($subject) . "</label> <value>{$subject->toString()}</value> should not equal <value>{$arguments[0]->toString()}</value> but does.");
         }
@@ -84,7 +90,8 @@ class EqualValueMatcher implements Matcher {
      *
      * @return integer
      */
-    public function getPriority(): int {
+    public function getPriority(): int
+    {
         return 0;
     }
 }

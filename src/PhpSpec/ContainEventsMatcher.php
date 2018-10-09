@@ -11,7 +11,8 @@ use PhpSpec\Matcher\Matcher;
  * This whole class is a huge mess and has sloooowly evolved over time.
  * Once it's rewritten though, it'll be glorious.
  */
-class ContainEventsMatcher implements Matcher {
+class ContainEventsMatcher implements Matcher
+{
 
     /**
      * Checks if matcher supports provided subject and matcher name.
@@ -22,7 +23,8 @@ class ContainEventsMatcher implements Matcher {
      *
      * @return Boolean
      */
-    public function supports(string $name, $subject, array $arguments): bool {
+    public function supports(string $name, $subject, array $arguments): bool
+    {
         return $name === 'containEvents' || $name === 'containEvent';
     }
 
@@ -36,7 +38,8 @@ class ContainEventsMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function positiveMatch(string $name, $subject, array $arguments) {
+    public function positiveMatch(string $name, $subject, array $arguments): ?\PhpSpec\Wrapper\DelayedCall
+    {
         list($realEvents, $targetEvents) = $this->formatArguments($subject, $arguments);
 
         $notFoundEvents = $this->eventsNotFound($realEvents, $targetEvents);
@@ -48,6 +51,8 @@ class ContainEventsMatcher implements Matcher {
 
             throw new FailureException("Expected matching event(s) {$eventNames} not found.");
         }
+
+        return null;
     }
 
     /**
@@ -57,7 +62,8 @@ class ContainEventsMatcher implements Matcher {
      * @param mixed $subject
      * @param array $arguments
      */
-    public function negativeMatch(string $name, $subject, array $arguments) {
+    public function negativeMatch(string $name, $subject, array $arguments): ?\PhpSpec\Wrapper\DelayedCall
+    {
         list($realEvents, $targetEvents) = $this->formatArguments($subject, $arguments);
 
         $notFoundEvents = $this->eventsNotFound($realEvents, $targetEvents);
@@ -76,7 +82,8 @@ class ContainEventsMatcher implements Matcher {
      *
      * @return integer
      */
-    public function getPriority(): int {
+    public function getPriority(): int
+    {
         return 50;
     }
 
@@ -85,12 +92,13 @@ class ContainEventsMatcher implements Matcher {
      * @param array $arguments
      * @return array
      */
-    private function formatArguments($subject, array $arguments):array {
+    private function formatArguments($subject, array $arguments): array
+    {
         $realEvents = $subject;
 
         if ($realEvents instanceof StreamEvents) {
             $realEvents = DomainEvents::make(
-                $realEvents->map(function(StreamEvent $streamEvent) {
+                $realEvents->map(function (StreamEvent $streamEvent) {
                     return $streamEvent->event();
                 })->toArray()
             );
@@ -102,10 +110,11 @@ class ContainEventsMatcher implements Matcher {
             is_array($arguments[0]) ? $arguments[0] : [$arguments[0]]
         );
 
-        return array($realEvents, $targetEvents);
+        return [$realEvents, $targetEvents];
     }
 
-    private function eventsNotFound($realEvents, $targetEvents) {
+    private function eventsNotFound($realEvents, $targetEvents)
+    {
         return $targetEvents->filter(function ($targetEvent) use ($realEvents) {
             return ! $this->eventIsFound($targetEvent, $realEvents);
         })->toArray();
@@ -113,7 +122,8 @@ class ContainEventsMatcher implements Matcher {
 
     // returns true if an event is found
 
-    private function eventIsFound(DomainEvent $targetEvent, DomainEvents $realEvents) {
+    private function eventIsFound(DomainEvent $targetEvent, DomainEvents $realEvents)
+    {
         $found = $realEvents->filter(function ($realEvent) use ($targetEvent) {
             try {
                 $eventsAreEqual = $this->eventsAreEqual($realEvent, $targetEvent);
@@ -128,7 +138,8 @@ class ContainEventsMatcher implements Matcher {
 
     // pull requests accepted
 
-    private function eventsAreEqual($e1, $e2) {
+    private function eventsAreEqual($e1, $e2)
+    {
         // events aren't equal if they have different classes
         if (get_class($e1) != get_class($e2)) {
             return false;
@@ -152,7 +163,7 @@ class ContainEventsMatcher implements Matcher {
 
             if (is_array($e1Value)) {
                 // this part isn't done, jsut copied, think it through
-                for ($i=0; $i<count($e1Value); $i++) {
+                for ($i = 0; $i < count($e1Value); $i++) {
                     $setMatches = $this->compareProperties($e1, $e1Value[$i], $e2Value[$i], $property);
                     if ( ! $setMatches) {
                         $allMatch = false;
@@ -177,7 +188,8 @@ class ContainEventsMatcher implements Matcher {
      * @return bool
      * @throws FailureException
      */
-    private function compareProperties($e1, $e1Value, $e2Value, $property) {
+    private function compareProperties($e1, $e1Value, $e2Value, $property)
+    {
         $setMatches = true;
 
         if (is_scalar($e1Value)) {
