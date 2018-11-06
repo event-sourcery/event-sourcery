@@ -9,12 +9,14 @@ use Ramsey\Uuid\Uuid;
  * abstract concept of being able to differentiate a specific
  * instance from others.
  */
-abstract class Id implements SerializableValue {
+abstract class Id implements SerializableValue
+{
 
     /** @var string */
     protected $id;
 
-    protected function __construct(string $id) {
+    protected function __construct(string $id)
+    {
         $this->id = $id;
     }
 
@@ -24,8 +26,10 @@ abstract class Id implements SerializableValue {
      * the Id is implemented internally with a UUID
      *
      * @return static
+     * @throws \Exception
      */
-    public static function generate(): Id {
+    public static function generate(): Id
+    {
         return new static(Uuid::uuid4()->toString());
     }
 
@@ -35,7 +39,8 @@ abstract class Id implements SerializableValue {
      * @param string $id
      * @return static
      */
-    public static function fromString(string $id): Id {
+    public static function fromString(string $id): Id
+    {
         return new static($id);
     }
 
@@ -44,8 +49,14 @@ abstract class Id implements SerializableValue {
      *
      * @return string
      */
-    public function toString(): string {
+    public function toString(): string
+    {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->toString();
     }
 
     /**
@@ -59,7 +70,8 @@ abstract class Id implements SerializableValue {
      * @return bool
      * @throws CannotCompareDifferentIds
      */
-    public function equals(self $that): bool {
+    public function equals(self $that): bool
+    {
         if (get_class($this) !== get_class($that)) {
             throw new CannotCompareDifferentIds;
         }
@@ -74,9 +86,10 @@ abstract class Id implements SerializableValue {
      *
      * @return array
      */
-    public function serialize(): array {
+    public function serialize(): array
+    {
         return [
-            'idString' => $this->toString()
+            'idString' => $this->toString(),
         ];
     }
 
@@ -87,7 +100,8 @@ abstract class Id implements SerializableValue {
      * @param array $data
      * @return static
      */
-    public static function deserialize(array $data) {
+    public static function deserialize(array $data)
+    {
         return static::fromString($data['idString']);
     }
 }
