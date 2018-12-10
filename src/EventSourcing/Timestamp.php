@@ -1,15 +1,18 @@
 <?php namespace EventSourcery\EventSourcery\EventSourcing;
+
 use EventSourcery\EventSourcery\Serialization\SerializableValue;
 
 /**
  * A Timestamp is an internally used representation of a moment in time.
  */
-class Timestamp implements SerializableValue {
+class Timestamp implements SerializableValue
+{
 
     /** @var \DateTimeImmutable */
     private $dateTime;
 
-    private function __construct(\DateTimeImmutable $dateTime) {
+    private function __construct(\DateTimeImmutable $dateTime)
+    {
         $this->dateTime = $dateTime;
     }
 
@@ -20,7 +23,8 @@ class Timestamp implements SerializableValue {
      * @return static
      * @throws \Exception
      */
-    public static function now(): Timestamp {
+    public static function now(): Timestamp
+    {
         return new static(new \DateTimeImmutable());
     }
 
@@ -31,7 +35,8 @@ class Timestamp implements SerializableValue {
      * @return static
      * @throws \Exception
      */
-    public static function fromString($timeString): Timestamp {
+    public static function fromString($timeString): Timestamp
+    {
         return new static(new \DateTimeImmutable($timeString));
     }
 
@@ -45,7 +50,8 @@ class Timestamp implements SerializableValue {
      * @return static
      * @throws \Exception
      */
-    public static function fromStringWithTimezone($timeString, $timeZone): Timestamp {
+    public static function fromStringWithTimezone($timeString, $timeZone): Timestamp
+    {
         return new static(new \DateTimeImmutable($timeString, new \DateTimeZone($timeZone)));
     }
 
@@ -54,7 +60,8 @@ class Timestamp implements SerializableValue {
      *
      * @return string
      */
-    public function toMysqlDateTime(): string {
+    public function toMysqlDateTime(): string
+    {
         return $this->dateTime->format('Y-m-d H:i:s');
     }
 
@@ -64,7 +71,8 @@ class Timestamp implements SerializableValue {
      *
      * @return string
      */
-    public function toIso8601(): string {
+    public function toIso8601(): string
+    {
         return $this->dateTime->format('c');
     }
 
@@ -76,12 +84,17 @@ class Timestamp implements SerializableValue {
      *
      * @return array
      */
-    public function serialize(): array {
-
+    public function serialize(): array
+    {
         return [
             'dateTime' => $this->toMysqlDateTime(),
-            'timeZone' => $this->dateTime->getTimezone()->getName()
+            'timeZone' => $this->dateTime->getTimezone()->getName(),
         ];
+    }
+
+    public function toDateTime(): \DateTimeImmutable
+    {
+        return $this->dateTime;
     }
 
     /**
@@ -92,7 +105,8 @@ class Timestamp implements SerializableValue {
      * @return static
      * @throws \Exception
      */
-    public static function deserialize(array $data) {
+    public static function deserialize(array $data)
+    {
         return static::fromStringWithTimezone($data['dateTime'], $data['timeZone']);
     }
 }
