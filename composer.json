@@ -19,10 +19,10 @@
   "require": {
     "php": "^7.1",
     "ramsey/uuid": "^3",
-    "psr/container": "^1",
-    "phpspec/phpspec": "^4"
+    "psr/container": "^1"
   },
   "require-dev": {
+    "phpspec/phpspec": "^4"
   },
   "autoload": {
     "psr-4": {
