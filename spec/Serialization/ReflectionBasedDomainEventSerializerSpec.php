@@ -15,6 +15,7 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
         $this->beConstructedWith($classMap, $valueSerializer, $personalDataStore);
 
         $classMap->add('StringEventStub', StringEventStub::class);
+        $classMap->add('ArrayEventStub', ArrayEventStub::class);
         $classMap->add('IntEventStub', IntEventStub::class);
         $classMap->add('BoolEventStub', BoolEventStub::class);
         $classMap->add('ValueObjectEventStub', ValueObjectEventStub::class);
@@ -35,6 +36,21 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
         ]);
 
         $obj->str->shouldBe("hats");
+    }
+
+    function it_can_serialize_arrays_of_strings() {
+        $this->serialize(
+            new ArrayEventStub(['cats', 'dogs'])
+        )->shouldReturn('{"eventName":"ArrayEventStub","fields":{"array":["cats","dogs"]}}');
+    }
+
+    function it_can_deserialize_arrays() {
+        $obj = $this->deserialize([
+            'eventName' => 'ArrayEventStub',
+            'fields' => ['array' => ['cats','dogs']]
+        ]);
+
+        $obj->array->shouldBe(['cats', 'dogs']);
     }
 
     function it_can_serialize_ints() {

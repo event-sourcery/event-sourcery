@@ -118,6 +118,9 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
                 case 'bool':
                     return (bool) $value;
                     break;
+                case 'array':
+                    return $value;
+                    break;
                 default:
                     try {
                         if ($this->isPersonalData($type)) {
