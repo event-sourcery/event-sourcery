@@ -19,4 +19,14 @@ class DomainEventClassMapSpec extends ObjectBehavior {
         $this->add('eventname', 'classname');
         $this->eventNameForClass('classname')->shouldBe('eventname');
     }
+
+    function it_can_provide_a_dictionary_of_all_mappings() {
+        $this->add('eventname', 'classname');
+        $this->add('eventname2', 'classname2');
+
+        $this->toArray()->shouldBe([
+            'eventname' => 'classname',
+            'eventname2' => 'classname2',
+        ]);
+    }
 }

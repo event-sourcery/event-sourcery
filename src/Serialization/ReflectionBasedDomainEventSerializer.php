@@ -106,39 +106,41 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         }
 
         // reconstruct the serialized values into the correct type
-       return new $className(...array_map(function ($constParamValue) {
-            list($type, $name, $value) = $constParamValue;
-            switch ($type) {
-                case 'string':
-                    return (string) $value;
-                    break;
-                case 'int':
-                    return (int) $value;
-                    break;
-                case 'bool':
-                    return (bool) $value;
-                    break;
-                case 'array':
-                    return $value;
-                    break;
-                default:
-                    try {
-                        if ($this->isPersonalData($type)) {
-                            $personalData = $this->personalDataStore->retrieveData(
-                                PersonalKey::deserialize($value['personalKey']),
-                                PersonalDataKey::deserialize($value['dataKey'])
-                            );
-                            /** @var SerializableValue $type */
-                            return $type::deserialize(json_decode($personalData->toString(), true));
-                        } else {
-                            /** @var SerializableValue $type */
-                            return $type::deserialize($value);
-                        }
-                    } catch (\TypeError $e) {
-                        throw new CouldNotDeserializeValueObject($e);
+       return new $className(...array_map([$this, 'deserializeField'], $constParamValues));
+    }
+
+    function deserializeField($constParamValue) {
+        list($type, $name, $value) = $constParamValue;
+        switch ($type) {
+            case 'string':
+                return (string) $value;
+                break;
+            case 'int':
+                return (int) $value;
+                break;
+            case 'bool':
+                return (bool) $value;
+                break;
+            case 'array':
+                return $value;
+                break;
+            default:
+                try {
+                    if ($this->isPersonalData($type)) {
+                        $personalData = $this->personalDataStore->retrieveData(
+                            PersonalKey::deserialize($value['personalKey']),
+                            PersonalDataKey::deserialize($value['dataKey'])
+                        );
+                        /** @var SerializableValue $type */
+                        return $type::deserialize(json_decode($personalData->toString(), true));
+                    } else {
+                        /** @var SerializableValue $type */
+                        return $type::deserialize($value);
                     }
-            };
-        }, $constParamValues));
+                } catch (\TypeError $e) {
+                    throw new CouldNotDeserializeValueObject($e);
+                }
+        };
     }
 
     /**
