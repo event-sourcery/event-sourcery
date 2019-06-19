@@ -20,6 +20,8 @@ class ValueSerializer {
     /** @var PersonalDataStore */
     private $dataStore;
 
+    /** @todo add serializer strategy pattern */
+
     public function __construct(PersonalDataStore $dataStore) {
         $this->dataStore = $dataStore;
     }

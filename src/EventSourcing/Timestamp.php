@@ -97,6 +97,11 @@ class Timestamp implements SerializableValue
         return $this->dateTime;
     }
 
+    public function equals(Timestamp $that): bool
+    {
+        return $this->toIso8601() === $that->toIso8601();
+    }
+
     /**
      * deserialize() returns a value object from an associative array received
      * from persistence

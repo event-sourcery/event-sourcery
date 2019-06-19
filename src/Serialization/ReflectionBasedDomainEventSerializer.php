@@ -20,6 +20,8 @@ use ReflectionProperty;
  */
 class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
 
+    /** @todo add deserialization strategy pattern */
+
     /** @var DomainEventClassMap */
     private $eventClasses;
     /** @var ValueSerializer */
