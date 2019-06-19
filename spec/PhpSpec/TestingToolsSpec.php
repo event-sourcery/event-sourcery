@@ -1,6 +1,7 @@
 <?php namespace spec\EventSourcery\EventSourcery\PhpSpec;
 
 use EventSourcery\EventSourcery\EventSourcing\StreamId;
+use EventSourcery\EventSourcery\PhpSpec\EventSourcedBehavior;
 use spec\EventSourcery\EventSourcery\Commands\Stubs\TestCountingCommand;
 use spec\EventSourcery\EventSourcery\EventSourcing\TestCountingEvent;
 

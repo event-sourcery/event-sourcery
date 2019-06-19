@@ -1,11 +1,10 @@
-<?php namespace spec\EventSourcery\EventSourcery\PhpSpec;
+<?php namespace EventSourcery\EventSourcery\PhpSpec;
 
 use EventSourcery\EventSourcery\Commands\Command;
 use EventSourcery\EventSourcery\Commands\CommandBus;
 use EventSourcery\EventSourcery\Commands\ReflectionResolutionCommandBus;
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
-use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
 use EventSourcery\EventSourcery\EventSourcing\EventStore;
 use EventSourcery\EventSourcery\EventSourcing\StreamEvent;
 use EventSourcery\EventSourcery\EventSourcing\StreamEvents;
