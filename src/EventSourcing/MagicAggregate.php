@@ -5,16 +5,18 @@
  * of an aggregate that creates a simplified developer
  * interface with which to implement aggregates.
  */
-abstract class MagicAggregate implements Aggregate {
+abstract class MagicAggregate implements Aggregate
+{
 
     /** @var StreamEvents */
     private $streamEvents;
     /** @var StreamVersion */
     private $version;
 
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->streamEvents = StreamEvents::make();
-        $this->version      = StreamVersion::zero();
+        $this->version = StreamVersion::zero();
     }
 
     /**
@@ -29,7 +31,8 @@ abstract class MagicAggregate implements Aggregate {
      *
      * @return StreamVersion
      */
-    public function aggregateVersion(): StreamVersion {
+    public function aggregateVersion(): StreamVersion
+    {
         return $this->version;
     }
 
@@ -40,7 +43,8 @@ abstract class MagicAggregate implements Aggregate {
      *
      * @param DomainEvent $event
      */
-    protected function raise(DomainEvent $event): void {
+    protected function raise(DomainEvent $event): void
+    {
         $this->apply($event);
         $this->streamEvents = $this->streamEvents->add(
             new StreamEvent($this->aggregateId(), $this->aggregateVersion(), $event)
@@ -55,7 +59,8 @@ abstract class MagicAggregate implements Aggregate {
      *
      * @return StreamEvents
      */
-    public function flushEvents(): StreamEvents {
+    public function flushEvents(): StreamEvents
+    {
         $events = $this->streamEvents->copy();
 
         $this->streamEvents = StreamEvents::make();
@@ -69,7 +74,8 @@ abstract class MagicAggregate implements Aggregate {
      * @param StreamEvents $events
      * @return Aggregate
      */
-    public static function buildFrom(StreamEvents $events): Aggregate {
+    public static function buildFrom(StreamEvents $events): Aggregate
+    {
         $aggregate = new static;
         $events->each(function (StreamEvent $event) use ($aggregate) {
             $aggregate->apply($event->event());
@@ -80,13 +86,23 @@ abstract class MagicAggregate implements Aggregate {
         return $aggregate;
     }
 
+    public static function buildFromOrFail(StreamEvents $events): Aggregate
+    {
+        if ($events->count() == 0) {
+            throw CanNotBuildAggregate::fromEmptyStream(static::class);
+        }
+
+        return static::buildFrom($events);
+    }
+
     /**
      * apply domain events to aggregate state by mapping the class
      * name to method name using strings
      *
      * @param DomainEvent $event
      */
-    protected function apply(DomainEvent $event): void {
+    protected function apply(DomainEvent $event): void
+    {
         $eventName = explode('\\', get_class($event));
 
         $method = 'apply' . $eventName[count($eventName) - 1];
