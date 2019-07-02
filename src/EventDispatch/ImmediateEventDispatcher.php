@@ -34,7 +34,11 @@ class ImmediateEventDispatcher implements EventDispatcher {
     public function dispatch(DomainEvents $events) : void {
         $events->each(function (DomainEvent $event) {
             $this->listeners->each(function (Listener $listener) use ($event) {
+                try {
                     $listener->handle($event);
+                } catch (\Exception $e) {
+                    throw new EventListenerException($e);
+                }
             });
         });
     }
