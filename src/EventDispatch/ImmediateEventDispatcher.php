@@ -36,7 +36,7 @@ class ImmediateEventDispatcher implements EventDispatcher {
             $this->listeners->each(function (Listener $listener) use ($event) {
                 try {
                     $listener->handle($event);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     throw new EventListenerException($e);
                 }
             });
