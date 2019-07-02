@@ -8,12 +8,14 @@ use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
  * of EventDispatcher. It will synchronously deliver domain events to
  * each event listener before returning to program execution.
  */
-class ImmediateEventDispatcher implements EventDispatcher {
+class ImmediateEventDispatcher implements EventDispatcher
+{
 
     /** @var Listeners */
     private $listeners;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->listeners = Listeners::make();
     }
 
@@ -22,7 +24,8 @@ class ImmediateEventDispatcher implements EventDispatcher {
      *
      * @param Listener $listener
      */
-    public function addListener(Listener $listener) : void {
+    public function addListener(Listener $listener): void
+    {
         $this->listeners = $this->listeners->add($listener);
     }
 
@@ -31,14 +34,11 @@ class ImmediateEventDispatcher implements EventDispatcher {
      *
      * @param DomainEvents $events
      */
-    public function dispatch(DomainEvents $events) : void {
+    public function dispatch(DomainEvents $events): void
+    {
         $events->each(function (DomainEvent $event) {
             $this->listeners->each(function (Listener $listener) use ($event) {
-                try {
-                    $listener->handle($event);
-                } catch (\Throwable $e) {
-                    throw new EventListenerException($e);
-                }
+                $listener->handle($event);
             });
         });
     }
