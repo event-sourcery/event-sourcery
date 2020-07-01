@@ -1,5 +1,6 @@
 <?php namespace spec\EventSourcery\EventSourcery\EventDispatch;
 
+use EventSourcery\EventSourcery\EventDispatch\Listeners;
 use EventSourcery\EventSourcery\EventDispatch\ImmediateEventDispatcher;
 use EventSourcery\EventSourcery\EventSourcing\DomainEvents;
 use EventSourcery\EventSourcery\EventDispatch\Listener;
@@ -32,5 +33,18 @@ class ImmediateEventDispatcherSpec extends ObjectBehavior {
         $this->addListener($listener);
         $listener->handle($event)->shouldBeCalledTimes(3);
         $this->dispatch(DomainEvents::make([$event]));
+    }
+    
+    function it_can_retrieve_a_list_of_all_listeners(Listener $listener) {
+        $event = new DomainEventStub();
+
+        $this->addListener($listener);
+        $this->addListener($listener);
+        $this->addListener($listener);
+        
+        $listeners = $this->listeners();
+        
+        $listeners->shouldHaveType(Listeners::class);
+        $listeners->count()->shouldBe(3);
     }
 }
