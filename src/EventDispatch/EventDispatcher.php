@@ -25,4 +25,11 @@ interface EventDispatcher {
      * @param DomainEvents $events
      */
     public function dispatch(DomainEvents $events): void;
+
+    /**
+     * get a list of all event listeners
+     * 
+     * @return Listeners
+     */
+    public function listeners(): Listeners;
 }

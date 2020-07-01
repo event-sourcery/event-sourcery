@@ -42,4 +42,9 @@ class ImmediateEventDispatcher implements EventDispatcher
             });
         });
     }
+
+    public function listeners(): Listeners
+    {
+        return $this->listeners;
+    }
 }
