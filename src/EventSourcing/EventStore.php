@@ -40,4 +40,12 @@ interface EventStore {
      * @return DomainEvents
      */
     public function getEvents($take = 0, $skip = 0): DomainEvents;
+
+    /**
+     * get an event by its unique id
+     * 
+     * @param $eventId
+     * @return DomainEvent
+     */
+    public function getEvent($eventId): DomainEvent;
 }

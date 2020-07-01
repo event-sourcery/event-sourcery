@@ -17,13 +17,14 @@
     }
   ],
   "require": {
-    "php": "^7.1",
+    "php": "^7.4",
     "ramsey/uuid": "^3",
     "psr/container": "^1",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-sodium": "*"
   },
   "require-dev": {
-    "phpspec/phpspec": "^4"
+    "phpspec/phpspec": "dev-master"
   },
   "autoload": {
     "psr-4": {

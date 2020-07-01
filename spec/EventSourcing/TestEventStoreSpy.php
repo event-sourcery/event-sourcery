@@ -43,4 +43,9 @@ class TestEventStoreSpy implements EventStore {
     public function getEvents($take = 0, $skip = 0): DomainEvents {
         return DomainEvents::make($this->events);
     }
+
+    public function getEvent($eventId): DomainEvent
+    {
+
+    }
 }
