@@ -97,6 +97,11 @@ class Timestamp implements SerializableValue
         return $this->dateTime;
     }
 
+    public function format(string $format): string
+    {
+        return $this->dateTime->format($format);
+    }
+
     public function equals(Timestamp $that): bool
     {
         return $this->toIso8601() === $that->toIso8601();
