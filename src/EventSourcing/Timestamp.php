@@ -107,6 +107,11 @@ class Timestamp implements SerializableValue
         return $this->toIso8601() === $that->toIso8601();
     }
 
+    public function __toString(): string
+    {
+        return $this->toMysqlDateTime();
+    }
+
     /**
      * deserialize() returns a value object from an associative array received
      * from persistence

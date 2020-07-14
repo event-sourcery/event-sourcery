@@ -1,9 +1,8 @@
 <?php namespace spec\EventSourcery\EventSourcery\EventSourcing;
 
-use DateTime;
 use DateTimeImmutable;
-use EventSourcery\EventSourcery\EventSourcing\Timestamp;
 use PhpSpec\ObjectBehavior;
+use EventSourcery\EventSourcery\EventSourcing\Timestamp;
 use function EventSourcery\EventSourcery\PhpSpec\expect;
 
 class TimestampSpec extends ObjectBehavior
@@ -18,16 +17,23 @@ class TimestampSpec extends ObjectBehavior
     {
         $this->toMysqlDateTime()->shouldBe('2017-01-02 03:04:05');
     }
-    
-    function it_creates_a_datetime_object() {
+
+    function it_can_be_used_as_a_string()
+    {
+        $this->__toString()->shouldBe('2017-01-02 03:04:05');
+    }
+
+    function it_creates_a_datetime_object()
+    {
         $this->toDateTime()->shouldHaveType(DateTimeImmutable::class);
     }
 
-    function it_can_return_formatted_strings() {
+    function it_can_return_formatted_strings()
+    {
         $this->format('Y-m-d H:i:s')->shouldBe('2017-01-02 03:04:05');
         $this->format('H:i:s')->shouldBe('03:04:05');
     }
-    
+
     function it_can_be_serialized_and_deserialized()
     {
         $serialized = $this->serialize();
