@@ -5,6 +5,7 @@ use EventSourcery\EventSourcery\Serialization\CouldNotDeserializeValueObject;
 use EventSourcery\EventSourcery\Serialization\ValueSerializer;
 use PhpSpec\ObjectBehavior;
 use spec\EventSourcery\EventSourcery\PersonalData\PersonalDataStoreStub;
+use EventSourcery\EventSourcery\Serialization\CouldNotDeserializeDomainEvent;
 
 class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
 
@@ -21,6 +22,7 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
         $classMap->add('ValueObjectEventStub', ValueObjectEventStub::class);
         $classMap->add('NestedValueObjectsEventStub', NestedValueObjectsEventStub::class);
         $classMap->add('InvalidNestedValueObjectsEventStub', InvalidNestedValueObjectsEventStub::class);
+        $classMap->add('ScalarFieldStub', ScalarFieldStub::class);
     }
 
     function it_can_serialize_strings() {
@@ -134,5 +136,12 @@ class ReflectionBasedDomainEventSerializerSpec extends ObjectBehavior {
                 'fields' => ['vo' => ['simple' => ['string1' => 'str1'], 'string1' => 'str2']]
             ]
         ]);
+    }
+    
+    function it_throws_when_encountering_a_nonexistent_type_declaration() {
+        $this->shouldThrow(CouldNotDeserializeDomainEvent::class)->during('deserialize', [[
+            'eventName' => 'ScalarFieldStub',
+            'fields' => []
+        ]]);        
     }
 }

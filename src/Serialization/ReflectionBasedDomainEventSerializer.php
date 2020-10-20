@@ -1,5 +1,6 @@
 <?php namespace EventSourcery\EventSourcery\Serialization;
 
+use ReflectionParameter;
 use EventSourcery\EventSourcery\EventSourcing\DomainEvent;
 use EventSourcery\EventSourcery\EventSourcing\DomainEventClassMap;
 use EventSourcery\EventSourcery\PersonalData\PersonalDataKey;
@@ -78,6 +79,9 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
      * @throws \Exception
      */
     public function deserialize(array $serialized): DomainEvent {
+        if ( ! isset($serialized['eventName'])) {
+            throw CouldNotDeserializeDomainEvent::noEventNameSpecified(json_encode($serialized));
+        }
         $className = $this->classNameForEvent($serialized['eventName']);
 
         $reflect = new ReflectionClass($className);
@@ -86,6 +90,13 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         // reflect on constructor to get name / type
         $constParams = [];
         foreach ($const->getParameters() as $param) {
+            if (is_null($param->getType())) {
+                throw CouldNotDeserializeDomainEvent::requiredConstructorTypeIsNotPresent($className, array_map(
+                    function(ReflectionParameter $parameter) {
+                        return ($parameter->getType() ? (string) $parameter->getType() : 'null') . ' $' . $parameter->getName();
+                    }, $const->getParameters()
+                ));
+            }
             $constParams[] = [
                 $param->getType()->getName(),
                 $param->getName(),
@@ -95,7 +106,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         // get the values for the constructor fields from the serialized event
         $constParamValues = [];
         foreach ($constParams as $constParam) {
-            list($type, $name) = $constParam;
+            [$type, $name] = $constParam;
             $fields = $serialized['fields'];
             if ( ! isset($fields[$name])) {
                 throw new \Exception("Cannot find serialized field {$name} for {$className}.");
@@ -108,11 +119,11 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
         }
 
         // reconstruct the serialized values into the correct type
-       return new $className(...array_map([$this, 'deserializeField'], $constParamValues));
+       return new $className(...array_map([$this, 'deserializeField'], $constParamValues));        
     }
 
     function deserializeField($constParamValue) {
-        list($type, $name, $value) = $constParamValue;
+        [$type, $name, $value] = $constParamValue;
         switch ($type) {
             case 'string':
                 return (string) $value;
