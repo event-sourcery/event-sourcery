@@ -6,18 +6,10 @@
     "event sourcing",
     "cqrs",
     "domain event",
-    "gdpr",
     "reactive"
   ],
-  "authors": [
-    {
-      "name": "Shawn McCool",
-      "email": "shawn@heybigname.com",
-      "homepage": "http://shawnmc.cool/"
-    }
-  ],
   "require": {
-    "php": "^7.4",
+    "php": ">=7.4",
     "ramsey/uuid": ">=3",
     "psr/container": "^1",
     "ext-json": "*",
