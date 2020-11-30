@@ -109,7 +109,7 @@ class ReflectionBasedDomainEventSerializer implements DomainEventSerializer {
             [$type, $name] = $constParam;
             $fields = $serialized['fields'];
             if ( ! isset($fields[$name])) {
-                throw new \Exception("Cannot find serialized field {$name} for {$className}.");
+                throw new CouldNotFindSerializedField("Cannot find serialized field {$name} for {$className}.");
             }
             $constParamValues[] = [
                 $type,
