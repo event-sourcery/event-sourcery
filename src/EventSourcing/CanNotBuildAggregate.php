@@ -2,8 +2,8 @@
 
 final class CanNotBuildAggregate extends \Exception
 {
-    public static function fromEmptyStream(string $aggregateType)
+    public static function fromEmptyStream(string $aggregateType): self
     {
-        throw new CanNotBuildAggregate("Can not build aggregate of type {$aggregateType} from an empty stream.");
+        return new CanNotBuildAggregate("Can not build aggregate of type {$aggregateType} from an empty stream.");
     }
 }

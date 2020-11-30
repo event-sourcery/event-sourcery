@@ -80,7 +80,7 @@ abstract class MagicAggregate implements Aggregate
         $events->each(function (StreamEvent $event) use ($aggregate) {
             $aggregate->apply($event->event());
             if ( ! $event->version()->equals($aggregate->aggregateVersion())) {
-                throw new UnexpectedAggregateVersionWhenBuildingFromEvents("When building from stream events aggregate {$aggregate->aggregateId()->toString()} expected version {$event->version()->toInt()} but got {$aggregate->aggregateVersion()->toInt()}.");
+                throw new InvalidAggregateVersionWhenBuildingFromEvents("When building from stream events aggregate {$aggregate->aggregateId()->toString()} expected version {$event->version()->toInt()} but got {$aggregate->aggregateVersion()->toInt()}.");
             }
         });
         return $aggregate;
