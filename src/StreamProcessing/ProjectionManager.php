@@ -34,9 +34,15 @@ class ProjectionManager implements Listener {
      * @return Projection
      */
     public function get(string $name): Projection {
-        return $this->projections->filter(function (Projection $projection) use ($name) {
+        $projection = $this->projections->filter(function (Projection $projection) use ($name) {
             return $projection->name() === $name;
-        })->first();
+        });
+        
+        if ( ! $projection) {
+            throw new CanNotFindProjection($name);
+        }
+        
+        return $projection->first();
     }
 
     /**
