@@ -1,5 +1,7 @@
 <?php namespace EventSourcery\EventSourcery\EventSourcing;
 
+use DateTimeZone;
+use DateTimeImmutable;
 use EventSourcery\EventSourcery\Serialization\SerializableValue;
 
 /**
@@ -8,10 +10,10 @@ use EventSourcery\EventSourcery\Serialization\SerializableValue;
 class Timestamp implements SerializableValue
 {
 
-    /** @var \DateTimeImmutable */
+    /** @var DateTimeImmutable */
     private $dateTime;
 
-    private function __construct(\DateTimeImmutable $dateTime)
+    private function __construct(DateTimeImmutable $dateTime)
     {
         $this->dateTime = $dateTime;
     }
@@ -25,7 +27,7 @@ class Timestamp implements SerializableValue
      */
     public static function now(): Timestamp
     {
-        return new static(new \DateTimeImmutable());
+        return new static(new DateTimeImmutable('now', new DateTimeZone('UTC')));
     }
 
     /**
@@ -37,7 +39,7 @@ class Timestamp implements SerializableValue
      */
     public static function fromString($timeString): Timestamp
     {
-        return new static(new \DateTimeImmutable($timeString));
+        return new static(new DateTimeImmutable($timeString, new DateTimeZone('UTC')));
     }
 
     /**
@@ -52,7 +54,7 @@ class Timestamp implements SerializableValue
      */
     public static function fromStringWithTimezone($timeString, $timeZone): Timestamp
     {
-        return new static(new \DateTimeImmutable($timeString, new \DateTimeZone($timeZone)));
+        return new static(new DateTimeImmutable($timeString, new DateTimeZone($timeZone)));
     }
 
     /**
@@ -92,7 +94,7 @@ class Timestamp implements SerializableValue
         ];
     }
 
-    public function toDateTime(): \DateTimeImmutable
+    public function toDateTime(): DateTimeImmutable
     {
         return $this->dateTime;
     }
